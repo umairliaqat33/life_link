@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "923083136188",
+    "project_id": "life-link-86ed1",
+    "storage_bucket": "life-link-86ed1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923083136188:android:83ccf86e81c7e56e5744b9",
+        "android_client_info": {
+          "package_name": "com.example.life_link"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-fliaPgnwoibiHG4ddCMInCLZL3KibUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
