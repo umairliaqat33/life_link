@@ -1,15 +1,21 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:life_link/UI/screens/home_screen/home_screen.dart';
 
 import 'package:life_link/config/size_config.dart';
-import 'package:life_link/screens/authentication/registeration/registration_screen.dart';
+import 'package:life_link/UI/screens/authentication/registration/registration_screen.dart';
+import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
-import 'package:life_link/widgets/buttons/round_button.dart';
-import 'package:life_link/widgets/text_fields/password_text_field.dart';
-import 'package:life_link/widgets/text_fields/text_field_widget.dart';
+import 'package:life_link/UI/widgets/buttons/round_button.dart';
+import 'package:life_link/UI/widgets/text_fields/password_text_field.dart';
+import 'package:life_link/UI/widgets/text_fields/text_field_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final bool _showSpinner = false;
+  bool _showSpinner = false;
 
   @override
   void dispose() {
@@ -145,44 +151,42 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void signin() async {
-    Fluttertoast.showToast(msg: "I am in Registration Screen");
-
-    // FocusManager.instance.primaryFocus?.unfocus();
-    // AuthController authController = AuthController();
-    // UserCredential? userCredential;
-    // setState(() {
-    //   log("i got set to true");
-    //   _showSpinner = true;
-    // });
-    // try {
-    //   if (_formKey.currentState!.validate()) {
-    //     userCredential = await authController.signIn(
-    //       _emailController.text,
-    //       _passController.text,
-    //     );
-    //     if (userCredential != null) {
-    //       log("SignIn successful");
-    //       Fluttertoast.showToast(msg: "SignIn successful");
-    //       Navigator.of(context).pushAndRemoveUntil(
-    //         MaterialPageRoute(
-    //           builder: (context) => const BottomNavigationBarScreen(),
-    //         ),
-    //         (route) => false,
-    //       );
-    //     }
-    //   }
-    // } on IncorrectPasswordOrUserNotFound catch (e) {
-    //   Fluttertoast.showToast(msg: e.message);
-    //   log(e.message);
-    // } on NoInternetException catch (e) {
-    //   Fluttertoast.showToast(msg: e.message);
-    //   log(e.message);
-    // } on UnknownException catch (e) {
-    //   Fluttertoast.showToast(msg: e.message);
-    //   log(e.message);
-    // }
-    // setState(() {
-    //   _showSpinner = false;
-    // });
+    FocusManager.instance.primaryFocus?.unfocus();
+    AuthController authController = AuthController();
+    UserCredential? userCredential;
+    setState(() {
+      log("i got set to true");
+      _showSpinner = true;
+    });
+    try {
+      if (_formKey.currentState!.validate()) {
+        userCredential = await authController.signIn(
+          _emailController.text,
+          _passController.text,
+        );
+        if (userCredential != null) {
+          log("SignIn successful");
+          Fluttertoast.showToast(msg: "SignIn successful");
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+            (route) => false,
+          );
+        }
+      }
+    } on IncorrectPasswordOrUserNotFound catch (e) {
+      Fluttertoast.showToast(msg: e.message);
+      log(e.message);
+    } on NoInternetException catch (e) {
+      Fluttertoast.showToast(msg: e.message);
+      log(e.message);
+    } on UnknownException catch (e) {
+      Fluttertoast.showToast(msg: e.message);
+      log(e.message);
+    }
+    setState(() {
+      _showSpinner = false;
+    });
   }
 }

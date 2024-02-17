@@ -6,6 +6,6 @@ class AppStrings {
   static String fetchDataException = "There was a problem in fetching data";
   static String emailInUse = 'email-already-in-use';
   static String driverNotRegistered = "Not Registered!";
-  static String slogan = "Apka Godamm apkay mobile mai!";
+  static String slogan = "Get to know before you go";
   static String userNotFound = 'user-not-found';
 }

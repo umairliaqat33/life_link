@@ -2,8 +2,12 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:life_link/UI/screens/home_screen/home_screen.dart';
 import 'package:life_link/config/size_config.dart';
-import 'package:life_link/screens/authentication/login/login_screen.dart';
+import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/repositories/auth_repository.dart';
 import 'package:life_link/utils/strings.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,20 +18,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // UserModel? userModel;
+  UserModel? userModel;
   @override
   void initState() {
     super.initState();
     _createSplash();
-    // if (AuthRepository.userLoginStatus()) {
-    //   getUserData();
-    // }
+    if (AuthRepository.userLoginStatus()) {
+      getUserData();
+    }
   }
 
-  // Future<void> getUserData() async {
-  //   FirestoreController firestoreController = FirestoreController();
-  //   userModel = await firestoreController.getUserData();
-  // }
+  Future<void> getUserData() async {
+    FirestoreController firestoreController = FirestoreController();
+    userModel = await firestoreController.getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +71,8 @@ class _SplashScreenState extends State<SplashScreen> {
         }
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
+            builder: (context) =>
+                user == null ? const LoginScreen() : const HomeScreen(),
           ),
           (route) => false,
         );
