@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/config/size_config.dart';
 
-class RoundedButton extends StatelessWidget {
-  const RoundedButton({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     super.key,
     required this.buttonColor,
     required this.title,
@@ -20,12 +21,12 @@ class RoundedButton extends StatelessWidget {
       child: MaterialButton(
         onPressed: () => onPressed(),
         minWidth: 200.0,
-        height: 42.0,
+        height: 60.0,
         child: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: 16,
+            fontSize: SizeConfig.font18(context),
             fontWeight: FontWeight.bold,
           ),
         ),

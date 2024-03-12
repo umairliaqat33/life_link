@@ -5,10 +5,11 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:life_link/UI/screens/authentication/components/auth_label_widget.dart';
+import 'package:life_link/UI/screens/authentication/components/other_auth_option.dart';
 import 'package:life_link/UI/screens/home_screen/home_screen.dart';
 
 import 'package:life_link/config/size_config.dart';
-import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/user_model/user_model.dart';
@@ -54,80 +55,66 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             key: _formKey,
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  const AuthLabelWidget(authLabel: "Sign up"),
                   SizedBox(
-                    height: SizeConfig.height18(context) * 3,
+                    height: SizeConfig.height20(context) * 3,
                   ),
-                  TextFormFieldWidget(
-                    label: 'Name',
-                    controller: _nameController,
-                    validator: (value) => Utils.nameValidator(value),
-                    hintText: "John Doe",
-                    inputType: TextInputType.name,
-                    inputAction: TextInputAction.next,
-                  ),
-                  SizedBox(
-                    height: SizeConfig.height8(context),
-                  ),
-                  TextFormFieldWidget(
-                    label: 'Email',
-                    controller: _emailController,
-                    validator: (value) => Utils.emailValidator(value),
-                    hintText: "Johndoe@gmail.com",
-                    inputType: TextInputType.emailAddress,
-                    inputAction: TextInputAction.next,
-                  ),
-                  SizedBox(
-                    height: SizeConfig.height8(context),
-                  ),
-                  PasswordTextField(controller: _passController),
-                  SizedBox(
-                    height: SizeConfig.height12(context),
-                  ),
-                  _showSpinner
-                      ? Container(
-                          margin: EdgeInsets.only(
-                            left: SizeConfig.width12(context) * 10,
-                            right: SizeConfig.width12(context) * 10,
-                          ),
-                          child: const CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        )
-                      : SizedBox(
-                          width: double.infinity,
-                          child: RoundedButton(
-                            buttonColor: primaryColor,
-                            onPressed: () => signup(),
-                            title: 'Signup',
-                          ),
-                        ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text('Don\'t have an account? '),
-                      TextButton(
-                        style: const ButtonStyle(
-                            splashFactory: NoSplash
-                                .splashFactory //removing onClick splash color
-                            ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          "Signin",
-                          style: TextStyle(
-                            color: primaryColor,
-                          ),
-                        ),
+                  Column(
+                    children: [
+                      TextFormFieldWidget(
+                        label: 'Name',
+                        controller: _nameController,
+                        validator: (value) => Utils.nameValidator(value),
+                        hintText: "John Doe",
+                        inputType: TextInputType.name,
+                        inputAction: TextInputAction.next,
                       ),
+                      SizedBox(
+                        height: SizeConfig.height8(context),
+                      ),
+                      TextFormFieldWidget(
+                        label: 'Email',
+                        controller: _emailController,
+                        validator: (value) => Utils.emailValidator(value),
+                        hintText: "Johndoe@gmail.com",
+                        inputType: TextInputType.emailAddress,
+                        inputAction: TextInputAction.next,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.height8(context),
+                      ),
+                      PasswordTextField(controller: _passController),
+                      SizedBox(
+                        height: SizeConfig.height12(context),
+                      ),
+                      _showSpinner
+                          ? Container(
+                              margin: EdgeInsets.only(
+                                left: SizeConfig.width12(context) * 10,
+                                right: SizeConfig.width12(context) * 10,
+                              ),
+                              child: const CircularProgressIndicator(
+                                color: primaryColor,
+                              ),
+                            )
+                          : SizedBox(
+                              width: double.infinity,
+                              child: CustomButton(
+                                buttonColor: primaryColor,
+                                onPressed: () => signup(),
+                                title: 'Signup',
+                              ),
+                            ),
                     ],
+                  ),
+                  SizedBox(
+                    height: SizeConfig.height20(context) * 9.3,
+                  ),
+                  const OtherAuthOption(
+                    optionText: 'Already',
+                    authOptiontext: 'Sign in',
                   ),
                 ],
               ),

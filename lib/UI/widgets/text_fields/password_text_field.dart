@@ -10,8 +10,10 @@ class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
     super.key,
     required this.controller,
+    this.textFieldFilled = true,
   });
   final TextEditingController controller;
+  final bool? textFieldFilled;
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -29,7 +31,14 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           padding: EdgeInsets.only(
             left: 3,
           ),
-          child: Text('Password'),
+          child: Text(
+            'Password',
+            style: TextStyle(
+              color: blackColor,
+              fontWeight: FontWeight.w400,
+              fontSize: 13,
+            ),
+          ),
         ),
         SizedBox(
           height: SizeConfig.width8(context),
@@ -40,6 +49,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           obscureText: _textVisible,
           controller: widget.controller,
           decoration: TextFieldDecoration.kPasswordFieldDecoration.copyWith(
+            filled: widget.textFieldFilled,
+            fillColor: textFieldFillColor,
             hintText: 'Password mini 8 characters',
             suffixIcon: IconButton(
               onPressed: () {
@@ -52,13 +63,13 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                       Assets.passwordVisibilityOff,
                       height: 20,
                       width: 20,
-                      color: primaryColor,
+                      color: greyColor,
                     )
                   : Image.asset(
                       Assets.passwordVisibilityOn,
                       height: 20,
                       width: 20,
-                      color: primaryColor,
+                      color: greyColor,
                     ),
             ),
           ),

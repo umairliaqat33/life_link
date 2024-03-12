@@ -16,7 +16,7 @@ class TextFieldDecoration {
         ),
       ),
       borderSide: BorderSide(
-        color: primaryColor.withOpacity(0.3),
+        color: greyColor.withOpacity(0.3),
       ),
     ),
     disabledBorder: const OutlineInputBorder(
@@ -36,7 +36,7 @@ class TextFieldDecoration {
         ),
       ),
       borderSide: BorderSide(
-        color: primaryColor,
+        color: greyColor,
       ),
     ),
     errorBorder: const OutlineInputBorder(

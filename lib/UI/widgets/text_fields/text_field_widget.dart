@@ -21,6 +21,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.suffixIconFunction,
     this.suffixIcon,
     this.onChanged,
+    this.textFieldFilled = true,
   });
   final TextEditingController controller;
   final String hintText;
@@ -37,6 +38,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final Function? suffixIconFunction;
   final IconData? suffixIcon;
   final Function? onChanged;
+  final bool? textFieldFilled;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,9 +53,9 @@ class TextFormFieldWidget extends StatelessWidget {
                 child: Text(
                   label,
                   style: TextStyle(
-                    color: isLabelGrey ? lightGrey : blackColor,
+                    color: isLabelGrey ? greyColor : blackColor,
                     fontWeight: isLabelGrey ? FontWeight.w400 : null,
-                    fontSize: isLabelGrey ? 12 : null,
+                    fontSize: isLabelGrey ? 13 : null,
                   ),
                 ),
               ),
@@ -73,6 +75,8 @@ class TextFormFieldWidget extends StatelessWidget {
           onChanged: (value) => onChanged == null ? null : onChanged!(value),
           decoration: InputDecoration(
             hintText: hintText,
+            filled: textFieldFilled,
+            fillColor: textFieldFillColor,
             suffixIcon: suffixIconFunction != null && suffixIcon != null
                 ? IconButton(
                     onPressed: () => suffixIconFunction!(),
@@ -92,7 +96,7 @@ class TextFormFieldWidget extends StatelessWidget {
                 ),
               ),
               borderSide: BorderSide(
-                color: primaryColor.withOpacity(0.3),
+                color: greyColor.withOpacity(0.3),
               ),
             ),
             disabledBorder: const OutlineInputBorder(
@@ -112,7 +116,7 @@ class TextFormFieldWidget extends StatelessWidget {
                 ),
               ),
               borderSide: BorderSide(
-                color: primaryColor,
+                color: greyColor,
               ),
             ),
             errorBorder: const OutlineInputBorder(
