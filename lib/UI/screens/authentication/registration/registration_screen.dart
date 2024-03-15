@@ -16,7 +16,7 @@ import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
-import 'package:life_link/UI/widgets/buttons/round_button.dart';
+import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/text_fields/password_text_field.dart';
 import 'package:life_link/UI/widgets/text_fields/text_field_widget.dart';
 
@@ -102,7 +102,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           : SizedBox(
                               width: double.infinity,
                               child: CustomButton(
-                                buttonColor: primaryColor,
                                 onPressed: () => signup(),
                                 title: 'Signup',
                               ),

@@ -4,18 +4,18 @@ import 'package:life_link/config/size_config.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
-    required this.buttonColor,
+    this.buttonColor,
     required this.title,
     required this.onPressed,
   });
-  final Color buttonColor;
+  final Color? buttonColor;
   final String title;
   final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: buttonColor,
+      color: buttonColor ?? Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(10.0),
       elevation: 5.0,
       child: MaterialButton(

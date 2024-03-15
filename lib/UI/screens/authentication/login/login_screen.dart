@@ -15,7 +15,7 @@ import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
-import 'package:life_link/UI/widgets/buttons/round_button.dart';
+import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/text_fields/password_text_field.dart';
 import 'package:life_link/UI/widgets/text_fields/text_field_widget.dart';
 
@@ -115,7 +115,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           : SizedBox(
                               width: double.infinity,
                               child: CustomButton(
-                                buttonColor: primaryColor,
                                 onPressed: () => signin(),
                                 title: 'Signin',
                               ),
