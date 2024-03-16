@@ -144,7 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           UserModel(
             email: _emailController.text,
             name: _nameController.text,
-            uid: userCredential!.user?.uid,
+            uid: userCredential!.user!.uid,
           ),
         );
         log("Signup Successful");

@@ -1,13 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable()
-class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
-  const TimestampConverter();
+// @JsonSerializable()
+// class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
+//   const TimestampConverter();
 
-  @override
-  DateTime fromJson(Timestamp timestamp) => timestamp.toDate();
+//   @override
+//   DateTime fromJson(Timestamp timestamp) => timestamp.toDate();
 
-  @override
-  Timestamp toJson(DateTime dateTime) => Timestamp.fromDate(dateTime);
-}
+//   @override
+//   Timestamp toJson(DateTime dateTime) => Timestamp.fromDate(dateTime);
+// }
