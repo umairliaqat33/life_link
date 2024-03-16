@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
-import 'package:life_link/UI/screens/authentication/registration/registration_screen.dart';
+import 'package:life_link/UI/screens/authentication/user_type_selection_screen/user_type_selection_screen.dart';
 import 'package:life_link/utils/colors.dart';
 
 class OtherAuthOption extends StatelessWidget {
@@ -27,7 +27,7 @@ class OtherAuthOption extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => authOptiontext == "Sign up"
-                    ? const RegistrationScreen()
+                    ? const UserTypeSelectionScreen()
                     : const LoginScreen(),
               ),
             );
