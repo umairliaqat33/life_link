@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/UI/screens/authentication/components/auth_label_widget.dart';
 import 'package:life_link/UI/screens/authentication/components/other_auth_option.dart';
 import 'package:life_link/UI/screens/authentication/forgot_password_screen.dart/forgot_password_screen.dart';
-import 'package:life_link/UI/screens/home_screen/home_screen.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Fluttertoast.showToast(msg: "SignIn successful");
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
+              builder: (context) => const BottomNavBar(),
             ),
             (route) => false,
           );

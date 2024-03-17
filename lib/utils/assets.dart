@@ -11,8 +11,6 @@ class Assets {
       "$_iconDir/password_visibility_off.png";
   static const String arrowForwardHead = "$_iconDir/forward_arrow_head.png";
   static const String settingsIcon = "$_iconDir/settings_icon.png";
-  static const String addAnotherArticle =
-      "$_iconDir/add_another_article_icon.png";
 
 //images
 

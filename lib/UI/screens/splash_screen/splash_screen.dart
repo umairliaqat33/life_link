@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/home_screen/home_screen.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) =>
-                user == null ? const LoginScreen() : const HomeScreen(),
+                user == null ? const LoginScreen() : const BottomNavBar(),
           ),
           (route) => false,
         );
