@@ -52,19 +52,24 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/Registration/primaryBg.png'),
-                fit: BoxFit.fill,
-              )),
+            image: AssetImage('images/Registration/primaryBg.png'),
+            fit: BoxFit.fill,
+          )),
           child: Stack(
             children: [
-              Positioned(top: SizeConfig.height20(context)*8, right: 0, bottom: 0, child: LayerTwo()),
+              Positioned(
+                  top: SizeConfig.height20(context) * 8,
+                  right: 0,
+                  bottom: 0,
+                  child: const LayerTwo()),
 
               Center(
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: SizeConfig.height10(context) * 8,
                   ),
-                  child: AuthLabelWidget(authLabel: "Register as a Hospital"),
+                  child: const AuthLabelWidget(
+                      authLabel: "Register as a Hospital"),
                 ),
               ),
               Padding(
@@ -73,7 +78,6 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
                   left: SizeConfig.width8(context) * 2,
                   right: SizeConfig.width8(context) * 2,
                 ),
-
                 child: Form(
                   key: _formKey,
                   child: SingleChildScrollView(
@@ -118,7 +122,8 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
                             TextFormFieldWidget(
                               label: 'Email',
                               controller: _phoneControler,
-                              validator: (value) => Utils.phoneNumberValidator(value),
+                              validator: (value) =>
+                                  Utils.phoneNumberValidator(value),
                               hintText: "0320-1234567",
                               inputType: TextInputType.number,
                               inputAction: TextInputAction.next,
@@ -132,21 +137,21 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
                             ),
                             _showSpinner
                                 ? Container(
-                              margin: EdgeInsets.only(
-                                left: SizeConfig.width12(context) * 10,
-                                right: SizeConfig.width12(context) * 10,
-                              ),
-                              child: const CircularProgressIndicator(
-                                color: primaryColor,
-                              ),
-                            )
+                                    margin: EdgeInsets.only(
+                                      left: SizeConfig.width12(context) * 10,
+                                      right: SizeConfig.width12(context) * 10,
+                                    ),
+                                    child: const CircularProgressIndicator(
+                                      color: primaryColor,
+                                    ),
+                                  )
                                 : SizedBox(
-                              width: double.infinity,
-                              child: CustomButton(
-                                onPressed: () => signup(),
-                                title: 'Sign up',
-                              ),
-                            ),
+                                    width: double.infinity,
+                                    child: CustomButton(
+                                      onPressed: () => signup(),
+                                      title: 'Sign up',
+                                    ),
+                                  ),
                           ],
                         ),
                         SizedBox(
@@ -199,7 +204,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
           MaterialPageRoute(
             builder: (context) => const HomeScreen(),
           ),
-              (route) => false,
+          (route) => false,
         );
       }
     } on EmailAlreadyExistException catch (e) {
@@ -216,8 +221,3 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
     });
   }
 }
-
-
-
-
-

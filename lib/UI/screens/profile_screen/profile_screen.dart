@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:life_link/UI/screens/profile_screen/components/info_card.dart';
 import 'package:life_link/UI/screens/profile_screen/components/tile_widget.dart';
+import 'package:life_link/UI/screens/settings_screen/settings_screen.dart';
 // import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/assets.dart';
@@ -28,88 +29,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        backgroundColor: backgroundColor,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        title: const Text(
-          "Profile",
-          style: TextStyle(
-            color: appTextColor,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 1,
+          backgroundColor: backgroundColor,
+          centerTitle: true,
+          // automaticallyImplyLeading: false,
+          title: const Text(
+            "Profile",
+            style: TextStyle(
+              color: appTextColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+          actions: const [
+            // _EditProfileButton(userData: userData),
+          ],
         ),
-        actions: const [
-          // _EditProfileButton(userData: userData),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Padding(
-          //   padding: EdgeInsets.only(
-          //     top: SizeConfig.height12(context),
-          //   ),
-          //   child: Center(
-          //     child: userData == null
-          //         ? const Padding(
-          //             padding: EdgeInsets.all(8.0),
-          //             child: CircularLoaderWidget(),
-          //           )
-          //         : InfoCard(
-          //             name: name,
-          //             email: email,
-          //             imageLink: imageLink,
-          //           ),
-          //   ),
-          // ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // GestureDetector(
-              //   onTap: () => (getUserType() == UserType.business.name
-              //       ? onBusinessTap()
-              //       : null),
-              //   child: _createProgressCard(getUserType()!, 0),
-              // ),
-              SizedBox(
-                width: SizeConfig.width8(context) * 2,
-              ),
-              // _createProgressCard(getUserType()!, 1),
-            ],
-          ),
-          SizedBox(
-            height: SizeConfig.height8(context) * 2,
-          ),
-          TileWidget(
-            text: "Settings",
-            trailingImg: Assets.arrowForwardHead,
-            onTap: () {},
-            cardColor: backgroundColor,
-            leadingImg: Assets.settingsIcon,
-            titleTextColor: appTextColor,
-          ),
-          // TileWidget(
-          //   text: getUserType() == UserType.driver.name
-          //       ? AppStrings.favoriteBusinesses
-          //       : AppStrings.favoriteDrivers,
-          //   trailingImg: Assets.arrowForwardHead,
-          //   onTap: null,
-          //   cardColor: backgroundColor,
-          //   leadingImg: Assets.favoriteIcon,
-          //   titleTextColor: appTextColor,
-          // ),
-          const TileWidget(
-            text: "Help",
-            trailingImg: Assets.arrowForwardHead,
-            onTap: null,
-            cardColor: backgroundColor,
-            leadingImg: Assets.helpIcon,
-            titleTextColor: appTextColor,
-          ),
-        ],
+        body: Column(
+          children: [
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //     top: SizeConfig.height12(context),
+            //   ),
+            //   child: Center(
+            //     child: userData == null
+            //         ? const Padding(
+            //             padding: EdgeInsets.all(8.0),
+            //             child: CircularLoaderWidget(),
+            //           )
+            //         : InfoCard(
+            //             name: name,
+            //             email: email,
+            //             imageLink: imageLink,
+            //           ),
+            //   ),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // GestureDetector(
+                //   onTap: () => (getUserType() == UserType.business.name
+                //       ? onBusinessTap()
+                //       : null),
+                //   child: _createProgressCard(getUserType()!, 0),
+                // ),
+                SizedBox(
+                  width: SizeConfig.width8(context) * 2,
+                ),
+                // _createProgressCard(getUserType()!, 1),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.height8(context) * 2,
+            ),
+            TileWidget(
+              text: "Settings",
+              trailingImg: Assets.arrowForwardHead,
+              onTap: () => settingsButton(),
+              cardColor: backgroundColor,
+              leadingImg: Assets.settingsIcon,
+              titleTextColor: appTextColor,
+            ),
+            // TileWidget(
+            //   text: getUserType() == UserType.driver.name
+            //       ? AppStrings.favoriteBusinesses
+            //       : AppStrings.favoriteDrivers,
+            //   trailingImg: Assets.arrowForwardHead,
+            //   onTap: null,
+            //   cardColor: backgroundColor,
+            //   leadingImg: Assets.favoriteIcon,
+            //   titleTextColor: appTextColor,
+            // ),
+            const TileWidget(
+              text: "Help",
+              trailingImg: Assets.arrowForwardHead,
+              onTap: null,
+              cardColor: backgroundColor,
+              leadingImg: Assets.helpIcon,
+              titleTextColor: appTextColor,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -143,6 +146,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   //     text: data,
   //   );
   // }
+  void settingsButton() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsScreen(),
+      ),
+    );
+  }
 }
 
 // class _EditProfileButton extends StatelessWidget {

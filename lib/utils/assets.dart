@@ -24,4 +24,6 @@ class Assets {
       "$_imagesDir/blank_profile_image.png";
   static const String deleteAccountAlert =
       "$_imagesDir/delete_account_alert.png";
+
+  static const String primaryBackgroundImage = "$_imagesDir/primaryBg.png";
 }

@@ -14,6 +14,7 @@ import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
@@ -49,18 +50,27 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/Registration/primaryBg.png'),
-                fit: BoxFit.fill,
-              )),
+            image: AssetImage(Assets.primaryBackgroundImage),
+            fit: BoxFit.fill,
+          )),
           child: Stack(
             children: [
-              Positioned(top: SizeConfig.height20(context)*10.5, right: -50, bottom: 0,left: 0, child: LayerOne()),
-              Positioned(top: SizeConfig.height20(context)*12, right: -50, bottom: 0,left: 6, child: LayerTwo()),
-
+              Positioned(
+                  top: SizeConfig.height20(context) * 10.5,
+                  right: -50,
+                  bottom: 0,
+                  left: 0,
+                  child: const LayerOne()),
+              Positioned(
+                  top: SizeConfig.height20(context) * 12,
+                  right: -50,
+                  bottom: 0,
+                  left: 6,
+                  child: const LayerTwo()),
               Padding(
                 padding: EdgeInsets.only(
                   top: SizeConfig.height10(context) * 12,
-                  left: SizeConfig.height10(context)*8,
+                  left: SizeConfig.height10(context) * 8,
                 ),
                 child: const AuthLabelWidget(authLabel: "Sign In"),
               ),
@@ -75,7 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
-
                         SizedBox(
                           height: SizeConfig.height20(context) * 7,
                         ),
@@ -142,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: SizeConfig.height20(context) ,
+                          height: SizeConfig.height20(context),
                         ),
                         const OtherAuthOption(
                           optionText: 'Don\'t',

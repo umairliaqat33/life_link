@@ -58,19 +58,24 @@ class _DriverRegistrationState extends State<DriverRegistration> {
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/Registration/primaryBg.png'),
-                fit: BoxFit.fill,
-              )),
+            image: AssetImage('images/Registration/primaryBg.png'),
+            fit: BoxFit.fill,
+          )),
           child: Stack(
             children: [
-              Positioned(top: SizeConfig.height20(context)*8, right: 0, bottom: 0, child: LayerTwo()),
+              Positioned(
+                  top: SizeConfig.height20(context) * 8,
+                  right: 0,
+                  bottom: 0,
+                  child: const LayerTwo()),
 
               Center(
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: SizeConfig.height10(context) * 8,
                   ),
-                  child: const AuthLabelWidget(authLabel: "Register as a Driver"),
+                  child:
+                      const AuthLabelWidget(authLabel: "Register as a Driver"),
                 ),
               ),
               Padding(
@@ -79,7 +84,6 @@ class _DriverRegistrationState extends State<DriverRegistration> {
                   left: SizeConfig.width8(context) * 2,
                   right: SizeConfig.width8(context) * 2,
                 ),
-
                 child: Form(
                   key: _formKey,
                   child: SingleChildScrollView(
@@ -116,7 +120,8 @@ class _DriverRegistrationState extends State<DriverRegistration> {
                             TextFormFieldWidget(
                               label: 'Phone Number',
                               controller: _phoneController,
-                              validator: (value) => Utils.phoneNumberValidator(value),
+                              validator: (value) =>
+                                  Utils.phoneNumberValidator(value),
                               hintText: "03201234569",
                               inputType: TextInputType.number,
                               inputAction: TextInputAction.next,
@@ -174,21 +179,21 @@ class _DriverRegistrationState extends State<DriverRegistration> {
                             ),
                             _showSpinner
                                 ? Container(
-                              margin: EdgeInsets.only(
-                                left: SizeConfig.width12(context) * 10,
-                                right: SizeConfig.width12(context) * 10,
-                              ),
-                              child: const CircularProgressIndicator(
-                                color: primaryColor,
-                              ),
-                            )
+                                    margin: EdgeInsets.only(
+                                      left: SizeConfig.width12(context) * 10,
+                                      right: SizeConfig.width12(context) * 10,
+                                    ),
+                                    child: const CircularProgressIndicator(
+                                      color: primaryColor,
+                                    ),
+                                  )
                                 : SizedBox(
-                              width: double.infinity,
-                              child: CustomButton(
-                                onPressed: () => signup(),
-                                title: 'Sign up',
-                              ),
-                            ),
+                                    width: double.infinity,
+                                    child: CustomButton(
+                                      onPressed: () => signup(),
+                                      title: 'Sign up',
+                                    ),
+                                  ),
                           ],
                         ),
                         SizedBox(
@@ -241,7 +246,7 @@ class _DriverRegistrationState extends State<DriverRegistration> {
           MaterialPageRoute(
             builder: (context) => const HomeScreen(),
           ),
-              (route) => false,
+          (route) => false,
         );
       }
     } on EmailAlreadyExistException catch (e) {
@@ -258,8 +263,3 @@ class _DriverRegistrationState extends State<DriverRegistration> {
     });
   }
 }
-
-
-
-
-

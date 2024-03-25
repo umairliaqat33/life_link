@@ -13,6 +13,7 @@ import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
@@ -58,23 +59,25 @@ class _PatientRegistrationState extends State<PatientRegistration> {
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('images/Registration/primaryBg.png'),
+            image: AssetImage(Assets.primaryBackgroundImage),
             fit: BoxFit.fill,
           )),
           child: Stack(
             children: [
               Positioned(
-                  top: SizeConfig.height20(context) * 8,
-                  right: 2,
-                  bottom: 0,
-                  left: 2,
-                  child: LayerTwo()),
+                top: SizeConfig.height20(context) * 8,
+                right: 2,
+                bottom: 0,
+                left: 2,
+                child: const LayerTwo(),
+              ),
               Center(
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: SizeConfig.height10(context) * 8,
                   ),
-                  child: const AuthLabelWidget(authLabel: "Register as a Patient"),
+                  child:
+                      const AuthLabelWidget(authLabel: "Register as a Patient"),
                 ),
               ),
               Padding(

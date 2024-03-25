@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class LayerOne extends StatelessWidget {
+  const LayerOne({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,8 +11,8 @@ class LayerOne extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Color(0x80FFFFFF),
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(60.0),
-            topRight: Radius.circular(60.0),
+          topLeft: Radius.circular(60.0),
+          topRight: Radius.circular(60.0),
         ),
       ),
     );

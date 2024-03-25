@@ -62,9 +62,10 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                     //   ),
                     // );
                     Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => PatientRegistration()));
-
+                      MaterialPageRoute(
+                        builder: (context) => const PatientRegistration(),
+                      ),
+                    );
                   },
                 ),
                 SizedBox(
@@ -92,8 +93,10 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                         //   ),
                         // );
                         Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => HospitalRegistration()));
+                          MaterialPageRoute(
+                            builder: (context) => const HospitalRegistration(),
+                          ),
+                        );
                       },
                     ),
                     UserOptions(
@@ -115,8 +118,10 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                         //   ),
                         // );
                         Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => DriverRegistration()));
+                          MaterialPageRoute(
+                            builder: (context) => const DriverRegistration(),
+                          ),
+                        );
                       },
                     ),
                   ],
