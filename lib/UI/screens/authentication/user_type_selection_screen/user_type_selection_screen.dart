@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:life_link/UI/screens/authentication/registration/driver_registration.dart';
+import 'package:life_link/UI/screens/authentication/registration/hospital_registration.dart';
+import 'package:life_link/UI/screens/authentication/registration/patient_registration.dart';
 import 'package:life_link/UI/screens/authentication/user_type_selection_screen/components/user_options.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/assets.dart';
@@ -58,6 +61,10 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                     //     ),
                     //   ),
                     // );
+                    Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => PatientRegistration()));
+
                   },
                 ),
                 SizedBox(
@@ -84,6 +91,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                         //     ),
                         //   ),
                         // );
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => HospitalRegistration()));
                       },
                     ),
                     UserOptions(
@@ -104,6 +114,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                         //     ),
                         //   ),
                         // );
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => DriverRegistration()));
                       },
                     ),
                   ],

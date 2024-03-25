@@ -1,0 +1,2 @@
+
+final GenderType=["Male","Female"];

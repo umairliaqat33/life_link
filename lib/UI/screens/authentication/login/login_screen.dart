@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/UI/screens/authentication/components/auth_label_widget.dart';
 import 'package:life_link/UI/screens/authentication/components/other_auth_option.dart';
+import 'package:life_link/UI/screens/authentication/design_layers/layer_one.dart';
+import 'package:life_link/UI/screens/authentication/design_layers/layer_two.dart';
 import 'package:life_link/UI/screens/authentication/forgot_password_screen.dart/forgot_password_screen.dart';
 import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 
@@ -44,93 +46,114 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: scaffoldColor,
-        body: Padding(
-          padding: EdgeInsets.only(
-            top: SizeConfig.height10(context) * 10,
-            left: SizeConfig.width8(context) * 2,
-            right: SizeConfig.width8(context) * 2,
-          ),
-          child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  const AuthLabelWidget(authLabel: "Sign in"),
-                  SizedBox(
-                    height: SizeConfig.height20(context) * 7,
-                  ),
-                  Column(
-                    children: [
-                      TextFormFieldWidget(
-                        label: 'Email',
-                        controller: _emailController,
-                        validator: (value) => Utils.emailValidator(value),
-                        hintText: "Johndoe@gmail.com",
-                        inputType: TextInputType.emailAddress,
-                        inputAction: TextInputAction.next,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.height8(context),
-                      ),
-                      PasswordTextField(controller: _passController),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: SizeConfig.height8(context),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForgotPasswordScreen(),
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              "Forgot password?",
-                              style: TextStyle(
-                                color: greyColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.height12(context),
-                      ),
-                      _showSpinner
-                          ? Container(
-                              margin: EdgeInsets.only(
-                                left: SizeConfig.width12(context) * 10,
-                                right: SizeConfig.width12(context) * 10,
-                              ),
-                              child: const CircularProgressIndicator(
-                                color: primaryColor,
-                              ),
-                            )
-                          : SizedBox(
-                              width: double.infinity,
-                              child: CustomButton(
-                                onPressed: () => signin(),
-                                title: 'Signin',
-                              ),
-                            ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: SizeConfig.height20(context) * 9.3,
-                  ),
-                  const OtherAuthOption(
-                    optionText: 'Don\'t',
-                    authOptiontext: 'Sign up',
-                  ),
-                ],
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/Registration/primaryBg.png'),
+                fit: BoxFit.fill,
+              )),
+          child: Stack(
+            children: [
+              Positioned(top: SizeConfig.height20(context)*10.5, right: -50, bottom: 0,left: 0, child: LayerOne()),
+              Positioned(top: SizeConfig.height20(context)*12, right: -50, bottom: 0,left: 6, child: LayerTwo()),
+
+              Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.height10(context) * 12,
+                  left: SizeConfig.height10(context)*8,
+                ),
+                child: const AuthLabelWidget(authLabel: "Sign In"),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.height10(context) * 20,
+                  left: SizeConfig.width8(context) * 5,
+                  right: SizeConfig.width8(context) * 2,
+                ),
+                child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+
+                        SizedBox(
+                          height: SizeConfig.height20(context) * 7,
+                        ),
+                        Column(
+                          children: [
+                            TextFormFieldWidget(
+                              label: 'Email',
+                              controller: _emailController,
+                              validator: (value) => Utils.emailValidator(value),
+                              hintText: "Johndoe@gmail.com",
+                              inputType: TextInputType.emailAddress,
+                              inputAction: TextInputAction.next,
+                            ),
+                            SizedBox(
+                              height: SizeConfig.height8(context),
+                            ),
+                            PasswordTextField(controller: _passController),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: SizeConfig.height8(context),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ForgotPasswordScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text(
+                                    "Forgot password?",
+                                    style: TextStyle(
+                                      color: greyColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: SizeConfig.height12(context),
+                            ),
+                            _showSpinner
+                                ? Container(
+                                    margin: EdgeInsets.only(
+                                      left: SizeConfig.width12(context) * 10,
+                                      right: SizeConfig.width12(context) * 10,
+                                    ),
+                                    child: const CircularProgressIndicator(
+                                      color: primaryColor,
+                                    ),
+                                  )
+                                : SizedBox(
+                                    width: double.infinity,
+                                    child: CustomButton(
+                                      onPressed: () => signin(),
+                                      title: 'Signin',
+                                    ),
+                                  ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: SizeConfig.height20(context) ,
+                        ),
+                        const OtherAuthOption(
+                          optionText: 'Don\'t',
+                          authOptiontext: 'Sign up',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
