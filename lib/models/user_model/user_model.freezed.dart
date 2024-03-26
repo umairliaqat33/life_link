@@ -22,6 +22,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get userType => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get profileImage => throw _privateConstructorUsedError;
 
@@ -36,7 +37,12 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({String email, String name, String uid, String profileImage});
+  $Res call(
+      {String email,
+      String name,
+      String userType,
+      String uid,
+      String profileImage});
 }
 
 /// @nodoc
@@ -54,6 +60,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   $Res call({
     Object? email = null,
     Object? name = null,
+    Object? userType = null,
     Object? uid = null,
     Object? profileImage = null,
   }) {
@@ -65,6 +72,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      userType: null == userType
+          ? _value.userType
+          : userType // ignore: cast_nullable_to_non_nullable
               as String,
       uid: null == uid
           ? _value.uid
@@ -86,7 +97,12 @@ abstract class _$$UserModelImplCopyWith<$Res>
       __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String email, String name, String uid, String profileImage});
+  $Res call(
+      {String email,
+      String name,
+      String userType,
+      String uid,
+      String profileImage});
 }
 
 /// @nodoc
@@ -102,6 +118,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   $Res call({
     Object? email = null,
     Object? name = null,
+    Object? userType = null,
     Object? uid = null,
     Object? profileImage = null,
   }) {
@@ -113,6 +130,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      userType: null == userType
+          ? _value.userType
+          : userType // ignore: cast_nullable_to_non_nullable
               as String,
       uid: null == uid
           ? _value.uid
@@ -132,6 +153,7 @@ class _$UserModelImpl implements _UserModel {
   const _$UserModelImpl(
       {required this.email,
       required this.name,
+      required this.userType,
       this.uid = "",
       this.profileImage = ""});
 
@@ -143,6 +165,8 @@ class _$UserModelImpl implements _UserModel {
   @override
   final String name;
   @override
+  final String userType;
+  @override
   @JsonKey()
   final String uid;
   @override
@@ -151,7 +175,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(email: $email, name: $name, uid: $uid, profileImage: $profileImage)';
+    return 'UserModel(email: $email, name: $name, userType: $userType, uid: $uid, profileImage: $profileImage)';
   }
 
   @override
@@ -161,6 +185,8 @@ class _$UserModelImpl implements _UserModel {
             other is _$UserModelImpl &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.userType, userType) ||
+                other.userType == userType) &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage));
@@ -168,7 +194,8 @@ class _$UserModelImpl implements _UserModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, name, uid, profileImage);
+  int get hashCode =>
+      Object.hash(runtimeType, email, name, userType, uid, profileImage);
 
   @JsonKey(ignore: true)
   @override
@@ -188,6 +215,7 @@ abstract class _UserModel implements UserModel {
   const factory _UserModel(
       {required final String email,
       required final String name,
+      required final String userType,
       final String uid,
       final String profileImage}) = _$UserModelImpl;
 
@@ -198,6 +226,8 @@ abstract class _UserModel implements UserModel {
   String get email;
   @override
   String get name;
+  @override
+  String get userType;
   @override
   String get uid;
   @override

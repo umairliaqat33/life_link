@@ -5,6 +5,9 @@ class CollectionsNames {
   static final firestoreCollection = FirebaseFirestore.instance;
   static final firebaseAuth = FirebaseAuth.instance;
   static String usersCollection = 'users';
+  static String driverCollection = 'drivers';
+  static String patientCollection = 'patients';
+  static String hospitalCollection = 'hospitals';
   static String articleCollection = 'articles';
   static String soldArticleCollection = 'soldArticles';
 }

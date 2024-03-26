@@ -29,6 +29,42 @@ class Utils {
     }
   }
 
+  static String? addressValidator(String? value) {
+    if (value!.isEmpty) {
+      return "Address is required";
+    } else {
+      return null;
+    }
+  }
+
+  static String? diseaseValidator(String? value) {
+    if (value!.isEmpty) {
+      return "Disease is required";
+    } else {
+      return null;
+    }
+  }
+
+  static String? ageValidator(String? value) {
+    if (value!.isEmpty) {
+      return "Age is required";
+    } else if (int.parse(value.toString()) < 18) {
+      return "Age must be higher then 18";
+    } else {
+      return null;
+    }
+  }
+
+  static String? cnicValidator(String? value) {
+    if (value!.isEmpty) {
+      return "CNIC is required";
+    } else if (value.length < 13 || value.length > 13) {
+      return "CNIC must be of 13 digits";
+    } else {
+      return null;
+    }
+  }
+
   static String? simpleValidator(String? value) {
     if (value!.isEmpty) {
       return "This field is required";

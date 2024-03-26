@@ -8,8 +8,8 @@ class HospitalModel with _$HospitalModel {
   const factory HospitalModel({
     required String email,
     required String name,
+    required String address,
     @Default("") String uid,
-    @Default("") String address,
     @Default("") String phoneNumber,
   }) = _HospitalModel;
 

@@ -8,6 +8,7 @@ class UserModel with _$UserModel {
   const factory UserModel({
     required String email,
     required String name,
+    required String userType,
     @Default("") String uid,
     @Default("") String profileImage,
   }) = _UserModel;

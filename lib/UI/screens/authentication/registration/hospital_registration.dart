@@ -8,12 +8,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/UI/screens/authentication/components/auth_label_widget.dart';
 import 'package:life_link/UI/screens/authentication/components/other_auth_option.dart';
 import 'package:life_link/UI/screens/authentication/design_layers/layer_two.dart';
-import 'package:life_link/UI/screens/home_screen/home_screen.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
@@ -52,7 +55,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('images/Registration/primaryBg.png'),
+            image: AssetImage(Assets.primaryBackgroundImage),
             fit: BoxFit.fill,
           )),
           child: Stack(
@@ -74,7 +77,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: SizeConfig.height10(context) * 22,
+                  top: SizeConfig.height20(context) * 9,
                   left: SizeConfig.width8(context) * 2,
                   right: SizeConfig.width8(context) * 2,
                 ),
@@ -114,17 +117,21 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
                             TextFormFieldWidget(
                               label: 'Address',
                               controller: _addressController,
-                              validator: (value) => Utils.nameValidator(value),
+                              validator: (value) =>
+                                  Utils.addressValidator(value),
                               hintText: "Wadat Road",
                               inputType: TextInputType.text,
                               inputAction: TextInputAction.next,
                             ),
+                            SizedBox(
+                              height: SizeConfig.height8(context),
+                            ),
                             TextFormFieldWidget(
-                              label: 'Email',
+                              label: 'Phone number',
                               controller: _phoneControler,
                               validator: (value) =>
                                   Utils.phoneNumberValidator(value),
-                              hintText: "0320-1234567",
+                              hintText: "0312-3456789",
                               inputType: TextInputType.number,
                               inputAction: TextInputAction.next,
                             ),
@@ -196,13 +203,19 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
             email: _emailController.text,
             name: _nameController.text,
             uid: userCredential!.user!.uid,
+            userType: UserType.hospital.name,
           ),
         );
+        firestoreController.uploadHospitalInformation(HospitalModel(
+          email: _emailController.text,
+          name: _nameController.text,
+          address: _addressController.text,
+        ));
         log("Signup Successful");
         Fluttertoast.showToast(msg: 'Signup Successful');
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const BottomNavBar(),
           ),
           (route) => false,
         );

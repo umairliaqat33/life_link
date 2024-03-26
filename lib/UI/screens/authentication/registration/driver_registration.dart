@@ -8,12 +8,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/UI/screens/authentication/components/auth_label_widget.dart';
 import 'package:life_link/UI/screens/authentication/components/other_auth_option.dart';
 import 'package:life_link/UI/screens/authentication/design_layers/layer_two.dart';
-import 'package:life_link/UI/screens/home_screen/home_screen.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
@@ -58,7 +61,7 @@ class _DriverRegistrationState extends State<DriverRegistration> {
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('images/Registration/primaryBg.png'),
+            image: AssetImage(Assets.primaryBackgroundImage),
             fit: BoxFit.fill,
           )),
           child: Stack(
@@ -80,7 +83,7 @@ class _DriverRegistrationState extends State<DriverRegistration> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                  top: SizeConfig.height10(context) * 22,
+                  top: SizeConfig.height20(context) * 9,
                   left: SizeConfig.width8(context) * 2,
                   right: SizeConfig.width8(context) * 2,
                 ),
@@ -238,13 +241,27 @@ class _DriverRegistrationState extends State<DriverRegistration> {
             email: _emailController.text,
             name: _nameController.text,
             uid: userCredential!.user!.uid,
+            userType: UserType.driver.name,
+          ),
+        );
+        firestoreController.uploadDriverInformation(
+          DriverModel(
+            email: _emailController.text,
+            name: _nameController.text,
+            age: int.parse(
+              _ageController.text,
+            ),
+            uid: userCredential.user!.uid,
+            licenseBack: "",
+            licenseFront: "",
+            employeeId: "u1",
           ),
         );
         log("Signup Successful");
         Fluttertoast.showToast(msg: 'Signup Successful');
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const BottomNavBar(),
           ),
           (route) => false,
         );

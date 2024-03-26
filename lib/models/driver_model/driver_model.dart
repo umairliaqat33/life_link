@@ -8,7 +8,9 @@ class DriverModel with _$DriverModel {
   const factory DriverModel({
     required String email,
     required String name,
+    required int age,
     @Default("") String uid,
+    @Default("") String licenseNumber,
     @Default("") String employeeId,
     @Default("") String licenseBack,
     @Default("") String licenseFront,

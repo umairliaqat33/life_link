@@ -22,8 +22,8 @@ HospitalModel _$HospitalModelFromJson(Map<String, dynamic> json) {
 mixin _$HospitalModel {
   String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get uid => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,8 +41,8 @@ abstract class $HospitalModelCopyWith<$Res> {
   $Res call(
       {String email,
       String name,
-      String uid,
       String address,
+      String uid,
       String phoneNumber});
 }
 
@@ -61,8 +61,8 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
   $Res call({
     Object? email = null,
     Object? name = null,
-    Object? uid = null,
     Object? address = null,
+    Object? uid = null,
     Object? phoneNumber = null,
   }) {
     return _then(_value.copyWith(
@@ -74,13 +74,13 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
@@ -101,8 +101,8 @@ abstract class _$$HospitalModelImplCopyWith<$Res>
   $Res call(
       {String email,
       String name,
-      String uid,
       String address,
+      String uid,
       String phoneNumber});
 }
 
@@ -119,8 +119,8 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
   $Res call({
     Object? email = null,
     Object? name = null,
-    Object? uid = null,
     Object? address = null,
+    Object? uid = null,
     Object? phoneNumber = null,
   }) {
     return _then(_$HospitalModelImpl(
@@ -132,13 +132,13 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
-              as String,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
               as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
@@ -154,8 +154,8 @@ class _$HospitalModelImpl implements _HospitalModel {
   const _$HospitalModelImpl(
       {required this.email,
       required this.name,
+      required this.address,
       this.uid = "",
-      this.address = "",
       this.phoneNumber = ""});
 
   factory _$HospitalModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -166,18 +166,17 @@ class _$HospitalModelImpl implements _HospitalModel {
   @override
   final String name;
   @override
-  @JsonKey()
-  final String uid;
+  final String address;
   @override
   @JsonKey()
-  final String address;
+  final String uid;
   @override
   @JsonKey()
   final String phoneNumber;
 
   @override
   String toString() {
-    return 'HospitalModel(email: $email, name: $name, uid: $uid, address: $address, phoneNumber: $phoneNumber)';
+    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -187,8 +186,8 @@ class _$HospitalModelImpl implements _HospitalModel {
             other is _$HospitalModelImpl &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber));
   }
@@ -196,7 +195,7 @@ class _$HospitalModelImpl implements _HospitalModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, email, name, uid, address, phoneNumber);
+      Object.hash(runtimeType, email, name, address, uid, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -216,8 +215,8 @@ abstract class _HospitalModel implements HospitalModel {
   const factory _HospitalModel(
       {required final String email,
       required final String name,
+      required final String address,
       final String uid,
-      final String address,
       final String phoneNumber}) = _$HospitalModelImpl;
 
   factory _HospitalModel.fromJson(Map<String, dynamic> json) =
@@ -228,9 +227,9 @@ abstract class _HospitalModel implements HospitalModel {
   @override
   String get name;
   @override
-  String get uid;
-  @override
   String get address;
+  @override
+  String get uid;
   @override
   String get phoneNumber;
   @override
