@@ -68,6 +68,18 @@ class FirestoreController {
     return _firestoreRepository.getUserData();
   }
 
+  Future<DriverModel> getDriverData() {
+    return _firestoreRepository.getDriverData();
+  }
+
+  Future<HospitalModel> getHospitalData() {
+    return _firestoreRepository.getHospitalData();
+  }
+
+  Future<PatientModel> getPatientData() {
+    return _firestoreRepository.getPatientData();
+  }
+
   void updateUserData(
     UserModel userModel,
   ) async {

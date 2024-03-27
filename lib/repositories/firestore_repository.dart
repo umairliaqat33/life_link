@@ -93,6 +93,36 @@ class FirestoreRepository {
         );
   }
 
+  Future<DriverModel> getDriverData() async {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.driverCollection)
+        .doc(_user!.uid)
+        .get()
+        .then(
+          (value) => DriverModel.fromJson(value.data()!),
+        );
+  }
+
+  Future<HospitalModel> getHospitalData() async {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(_user!.uid)
+        .get()
+        .then(
+          (value) => HospitalModel.fromJson(value.data()!),
+        );
+  }
+
+  Future<PatientModel> getPatientData() async {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.patientCollection)
+        .doc(_user!.uid)
+        .get()
+        .then(
+          (value) => PatientModel.fromJson(value.data()!),
+        );
+  }
+
   static User? checkUser() {
     User? user = CollectionsNames.firebaseAuth.currentUser;
     return user;
