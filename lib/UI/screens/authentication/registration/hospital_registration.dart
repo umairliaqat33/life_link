@@ -198,27 +198,33 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
           _emailController.text,
           _passController.text,
         );
-        firestoreController.uploadUserInformation(
-          UserModel(
-            email: _emailController.text,
-            name: _nameController.text,
-            uid: userCredential!.user!.uid,
-            userType: UserType.hospital.name,
-          ),
-        );
-        firestoreController.uploadHospitalInformation(HospitalModel(
-          email: _emailController.text,
-          name: _nameController.text,
-          address: _addressController.text,
-        ));
-        log("Signup Successful");
-        Fluttertoast.showToast(msg: 'Signup Successful');
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const BottomNavBar(),
-          ),
-          (route) => false,
-        );
+        if (userCredential != null) {
+          firestoreController.uploadUserInformation(
+            UserModel(
+              email: _emailController.text,
+              name: _nameController.text,
+              uid: userCredential.user!.uid,
+              userType: UserType.hospital.name,
+            ),
+          );
+          firestoreController.uploadHospitalInformation(
+            HospitalModel(
+              email: _emailController.text,
+              name: _nameController.text,
+              address: _addressController.text,
+              uid: userCredential.user!.uid,
+              phoneNumber: _phoneControler.text,
+            ),
+          );
+          log("Signup Successful");
+          Fluttertoast.showToast(msg: 'Signup Successful');
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const BottomNavBar(),
+            ),
+            (route) => false,
+          );
+        }
       }
     } on EmailAlreadyExistException catch (e) {
       Fluttertoast.showToast(msg: e.message);

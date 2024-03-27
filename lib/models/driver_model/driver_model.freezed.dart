@@ -26,8 +26,6 @@ mixin _$DriverModel {
   String get uid => throw _privateConstructorUsedError;
   String get licenseNumber => throw _privateConstructorUsedError;
   String get employeeId => throw _privateConstructorUsedError;
-  String get licenseBack => throw _privateConstructorUsedError;
-  String get licenseFront => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,9 +45,7 @@ abstract class $DriverModelCopyWith<$Res> {
       int age,
       String uid,
       String licenseNumber,
-      String employeeId,
-      String licenseBack,
-      String licenseFront});
+      String employeeId});
 }
 
 /// @nodoc
@@ -71,8 +67,6 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
     Object? uid = null,
     Object? licenseNumber = null,
     Object? employeeId = null,
-    Object? licenseBack = null,
-    Object? licenseFront = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -99,14 +93,6 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
           ? _value.employeeId
           : employeeId // ignore: cast_nullable_to_non_nullable
               as String,
-      licenseBack: null == licenseBack
-          ? _value.licenseBack
-          : licenseBack // ignore: cast_nullable_to_non_nullable
-              as String,
-      licenseFront: null == licenseFront
-          ? _value.licenseFront
-          : licenseFront // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -125,9 +111,7 @@ abstract class _$$DriverModelImplCopyWith<$Res>
       int age,
       String uid,
       String licenseNumber,
-      String employeeId,
-      String licenseBack,
-      String licenseFront});
+      String employeeId});
 }
 
 /// @nodoc
@@ -147,8 +131,6 @@ class __$$DriverModelImplCopyWithImpl<$Res>
     Object? uid = null,
     Object? licenseNumber = null,
     Object? employeeId = null,
-    Object? licenseBack = null,
-    Object? licenseFront = null,
   }) {
     return _then(_$DriverModelImpl(
       email: null == email
@@ -175,14 +157,6 @@ class __$$DriverModelImplCopyWithImpl<$Res>
           ? _value.employeeId
           : employeeId // ignore: cast_nullable_to_non_nullable
               as String,
-      licenseBack: null == licenseBack
-          ? _value.licenseBack
-          : licenseBack // ignore: cast_nullable_to_non_nullable
-              as String,
-      licenseFront: null == licenseFront
-          ? _value.licenseFront
-          : licenseFront // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -196,9 +170,7 @@ class _$DriverModelImpl implements _DriverModel {
       required this.age,
       this.uid = "",
       this.licenseNumber = "",
-      this.employeeId = "",
-      this.licenseBack = "",
-      this.licenseFront = ""});
+      this.employeeId = ""});
 
   factory _$DriverModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$DriverModelImplFromJson(json);
@@ -218,16 +190,10 @@ class _$DriverModelImpl implements _DriverModel {
   @override
   @JsonKey()
   final String employeeId;
-  @override
-  @JsonKey()
-  final String licenseBack;
-  @override
-  @JsonKey()
-  final String licenseFront;
 
   @override
   String toString() {
-    return 'DriverModel(email: $email, name: $name, age: $age, uid: $uid, licenseNumber: $licenseNumber, employeeId: $employeeId, licenseBack: $licenseBack, licenseFront: $licenseFront)';
+    return 'DriverModel(email: $email, name: $name, age: $age, uid: $uid, licenseNumber: $licenseNumber, employeeId: $employeeId)';
   }
 
   @override
@@ -242,17 +208,13 @@ class _$DriverModelImpl implements _DriverModel {
             (identical(other.licenseNumber, licenseNumber) ||
                 other.licenseNumber == licenseNumber) &&
             (identical(other.employeeId, employeeId) ||
-                other.employeeId == employeeId) &&
-            (identical(other.licenseBack, licenseBack) ||
-                other.licenseBack == licenseBack) &&
-            (identical(other.licenseFront, licenseFront) ||
-                other.licenseFront == licenseFront));
+                other.employeeId == employeeId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, name, age, uid,
-      licenseNumber, employeeId, licenseBack, licenseFront);
+  int get hashCode => Object.hash(
+      runtimeType, email, name, age, uid, licenseNumber, employeeId);
 
   @JsonKey(ignore: true)
   @override
@@ -275,9 +237,7 @@ abstract class _DriverModel implements DriverModel {
       required final int age,
       final String uid,
       final String licenseNumber,
-      final String employeeId,
-      final String licenseBack,
-      final String licenseFront}) = _$DriverModelImpl;
+      final String employeeId}) = _$DriverModelImpl;
 
   factory _DriverModel.fromJson(Map<String, dynamic> json) =
       _$DriverModelImpl.fromJson;
@@ -294,10 +254,6 @@ abstract class _DriverModel implements DriverModel {
   String get licenseNumber;
   @override
   String get employeeId;
-  @override
-  String get licenseBack;
-  @override
-  String get licenseFront;
   @override
   @JsonKey(ignore: true)
   _$$DriverModelImplCopyWith<_$DriverModelImpl> get copyWith =>

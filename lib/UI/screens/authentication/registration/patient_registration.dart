@@ -12,6 +12,7 @@ import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
@@ -40,6 +41,7 @@ class _PatientRegistrationState extends State<PatientRegistration> {
   final _formKey = GlobalKey<FormState>();
 
   bool _showSpinner = false;
+  Gender _gender = Gender.male;
 
   @override
   void dispose() {
@@ -97,6 +99,7 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                           height: SizeConfig.height20(context) * 3,
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextFormFieldWidget(
                               label: 'Name',
@@ -139,6 +142,43 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                               hintText: "03201234569",
                               inputType: TextInputType.number,
                               inputAction: TextInputAction.next,
+                            ),
+                            SizedBox(
+                              height: SizeConfig.height8(context),
+                            ),
+                            const Text(
+                              "Select your gender",
+                              style: TextStyle(
+                                color: blackColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                              ),
+                            ),
+                            RadioListTile<Gender>(
+                              title: Text(
+                                Gender.male.name.toUpperCase(),
+                                style: const TextStyle(
+                                  color: blackColor,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              value: Gender.male,
+                              groupValue: _gender,
+                              onChanged: (value) => _selectGender(value!),
+                            ),
+                            RadioListTile<Gender>(
+                              title: Text(
+                                Gender.female.name.toUpperCase(),
+                                style: const TextStyle(
+                                  color: blackColor,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              value: Gender.female,
+                              groupValue: _gender,
+                              onChanged: (value) => _selectGender(value!),
                             ),
                             SizedBox(
                               height: SizeConfig.height8(context),
@@ -226,22 +266,36 @@ class _PatientRegistrationState extends State<PatientRegistration> {
           _emailController.text,
           _passController.text,
         );
-        firestoreController.uploadUserInformation(
-          UserModel(
-            email: _emailController.text,
-            name: _nameController.text,
-            uid: userCredential!.user!.uid,
-            userType: UserType.patient.name,
-          ),
-        );
-        log("Signup Successful");
-        Fluttertoast.showToast(msg: 'Signup Successful');
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const BottomNavBar(),
-          ),
-          (route) => false,
-        );
+        if (userCredential != null) {
+          firestoreController.uploadUserInformation(
+            UserModel(
+              email: _emailController.text,
+              name: _nameController.text,
+              uid: userCredential.user!.uid,
+              userType: UserType.patient.name,
+            ),
+          );
+          firestoreController.uploadPatientInformation(
+            PatientModel(
+              email: _emailController.text,
+              name: _nameController.text,
+              uid: userCredential.user!.uid,
+              age: int.parse(_ageController.text),
+              cnic: _cnicController.text,
+              disease: _diseaseController.text,
+              gender: _gender.name,
+              phoneNumber: _phoneController.text,
+            ),
+          );
+          log("Signup Successful");
+          Fluttertoast.showToast(msg: 'Signup Successful');
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const BottomNavBar(),
+            ),
+            (route) => false,
+          );
+        }
       }
     } on EmailAlreadyExistException catch (e) {
       Fluttertoast.showToast(msg: e.message);
@@ -255,5 +309,12 @@ class _PatientRegistrationState extends State<PatientRegistration> {
     setState(() {
       _showSpinner = false;
     });
+  }
+
+  void _selectGender(Gender value) {
+    setState(() {
+      _gender = value;
+    });
+    log(_gender.name);
   }
 }

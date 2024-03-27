@@ -33,7 +33,7 @@ class FirestoreRepository {
     try {
       CollectionsNames.firestoreCollection
           .collection(CollectionsNames.driverCollection)
-          .doc(_user!.uid)
+          .doc(driverModel.uid)
           .set(
             driverModel.toJson(),
           );
@@ -51,7 +51,7 @@ class FirestoreRepository {
     try {
       CollectionsNames.firestoreCollection
           .collection(CollectionsNames.hospitalCollection)
-          .doc(_user!.uid)
+          .doc(hospitalModel.uid)
           .set(
             hospitalModel.toJson(),
           );
@@ -69,7 +69,7 @@ class FirestoreRepository {
     try {
       CollectionsNames.firestoreCollection
           .collection(CollectionsNames.patientCollection)
-          .doc(_user!.uid)
+          .doc(patientModel.uid)
           .set(
             patientModel.toJson(),
           );

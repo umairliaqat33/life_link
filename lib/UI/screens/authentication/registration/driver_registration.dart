@@ -145,7 +145,7 @@ class _DriverRegistrationState extends State<DriverRegistration> {
                             ),
                             TextFormFieldWidget(
                               label: 'Employee Id',
-                              controller: _licenceController,
+                              controller: _employeeidController,
                               validator: (value) => Utils.nameValidator(value),
                               hintText: "EM-123454",
                               inputType: TextInputType.text,
@@ -156,7 +156,7 @@ class _DriverRegistrationState extends State<DriverRegistration> {
                             ),
                             TextFormFieldWidget(
                               label: 'Ambulance No',
-                              controller: _licenceController,
+                              controller: _ambulanceidController,
                               validator: (value) => Utils.nameValidator(value),
                               hintText: "LEA-1345",
                               inputType: TextInputType.text,
@@ -236,35 +236,36 @@ class _DriverRegistrationState extends State<DriverRegistration> {
           _emailController.text,
           _passController.text,
         );
-        firestoreController.uploadUserInformation(
-          UserModel(
-            email: _emailController.text,
-            name: _nameController.text,
-            uid: userCredential!.user!.uid,
-            userType: UserType.driver.name,
-          ),
-        );
-        firestoreController.uploadDriverInformation(
-          DriverModel(
-            email: _emailController.text,
-            name: _nameController.text,
-            age: int.parse(
-              _ageController.text,
+        if (userCredential != null) {
+          firestoreController.uploadUserInformation(
+            UserModel(
+              email: _emailController.text,
+              name: _nameController.text,
+              uid: userCredential.user!.uid,
+              userType: UserType.driver.name,
             ),
-            uid: userCredential.user!.uid,
-            licenseBack: "",
-            licenseFront: "",
-            employeeId: "u1",
-          ),
-        );
-        log("Signup Successful");
-        Fluttertoast.showToast(msg: 'Signup Successful');
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const BottomNavBar(),
-          ),
-          (route) => false,
-        );
+          );
+          firestoreController.uploadDriverInformation(
+            DriverModel(
+              email: _emailController.text,
+              name: _nameController.text,
+              age: int.parse(
+                _ageController.text,
+              ),
+              uid: userCredential.user!.uid,
+              employeeId: _employeeidController.text,
+              licenseNumber: _licenceController.text,
+            ),
+          );
+          log("Signup Successful");
+          Fluttertoast.showToast(msg: 'Signup Successful');
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const BottomNavBar(),
+            ),
+            (route) => false,
+          );
+        }
       }
     } on EmailAlreadyExistException catch (e) {
       Fluttertoast.showToast(msg: e.message);

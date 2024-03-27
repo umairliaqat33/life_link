@@ -12,8 +12,6 @@ class DriverModel with _$DriverModel {
     @Default("") String uid,
     @Default("") String licenseNumber,
     @Default("") String employeeId,
-    @Default("") String licenseBack,
-    @Default("") String licenseFront,
   }) = _DriverModel;
 
   factory DriverModel.fromJson(Map<String, dynamic> json) =>
