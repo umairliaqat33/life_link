@@ -24,4 +24,4 @@ const Color parrotColor = Color(0xff66ff33);
 const Color maroonColor = Color(0xff990000);
 Color appBarColor = primaryColor.withOpacity(0.8);
 const Color textFieldFillColor = Color(0xffF7F8F9);
-const Color scaffoldColor = Color(0xffFFFFFF);
+const Color scaffoldColor = Color(0xFFE9FFF6);

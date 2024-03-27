@@ -42,6 +42,7 @@ dependencies:
   json_annotation: ^4.8.1
   google_fonts: ^6.2.1
   freezed_annotation: ^2.4.1
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+    - assets/icons/svgs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

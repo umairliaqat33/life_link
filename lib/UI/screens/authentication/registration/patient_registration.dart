@@ -146,21 +146,21 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                             SizedBox(
                               height: SizeConfig.height8(context),
                             ),
-                            const Text(
+                            Text(
                               "Select your gender",
                               style: TextStyle(
                                 color: blackColor,
                                 fontWeight: FontWeight.w400,
-                                fontSize: 13,
+                                fontSize: SizeConfig.font12(context) + 1,
                               ),
                             ),
                             RadioListTile<Gender>(
                               title: Text(
                                 Gender.male.name.toUpperCase(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: blackColor,
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 16,
+                                  fontSize: SizeConfig.font16(context),
                                 ),
                               ),
                               value: Gender.male,
@@ -170,10 +170,10 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                             RadioListTile<Gender>(
                               title: Text(
                                 Gender.female.name.toUpperCase(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: blackColor,
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 16,
+                                  fontSize: SizeConfig.font16(context),
                                 ),
                               ),
                               value: Gender.female,

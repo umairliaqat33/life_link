@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:life_link/UI/screens/home_screen/home_screen.dart';
 import 'package:life_link/UI/screens/notification_screen/notification_screen.dart';
 import 'package:life_link/UI/screens/profile_screen/profile_screen.dart';
+import 'package:life_link/config/size_config.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -27,24 +31,50 @@ class _BottomNavBarState extends State<BottomNavBar> {
         currentIndex: _selectedIndex,
         showSelectedLabels: true,
         showUnselectedLabels: false,
-        selectedItemColor: primaryColor,
         onTap: _onNavBarButtonTap,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_filled,
+            icon: SvgPicture.asset(
+              Assets.homeEmptyIcon,
+              height: SizeConfig.height20(context),
+              width: SizeConfig.width20(context),
+            ),
+            activeIcon: SvgPicture.asset(
+              Assets.homeFilledIcon,
+              height: SizeConfig.height20(context),
+              width: SizeConfig.width20(context),
+              colorFilter:
+                  const ColorFilter.mode(primaryColor, BlendMode.srcIn),
             ),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.notifications_active,
+            icon: SvgPicture.asset(
+              Assets.notificationEmptyIcon,
+              height: SizeConfig.height20(context),
+              width: SizeConfig.width20(context),
+            ),
+            activeIcon: SvgPicture.asset(
+              Assets.notificationFilledIcon,
+              height: SizeConfig.height20(context),
+              width: SizeConfig.width20(context),
+              colorFilter:
+                  const ColorFilter.mode(primaryColor, BlendMode.srcIn),
             ),
             label: "Notification",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_2_sharp,
+            icon: SvgPicture.asset(
+              Assets.profileEmptyIcon,
+              height: SizeConfig.height20(context),
+              width: SizeConfig.width20(context),
+            ),
+            activeIcon: SvgPicture.asset(
+              Assets.profileFilledIcon,
+              height: SizeConfig.height20(context),
+              width: SizeConfig.width20(context),
+              colorFilter:
+                  const ColorFilter.mode(primaryColor, BlendMode.srcIn),
             ),
             label: "Profile",
           ),

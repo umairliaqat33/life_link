@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:life_link/config/size_config.dart';
+import 'package:life_link/utils/colors.dart';
 
 class LayerOne extends StatelessWidget {
   const LayerOne({super.key});
@@ -6,10 +8,10 @@ class LayerOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+      width: SizeConfig.width(context),
+      height: SizeConfig.height(context),
       decoration: const BoxDecoration(
-        color: Color(0x80FFFFFF),
+        color: greyColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(60.0),
           topRight: Radius.circular(60.0),

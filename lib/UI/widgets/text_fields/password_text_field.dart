@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/constants/text_field_decoration.dart';
@@ -27,8 +28,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(
+        Padding(
+          padding: const EdgeInsets.only(
             left: 3,
           ),
           child: Text(
@@ -36,7 +37,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             style: TextStyle(
               color: blackColor,
               fontWeight: FontWeight.w400,
-              fontSize: 13,
+              fontSize: SizeConfig.font12(context) + 1,
             ),
           ),
         ),
@@ -59,17 +60,19 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 });
               },
               icon: _textVisible
-                  ? Image.asset(
+                  ? SvgPicture.asset(
                       Assets.passwordVisibilityOff,
-                      height: 20,
-                      width: 20,
-                      color: greyColor,
+                      height: SizeConfig.height20(context),
+                      width: SizeConfig.width20(context),
+                      colorFilter:
+                          const ColorFilter.mode(greyColor, BlendMode.srcIn),
                     )
-                  : Image.asset(
+                  : SvgPicture.asset(
                       Assets.passwordVisibilityOn,
-                      height: 20,
-                      width: 20,
-                      color: greyColor,
+                      height: SizeConfig.height20(context),
+                      width: SizeConfig.width20(context),
+                      colorFilter:
+                          const ColorFilter.mode(greyColor, BlendMode.srcIn),
                     ),
             ),
           ),

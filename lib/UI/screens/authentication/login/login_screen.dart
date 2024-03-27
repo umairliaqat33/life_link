@@ -117,11 +117,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     );
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     "Forgot password?",
                                     style: TextStyle(
                                       color: greyColor,
-                                      fontSize: 12,
+                                      fontSize: SizeConfig.font12(context),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),

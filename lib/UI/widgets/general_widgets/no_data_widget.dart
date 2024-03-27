@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/assets.dart';
 
 class NoDataWidget extends StatelessWidget {
@@ -18,7 +19,7 @@ class NoDataWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           SizedBox(
-            height: 200,
+            height: SizeConfig.height20(context) * 10,
             child: Image.asset(
               Assets.emptyScreenImage,
               fit: BoxFit.cover,

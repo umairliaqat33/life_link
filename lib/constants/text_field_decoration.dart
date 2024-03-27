@@ -26,7 +26,7 @@ class TextFieldDecoration {
         ),
       ),
       borderSide: BorderSide(
-        color: Colors.grey,
+        color: greyColor,
       ),
     ),
     focusedBorder: const OutlineInputBorder(
@@ -46,7 +46,7 @@ class TextFieldDecoration {
         ),
       ),
       borderSide: BorderSide(
-        color: Colors.red,
+        color: redColor,
       ),
     ),
     focusedErrorBorder: const OutlineInputBorder(
@@ -56,7 +56,7 @@ class TextFieldDecoration {
         ),
       ),
       borderSide: BorderSide(
-        color: Colors.red,
+        color: redColor,
       ),
     ),
   );

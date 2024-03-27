@@ -2,15 +2,30 @@ class Assets {
   static const String _assetDir = 'assets';
   static const String _iconDir = '$_assetDir/icons';
   static const String _imagesDir = '$_assetDir/images';
+  static const String _svgDir = '$_iconDir/svgs';
 
   //Icons
-  static const String helpIcon = "$_iconDir/help_icon.png";
+  static const String helpIcon = "$_svgDir/help_icon.svg";
   static const String passwordVisibilityOn =
-      "$_iconDir/password_visibility_on.png";
+      "$_svgDir/password_visibility_on_icon.svg";
   static const String passwordVisibilityOff =
-      "$_iconDir/password_visibility_off.png";
-  static const String arrowForwardHead = "$_iconDir/forward_arrow_head.png";
-  static const String settingsIcon = "$_iconDir/settings_icon.png";
+      "$_svgDir/password_visibility_off_icon.svg";
+  static const String arrowForwardHead = "$_svgDir/forward_arrow_head_icon.svg";
+  static const String settingsIcon = "$_svgDir/settings_icon.svg";
+  static const String historyIcon = "$_svgDir/history_icon.svg";
+  static const String homeEmptyIcon = "$_svgDir/home_empty_icon.svg";
+  static const String homeFilledIcon = "$_svgDir/home_filled_icon.svg";
+  static const String hospitalBedIcon = "$_svgDir/hospital_bed_icon.svg";
+  static const String notificationEmptyIcon =
+      "$_svgDir/notification_empty_icon.svg";
+  static const String notificationFilledIcon =
+      "$_svgDir/notification_filled_icon.svg";
+  static const String patientBedIcon = "$_svgDir/patient_icon.svg";
+  static const String profileEmptyIcon = "$_svgDir/profile_empty_icon.svg";
+  static const String profileFilledIcon = "$_svgDir/profile_filled_icon.svg";
+  static const String listIcon = "$_svgDir/list_icon.svg";
+  static const String logoutIcon = "$_svgDir/logout_icon.svg";
+  static const String patientCuredIcon = "$_svgDir/patient_cured_icon.svg";
 
 //images
 
@@ -25,5 +40,6 @@ class Assets {
   static const String deleteAccountAlert =
       "$_imagesDir/delete_account_alert.png";
 
-  static const String primaryBackgroundImage = "$_imagesDir/primaryBg.png";
+  static const String primaryBackgroundImage =
+      "$_imagesDir/background_gradient.png";
 }

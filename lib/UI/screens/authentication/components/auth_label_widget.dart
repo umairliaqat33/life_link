@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/colors.dart';
 
 class AuthLabelWidget extends StatelessWidget {
@@ -15,9 +16,9 @@ class AuthLabelWidget extends StatelessWidget {
       children: [
         Text(
           authLabel,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: SizeConfig.font20(context),
             color: whiteColor,
           ),
         ),

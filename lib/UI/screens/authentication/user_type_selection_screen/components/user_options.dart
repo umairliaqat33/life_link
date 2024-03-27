@@ -43,18 +43,18 @@ class UserOptions extends StatelessWidget {
             Text(
               heading,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: SizeConfig.font16(context),
               ),
             ),
             Text(
               description,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: greyColor,
                 fontWeight: FontWeight.w400,
-                fontSize: 10,
+                fontSize: SizeConfig.font10(context),
               ),
             ),
           ],

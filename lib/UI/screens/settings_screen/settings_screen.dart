@@ -25,11 +25,11 @@ class SettingsScreen extends StatelessWidget {
           backgroundColor: backgroundColor,
           centerTitle: true,
           // automaticallyImplyLeading: false,
-          title: const Text(
+          title: Text(
             "Settings",
             style: TextStyle(
               color: appTextColor,
-              fontSize: 18,
+              fontSize: SizeConfig.font18(context),
               fontWeight: FontWeight.w600,
             ),
           ),

@@ -35,51 +35,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
           elevation: 1,
           backgroundColor: backgroundColor,
           centerTitle: true,
-          // automaticallyImplyLeading: false,
-          title: const Text(
+          title: Text(
             "Profile",
             style: TextStyle(
               color: appTextColor,
-              fontSize: 18,
+              fontSize: SizeConfig.font18(context),
               fontWeight: FontWeight.w600,
             ),
           ),
-          actions: const [
-            // _EditProfileButton(userData: userData),
-          ],
         ),
         body: Column(
           children: [
-            // Padding(
-            //   padding: EdgeInsets.only(
-            //     top: SizeConfig.height12(context),
-            //   ),
-            //   child: Center(
-            //     child: userData == null
-            //         ? const Padding(
-            //             padding: EdgeInsets.all(8.0),
-            //             child: CircularLoaderWidget(),
-            //           )
-            //         : InfoCard(
-            //             name: name,
-            //             email: email,
-            //             imageLink: imageLink,
-            //           ),
-            //   ),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // GestureDetector(
-                //   onTap: () => (getUserType() == UserType.business.name
-                //       ? onBusinessTap()
-                //       : null),
-                //   child: _createProgressCard(getUserType()!, 0),
-                // ),
                 SizedBox(
                   width: SizeConfig.width8(context) * 2,
                 ),
-                // _createProgressCard(getUserType()!, 1),
               ],
             ),
             SizedBox(
@@ -154,34 +126,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-
-// class _EditProfileButton extends StatelessWidget {
-//   const _EditProfileButton({
-//     required this.userData,
-//   });
-
-//   final userData;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextButton(
-//       onPressed: () {
-//         // Navigator.of(context).push(
-//         //   MaterialPageRoute(
-//         //     builder: (context) => EditProfileScreen(
-//         //       userData: userData,
-//         //     ),
-//         //   ),
-//         // );
-//       },
-//       child: const Text(
-//         "Edit Profile",
-//         style: TextStyle(
-//           color: primaryColor,
-//           fontSize: 13,
-//           fontWeight: FontWeight.w500,
-//         ),
-//       ),
-//     );
-//   }
-// }

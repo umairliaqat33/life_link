@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:life_link/config/size_config.dart';
 
 import 'package:life_link/utils/colors.dart';
 
@@ -31,21 +33,20 @@ class TileWidget extends StatelessWidget {
           style: TextStyle(
             color: titleTextColor,
             fontWeight: FontWeight.bold,
-            fontSize: 15,
+            fontSize: SizeConfig.font14(context),
           ),
         ),
         trailing: trailingImg == null
             ? null
-            : Image.asset(
+            : SvgPicture.asset(
                 trailingImg!,
               ),
         leading: leadingImg == null
             ? null
             : Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: Image.asset(
+                child: SvgPicture.asset(
                   leadingImg!,
-                  color: Colors.black,
                 ),
               ),
         horizontalTitleGap: 0,

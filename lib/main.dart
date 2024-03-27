@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: primaryColor,
         textTheme: GoogleFonts.interTextTheme(),
+        scaffoldBackgroundColor: scaffoldColor,
       ),
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

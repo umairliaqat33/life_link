@@ -55,7 +55,8 @@ class TextFormFieldWidget extends StatelessWidget {
                   style: TextStyle(
                     color: isLabelGrey ? greyColor : blackColor,
                     fontWeight: isLabelGrey ? FontWeight.w400 : null,
-                    fontSize: isLabelGrey ? 13 : null,
+                    fontSize:
+                        isLabelGrey ? SizeConfig.font12(context) + 1 : null,
                   ),
                 ),
               ),
@@ -126,7 +127,7 @@ class TextFormFieldWidget extends StatelessWidget {
                 ),
               ),
               borderSide: BorderSide(
-                color: Colors.red,
+                color: redColor,
               ),
             ),
             focusedErrorBorder: const OutlineInputBorder(
@@ -136,7 +137,7 @@ class TextFormFieldWidget extends StatelessWidget {
                 ),
               ),
               borderSide: BorderSide(
-                color: Colors.red,
+                color: redColor,
               ),
             ),
           ),

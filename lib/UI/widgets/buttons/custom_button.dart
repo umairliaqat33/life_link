@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/config/size_config.dart';
+import 'package:life_link/utils/colors.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -15,13 +16,13 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: buttonColor ?? Theme.of(context).primaryColor,
+      color: buttonColor ?? primaryColor,
       borderRadius: BorderRadius.circular(10.0),
       elevation: 5.0,
       child: MaterialButton(
         onPressed: () => onPressed(),
-        minWidth: 200.0,
-        height: 60.0,
+        minWidth: SizeConfig.width20(context) * 10,
+        height: SizeConfig.height20(context) * 3,
         child: Text(
           title,
           style: TextStyle(
