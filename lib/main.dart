@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:life_link/UI/screens/splash_screen/splash_screen.dart';
 import 'package:life_link/firebase_options.dart';
+import 'package:life_link/services/dependency_injection.dart';
 import 'package:life_link/utils/colors.dart';
 
 void main() async {
@@ -11,6 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         primaryColor: primaryColor,
         textTheme: GoogleFonts.interTextTheme(),
@@ -28,21 +31,4 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
     );
   }
-
-  // MaterialColor createMaterialColor(Color color) {
-  //   Map<int, Color> swatch = <int, Color>{};
-
-  //   swatch[50] = primaryColor; // Change opacity if necessary
-  //   swatch[100] = primaryColor;
-  //   swatch[200] = primaryColor;
-  //   swatch[300] = primaryColor;
-  //   swatch[400] = primaryColor;
-  //   swatch[500] = primaryColor;
-  //   swatch[600] = primaryColor;
-  //   swatch[700] = primaryColor;
-  //   swatch[800] = primaryColor;
-  //   swatch[900] = primaryColor;
-
-  //   return MaterialColor(color.value, swatch);
-  // }
 }

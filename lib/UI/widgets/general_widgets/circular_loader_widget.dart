@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/utils/colors.dart';
 
 class CircularLoaderWidget extends StatelessWidget {
   const CircularLoaderWidget({super.key});
@@ -6,7 +7,9 @@ class CircularLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: CircularProgressIndicator.adaptive(),
+      child: CircularProgressIndicator.adaptive(
+        valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+      ),
     );
   }
 }
