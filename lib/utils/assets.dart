@@ -26,6 +26,8 @@ class Assets {
   static const String listIcon = "$_svgDir/list_icon.svg";
   static const String logoutIcon = "$_svgDir/logout_icon.svg";
   static const String patientCuredIcon = "$_svgDir/patient_cured_icon.svg";
+  static const String backButtonWhiteImage = "$_svgDir/back_button_white.svg";
+  static const String backButtonBlackImage = "$_svgDir/back_button_black.svg";
 
 //images
 
@@ -39,7 +41,6 @@ class Assets {
       "$_imagesDir/blank_profile_image.png";
   static const String deleteAccountAlert =
       "$_imagesDir/delete_account_alert.png";
-
   static const String primaryBackgroundImage =
       "$_imagesDir/background_gradient.png";
 }

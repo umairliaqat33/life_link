@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/UI/screens/doctor_screen/doctor_screen.dart';
 import 'package:life_link/UI/screens/home_screen/components/info_card.dart';
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: SizeConfig.height20(context) * 2,
                       ),
                       _userModel!.userType == UserType.driver.name
-                          ? const Column(
+                          ? Column(
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -72,10 +73,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     OptionWidget(
                                       title: "Ride History",
                                       icon: Assets.historyIcon,
+                                      onTap: () => onRideHistoryTap(),
                                     ),
                                     OptionWidget(
                                       title: "Available hospitals",
                                       icon: Assets.hospitalBedIcon,
+                                      onTap: () => onAvailableHospitalsTap(),
                                     ),
                                   ],
                                 ),
@@ -84,34 +87,53 @@ class _HomeScreenState extends State<HomeScreen> {
                           : _userModel!.userType == UserType.hospital.name
                               ? Column(
                                   children: [
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         OptionWidget(
                                           title: "Incoming Patients",
                                           icon: Assets.hospitalBedIcon,
+                                          onTap: () => onIncomingPatientsTap(),
                                         ),
                                         OptionWidget(
                                           title: "Available Beds",
                                           icon: Assets.patientBedIcon,
+                                          onTap: () => onAvailableBeds(),
                                         ),
                                       ],
                                     ),
                                     SizedBox(
                                       height: SizeConfig.height20(context),
                                     ),
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         OptionWidget(
                                           title: "History",
                                           icon: Assets.historyIcon,
+                                          onTap: () => onHistoryTap(),
                                         ),
                                         OptionWidget(
                                           title: "Discharged Patients",
                                           icon: Assets.patientCuredIcon,
+                                          onTap: () =>
+                                              onDischargedPatientsTap(),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: SizeConfig.height20(context),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        OptionWidget(
+                                          title: "Manage Doctors",
+                                          icon: Assets.patientCuredIcon,
+                                          onTap: () => onManageDoctors(),
                                         ),
                                       ],
                                     ),
@@ -162,17 +184,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     SizedBox(
                                       height: SizeConfig.height20(context) * 2,
                                     ),
-                                    const Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         OptionWidget(
                                           title: "Ride History",
                                           icon: Assets.historyIcon,
+                                          onTap: () => onRideHistoryTap(),
                                         ),
                                         OptionWidget(
                                           title: "Old Reports",
                                           icon: Assets.listIcon,
+                                          onTap: () => onOldReports(),
                                         ),
                                       ],
                                     ),
@@ -229,4 +253,20 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {});
     }
   }
+
+  void onRideHistoryTap() {}
+  void onAvailableHospitalsTap() {}
+  void onIncomingPatientsTap() {}
+  void onAvailableBeds() {}
+  void onHistoryTap() {}
+  void onDischargedPatientsTap() {}
+  void onManageDoctors() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const DoctorScreen(),
+      ),
+    );
+  }
+
+  void onOldReports() {}
 }
