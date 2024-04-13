@@ -13,6 +13,7 @@ class DoctorModel with _$DoctorModel {
     required String education,
     required String speciality,
     @Default("") String profileImage,
+    @Default("") String otherExperiences,
   }) = _DoctorModel;
   factory DoctorModel.fromJson(Map<String, dynamic> json) =>
       _$DoctorModelFromJson(json);

@@ -15,6 +15,7 @@ _$DoctorModelImpl _$$DoctorModelImplFromJson(Map<String, dynamic> json) =>
       education: json['education'] as String,
       speciality: json['speciality'] as String,
       profileImage: json['profileImage'] as String? ?? "",
+      otherExperiences: json['otherExperiences'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$DoctorModelImplToJson(_$DoctorModelImpl instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$$DoctorModelImplToJson(_$DoctorModelImpl instance) =>
       'education': instance.education,
       'speciality': instance.speciality,
       'profileImage': instance.profileImage,
+      'otherExperiences': instance.otherExperiences,
     };
