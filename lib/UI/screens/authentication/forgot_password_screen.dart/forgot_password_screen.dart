@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
+import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/text_fields/text_form_field_widget.dart';
 import 'package:life_link/config/size_config.dart';
@@ -27,37 +28,31 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: (SizeConfig.width8(context) * 2),
-              right: (SizeConfig.width8(context) * 2),
-            ),
-            child: SizedBox(
-              height: SizeConfig.height(context) - 30,
-              child: Form(
-                key: _formKey,
+      appBar: appBarWidget(
+        title: "",
+        context: context,
+        backButton: true,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: SizeConfig.height8(context),
+            left: (SizeConfig.width8(context) * 2),
+            right: (SizeConfig.width8(context) * 2),
+          ),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: SizeConfig.height(context) -
+                    (SizeConfig.height20(context) * 4),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: SizeConfig.height20(context) * 2,
-                    ),
-                    // const BannerWidget(
-                    //   heading: "Forgot your password?",
-                    //   description:
-                    //       "We all have forgotten our password before. But don’t worry we have got your back!",
-                    //   logo: Assets.forgotPasswordImage,
-                    // ),
                     TextFormFieldWidget(
                       hintText: "johndoe@gmail.com",
                       controller: _emailController,
                       validator: (value) => Utils.emailValidator(value),
                       label: "Email",
-                    ),
-                    SizedBox(
-                      height: SizeConfig.height12(context),
                     ),
                     Text(
                       "Sending link to email above. Click on the button below to reset your password",
@@ -67,7 +62,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         color: greyColor,
                       ),
                     ),
-                    const Expanded(child: SizedBox()),
+                    const Spacer(),
                     Padding(
                       padding: EdgeInsets.only(
                         bottom: (SizeConfig.height15(context) * 2),
