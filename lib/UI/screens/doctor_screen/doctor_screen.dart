@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:life_link/UI/screens/doctor_screen/components/doctor_card_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
-import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 
 class DoctorScreen extends StatelessWidget {
