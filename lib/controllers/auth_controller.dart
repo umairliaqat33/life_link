@@ -35,4 +35,10 @@ class AuthController {
       rethrow;
     }
   }
+
+  Future<bool> checkIfUserExists(
+    String email,
+  ) async {
+    return await _authRepository.checkIfUserExist(email);
+  }
 }

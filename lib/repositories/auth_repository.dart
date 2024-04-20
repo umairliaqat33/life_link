@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,10 +41,10 @@ class AuthRepository {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'wrong-password' ||
-          e.code == 'user-not-found' ||
-          e.code == 'invalid-credential') {
+      if (e.code == 'wrong-password' || e.code == 'user-not-found') {
         throw IncorrectPasswordOrUserNotFound(AppStrings.enteredWrongPassword);
+      } else if (e.code == 'invalid-credential') {
+        log(e.message.toString());
       } else if (e.code == AppStrings.noInternet) {
         throw SocketException("${e.code}${e.message}");
       } else {
@@ -80,5 +81,25 @@ class AuthRepository {
         throw UnknownException('Something went wrong ${e.code} ${e.message}');
       }
     }
+  }
+
+  Future<bool> checkIfUserExist(String email) async {
+    bool result = false;
+    try {
+      var v = await CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.usersCollection)
+          .where("email", isEqualTo: email)
+          .get();
+      result = v.docs.isNotEmpty;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.userNotFound) {
+        throw UserNotFoundException('User not found');
+      } else if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException('Something went wrong ${e.code} ${e.message}');
+      }
+    }
+    return result;
   }
 }

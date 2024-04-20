@@ -20,7 +20,7 @@ import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/text_fields/password_text_field.dart';
-import 'package:life_link/UI/widgets/text_fields/text_field_widget.dart';
+import 'package:life_link/UI/widgets/text_fields/text_form_field_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
