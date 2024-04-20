@@ -34,20 +34,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         backButton: true,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: SizeConfig.height8(context),
-            left: (SizeConfig.width8(context) * 2),
-            right: (SizeConfig.width8(context) * 2),
-          ),
-          child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: SizeConfig.height(context) -
-                    (SizeConfig.height20(context) * 4),
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.height8(context),
+                  left: (SizeConfig.width8(context) * 2),
+                  right: (SizeConfig.width8(context) * 2),
+                ),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     TextFormFieldWidget(
                       hintText: "johndoe@gmail.com",
                       controller: _emailController,
@@ -82,7 +79,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
