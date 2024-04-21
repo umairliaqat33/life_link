@@ -126,16 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     SizedBox(
                                       height: SizeConfig.height20(context),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        OptionWidget(
-                                          title: "Manage Doctors",
-                                          icon: Assets.patientCuredIcon,
-                                          onTap: () => onManageDoctors(),
-                                        ),
-                                      ],
+                                    OptionWidget(
+                                      title: "Manage Doctors",
+                                      icon: Assets.patientCuredIcon,
+                                      onTap: () => onManageDoctors(),
                                     ),
                                   ],
                                 )
@@ -263,7 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void onManageDoctors() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const DoctorScreen(),
+        builder: (context) => DoctorScreen(),
       ),
     );
   }

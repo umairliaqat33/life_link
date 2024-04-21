@@ -123,7 +123,23 @@ class Utils {
 
   static String? messageValidator(String? value) {
     if (value!.isEmpty) {
-      return "message is required";
+      return "Message is required";
+    } else {
+      return null;
+    }
+  }
+
+  static String? educationValidator(String? value) {
+    if (value!.isEmpty) {
+      return "Education is required";
+    } else {
+      return null;
+    }
+  }
+
+  static String? specialityValidator(String? value) {
+    if (value!.isEmpty) {
+      return "Speciality is required";
     } else {
       return null;
     }

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 
 class DoctorCardWidget extends StatelessWidget {
   const DoctorCardWidget({
     super.key,
     required this.doctorModel,
+    required this.isAvailable,
   });
   final DoctorModel doctorModel;
+  final bool isAvailable;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -28,11 +33,17 @@ class DoctorCardWidget extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.network(
-                  doctorModel.profileImage,
-                  height: SizeConfig.height10(context) * 10,
-                  width: SizeConfig.width10(context) * 8,
-                ),
+                doctorModel.profileImage.isEmpty
+                    ? Image.asset(
+                        Assets.blankProfilePicture,
+                        height: SizeConfig.height10(context) * 10,
+                        width: SizeConfig.width10(context) * 8,
+                      )
+                    : Image.network(
+                        doctorModel.profileImage,
+                        height: SizeConfig.height10(context) * 10,
+                        width: SizeConfig.width10(context) * 8,
+                      ),
                 SizedBox(
                   width: SizeConfig.width5(context),
                 ),
@@ -45,15 +56,21 @@ class DoctorCardWidget extends StatelessWidget {
                           Radius.circular(10),
                         ),
                         border: Border.all(
-                          color: doctorAvailableBubbleBorderColor,
+                          color: isAvailable
+                              ? doctorAvailableBubbleBorderColor
+                              : doctorNotAvailableBubbleBorderColor,
                         ),
-                        color: doctorAvailableBubbleColor,
+                        color: isAvailable
+                            ? doctorAvailableBubbleColor
+                            : doctorNotAvailableBubbleColor,
                       ),
                       padding: EdgeInsets.all(
                         SizeConfig.height5(context),
                       ),
                       child: Text(
-                        "Available",
+                        isAvailable
+                            ? Availability.available.name
+                            : Availability.unavailable.name,
                         style: TextStyle(
                           fontSize: SizeConfig.font12(context),
                           color: whiteColor,

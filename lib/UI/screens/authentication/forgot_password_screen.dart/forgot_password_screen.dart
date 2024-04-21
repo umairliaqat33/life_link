@@ -27,16 +27,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarWidget(
-        title: "",
-        context: context,
-        backButton: true,
-      ),
-      body: SafeArea(
-        child: CustomScrollView(
+    return SafeArea(
+      child: Scaffold(
+        appBar: appBarWidget(
+          title: "",
+          context: context,
+          backButton: true,
+        ),
+        body: CustomScrollView(
           slivers: [
             SliverFillRemaining(
+              hasScrollBody: false,
               child: Padding(
                 padding: EdgeInsets.only(
                   top: SizeConfig.height8(context),
