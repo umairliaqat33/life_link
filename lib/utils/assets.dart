@@ -31,7 +31,7 @@ class Assets {
 
 //images
 
-  static const String logo = "$_imagesDir/logo.png";
+  static const String logo = "$_imagesDir/app_logo.png";
   static const String emptyScreenImage = "$_imagesDir/empty_screen.png";
   static const String selectImgSmallRectangle =
       "$_imagesDir/select_img_small_rectangle.png";

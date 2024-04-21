@@ -8,6 +8,7 @@ import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/repositories/auth_repository.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/strings.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -35,25 +36,42 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: SizeConfig.width20(context) * 9,
-                child: Text(
-                  AppStrings.slogan,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: SizeConfig.font22(context),
-                    fontWeight: FontWeight.w300,
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(Assets.primaryBackgroundImage),
+                fit: BoxFit.cover),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    Assets.logo,
+                    width: 150,
+                    height: 150,
                   ),
-                ),
+                  SizedBox(
+                    height: SizeConfig.height8(context),
+                  ),
+                  SizedBox(
+                    width: SizeConfig.width20(context) * 9,
+                    child: Text(
+                      AppStrings.slogan,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: SizeConfig.font22(context),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
