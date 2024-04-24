@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
+import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/image_pickers/big_image_picker.dart';
 import 'package:life_link/UI/widgets/text_fields/text_form_field_widget.dart';
 import 'package:life_link/config/size_config.dart';
@@ -15,12 +16,17 @@ import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/services/date_and_time_service.dart';
 import 'package:life_link/services/media_service.dart';
+import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
 
 class DoctorAddingScreen extends StatefulWidget {
-  const DoctorAddingScreen({super.key});
+  const DoctorAddingScreen({
+    super.key,
+    this.doctorModel,
+  });
+  final DoctorModel? doctorModel;
 
   @override
   State<DoctorAddingScreen> createState() => _DoctorAddingScreenState();
@@ -38,6 +44,17 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
 
   final _formKey = GlobalKey<FormState>();
   PlatformFile? _profilePlatformFile;
+  bool _spinner = false;
+  bool _noImage = false;
+  String _imageLink = '';
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.doctorModel != null) {
+      _setValues();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +80,27 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
                     children: [
                       Column(
                         children: [
-                          ImagePickerBigWidget(
-                            heading: 'Profile Photo',
-                            description:
-                                'add a close-up image of yourself max size is 2 MB',
-                            onPressed: () async => _selectProfileImage(),
-                            platformFile: _profilePlatformFile,
-                            imgUrl: null,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: _noImage
+                                    ? Border.all(
+                                        color: redColor,
+                                        width: 1,
+                                      )
+                                    : null,
+                                borderRadius: _noImage
+                                    ? const BorderRadius.all(
+                                        Radius.circular(10),
+                                      )
+                                    : null),
+                            child: ImagePickerBigWidget(
+                              heading: 'Profile Photo',
+                              description:
+                                  'add a close-up image of yourself max size is 2 MB',
+                              onPressed: () async => _selectProfileImage(),
+                              platformFile: _profilePlatformFile,
+                              imgUrl: _imageLink,
+                            ),
                           ),
                           SizedBox(
                             height: SizeConfig.height8(context),
@@ -154,10 +185,12 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
                       SizedBox(
                         height: SizeConfig.height8(context),
                       ),
-                      CustomButton(
-                        title: "SAVE",
-                        onPressed: () => _uploadDoctorData(),
-                      ),
+                      _spinner
+                          ? const CircularLoaderWidget()
+                          : CustomButton(
+                              title: "SAVE",
+                              onPressed: () => _uploadDoctorData(),
+                            ),
                     ],
                   ),
                 ),
@@ -189,12 +222,27 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
 
   Future<void> _uploadDoctorData() async {
     try {
+      setState(() {
+        _spinner = true;
+      });
       FirestoreController firestoreController = FirestoreController();
       if (_formKey.currentState!.validate()) {
-        String? imageLink = await MediaService.uploadFile(
+        if (_profilePlatformFile == null) {
+          Fluttertoast.showToast(msg: "Please select an image as well");
+          setState(() {
+            _noImage = true;
+            _spinner = false;
+          });
+          return;
+        } else {
+          setState(() {
+            _noImage = false;
+          });
+        }
+        _imageLink = (await MediaService.uploadFile(
           userType: UserType.hospital.name,
           platformFile: _profilePlatformFile,
-        );
+        ))!;
         firestoreController.uploadDoctor(
           DoctorModel(
             email: _emailController.text,
@@ -204,10 +252,10 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
             education: _educationController.text,
             speciality: _specialityController.text,
             otherExperiences: _otherExperienceController.text,
-            profileImage: imageLink!,
+            profileImage: _imageLink,
           ),
         );
-        Fluttertoast.showToast(msg: "Doctor's data uploaded successfully");
+        Fluttertoast.showToast(msg: "Doctor's data saved successfully");
         Navigator.of(context).pop();
       }
     } on NoInternetException catch (e) {
@@ -223,6 +271,9 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
         msg: e.message,
       );
     }
+    setState(() {
+      _spinner = false;
+    });
   }
 
   Future<void> _selectProfileImage() async {
@@ -241,5 +292,17 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
         msg: e.toString(),
       );
     }
+  }
+
+  void _setValues() {
+    _emailController.text = widget.doctorModel!.email;
+    _educationController.text = widget.doctorModel!.education;
+    _nameController.text = widget.doctorModel!.name;
+    _arrivingTimeController.text = widget.doctorModel!.comingTime;
+    _leavingTimeController.text = widget.doctorModel!.leavingTime;
+    _otherExperienceController.text = widget.doctorModel!.otherExperiences;
+    _specialityController.text = widget.doctorModel!.speciality;
+    _imageLink = widget.doctorModel!.profileImage;
+    setState(() {});
   }
 }

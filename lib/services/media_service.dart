@@ -15,12 +15,16 @@ import 'package:life_link/utils/strings.dart';
 
 class MediaService {
   static Future<PlatformFile?> selectFile() async {
-    PermissionStatus permissionStatus = await Permission.storage.request();
+    PermissionStatus permissionStatus = Platform.isIOS
+        ? await Permission.photos.request()
+        : await Permission.storage.request();
+
     try {
       if (permissionStatus == PermissionStatus.granted) {
         PlatformFile platformFile;
-        final result = await FilePicker.platform.pickFiles(
-          type: FileType.image,
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['jpg', 'jpeg', 'png'],
           allowMultiple: false,
         );
         if (result == null) return null;

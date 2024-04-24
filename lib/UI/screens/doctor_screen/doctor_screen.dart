@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:life_link/UI/screens/doctor_adding_screen/doctor_adding_screen.dart';
+import 'package:life_link/UI/screens/doctor_screen/doctor_adding_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/components/doctor_card_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';

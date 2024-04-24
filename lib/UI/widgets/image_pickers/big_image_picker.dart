@@ -27,7 +27,7 @@ class ImagePickerBigWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: imgUrl != null && platformFile == null
+      child: (imgUrl != null && imgUrl!.isNotEmpty) && platformFile == null
           ? MaterialButton(
               onPressed: () async => onPressed(),
               child: SizedBox(
