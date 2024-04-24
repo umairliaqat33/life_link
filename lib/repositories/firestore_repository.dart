@@ -197,6 +197,26 @@ class FirestoreRepository {
     }
   }
 
+  void deleteDoctor(
+    String docId,
+  ) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
+          .collection(CollectionsNames.doctorCollection)
+          .doc(docId)
+          .delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
   Stream<List<DoctorModel?>> getDoctorsStream() {
     return CollectionsNames.firestoreCollection
         .collection(CollectionsNames.hospitalCollection)

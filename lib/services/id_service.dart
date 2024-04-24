@@ -23,7 +23,6 @@ class IdService {
     List<String> combinedCharList = combinedString.split('');
     combinedCharList.shuffle(random);
     String uid = combinedCharList.join();
-    print(uid);
     bool isUIDDuplicate = await firestoreRepository.uidExist(uid);
     if (isUIDDuplicate) {
       IdService.createID();
