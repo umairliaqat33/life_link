@@ -8,6 +8,7 @@ part of 'doctor_model.dart';
 
 _$DoctorModelImpl _$$DoctorModelImplFromJson(Map<String, dynamic> json) =>
     _$DoctorModelImpl(
+      doctorId: json['doctorId'] as String,
       email: json['email'] as String,
       name: json['name'] as String,
       comingTime: json['comingTime'] as String,
@@ -20,6 +21,7 @@ _$DoctorModelImpl _$$DoctorModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$DoctorModelImplToJson(_$DoctorModelImpl instance) =>
     <String, dynamic>{
+      'doctorId': instance.doctorId,
       'email': instance.email,
       'name': instance.name,
       'comingTime': instance.comingTime,

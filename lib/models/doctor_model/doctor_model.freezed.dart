@@ -20,6 +20,7 @@ DoctorModel _$DoctorModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DoctorModel {
+  String get doctorId => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get comingTime => throw _privateConstructorUsedError;
@@ -42,7 +43,8 @@ abstract class $DoctorModelCopyWith<$Res> {
       _$DoctorModelCopyWithImpl<$Res, DoctorModel>;
   @useResult
   $Res call(
-      {String email,
+      {String doctorId,
+      String email,
       String name,
       String comingTime,
       String leavingTime,
@@ -65,6 +67,7 @@ class _$DoctorModelCopyWithImpl<$Res, $Val extends DoctorModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? doctorId = null,
     Object? email = null,
     Object? name = null,
     Object? comingTime = null,
@@ -75,6 +78,10 @@ class _$DoctorModelCopyWithImpl<$Res, $Val extends DoctorModel>
     Object? otherExperiences = null,
   }) {
     return _then(_value.copyWith(
+      doctorId: null == doctorId
+          ? _value.doctorId
+          : doctorId // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -120,7 +127,8 @@ abstract class _$$DoctorModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String email,
+      {String doctorId,
+      String email,
       String name,
       String comingTime,
       String leavingTime,
@@ -141,6 +149,7 @@ class __$$DoctorModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? doctorId = null,
     Object? email = null,
     Object? name = null,
     Object? comingTime = null,
@@ -151,6 +160,10 @@ class __$$DoctorModelImplCopyWithImpl<$Res>
     Object? otherExperiences = null,
   }) {
     return _then(_$DoctorModelImpl(
+      doctorId: null == doctorId
+          ? _value.doctorId
+          : doctorId // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -191,7 +204,8 @@ class __$$DoctorModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DoctorModelImpl implements _DoctorModel {
   const _$DoctorModelImpl(
-      {required this.email,
+      {required this.doctorId,
+      required this.email,
       required this.name,
       required this.comingTime,
       required this.leavingTime,
@@ -203,6 +217,8 @@ class _$DoctorModelImpl implements _DoctorModel {
   factory _$DoctorModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$DoctorModelImplFromJson(json);
 
+  @override
+  final String doctorId;
   @override
   final String email;
   @override
@@ -224,7 +240,7 @@ class _$DoctorModelImpl implements _DoctorModel {
 
   @override
   String toString() {
-    return 'DoctorModel(email: $email, name: $name, comingTime: $comingTime, leavingTime: $leavingTime, education: $education, speciality: $speciality, profileImage: $profileImage, otherExperiences: $otherExperiences)';
+    return 'DoctorModel(doctorId: $doctorId, email: $email, name: $name, comingTime: $comingTime, leavingTime: $leavingTime, education: $education, speciality: $speciality, profileImage: $profileImage, otherExperiences: $otherExperiences)';
   }
 
   @override
@@ -232,6 +248,8 @@ class _$DoctorModelImpl implements _DoctorModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DoctorModelImpl &&
+            (identical(other.doctorId, doctorId) ||
+                other.doctorId == doctorId) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.comingTime, comingTime) ||
@@ -250,8 +268,17 @@ class _$DoctorModelImpl implements _DoctorModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, name, comingTime,
-      leavingTime, education, speciality, profileImage, otherExperiences);
+  int get hashCode => Object.hash(
+      runtimeType,
+      doctorId,
+      email,
+      name,
+      comingTime,
+      leavingTime,
+      education,
+      speciality,
+      profileImage,
+      otherExperiences);
 
   @JsonKey(ignore: true)
   @override
@@ -269,7 +296,8 @@ class _$DoctorModelImpl implements _DoctorModel {
 
 abstract class _DoctorModel implements DoctorModel {
   const factory _DoctorModel(
-      {required final String email,
+      {required final String doctorId,
+      required final String email,
       required final String name,
       required final String comingTime,
       required final String leavingTime,
@@ -281,6 +309,8 @@ abstract class _DoctorModel implements DoctorModel {
   factory _DoctorModel.fromJson(Map<String, dynamic> json) =
       _$DoctorModelImpl.fromJson;
 
+  @override
+  String get doctorId;
   @override
   String get email;
   @override

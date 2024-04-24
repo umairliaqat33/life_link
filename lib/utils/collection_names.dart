@@ -9,4 +9,5 @@ class CollectionsNames {
   static String patientCollection = 'patients';
   static String hospitalCollection = 'hospitals';
   static String doctorCollection = 'doctors';
+  static String usedID = 'usedId';
 }

@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
@@ -15,6 +16,7 @@ import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/services/date_and_time_service.dart';
+import 'package:life_link/services/id_service.dart';
 import 'package:life_link/services/media_service.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
@@ -189,7 +191,7 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
                           ? const CircularLoaderWidget()
                           : CustomButton(
                               title: "SAVE",
-                              onPressed: () => _uploadDoctorData(),
+                              onPressed: () => _saveDoctorDataButton(),
                             ),
                     ],
                   ),
@@ -220,14 +222,14 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
     }
   }
 
-  Future<void> _uploadDoctorData() async {
+  Future<void> _saveDoctorDataButton() async {
     try {
       setState(() {
         _spinner = true;
       });
       FirestoreController firestoreController = FirestoreController();
       if (_formKey.currentState!.validate()) {
-        if (_profilePlatformFile == null) {
+        if (_profilePlatformFile == null && _imageLink.isEmpty) {
           Fluttertoast.showToast(msg: "Please select an image as well");
           setState(() {
             _noImage = true;
@@ -239,24 +241,51 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
             _noImage = false;
           });
         }
-        _imageLink = (await MediaService.uploadFile(
-          userType: UserType.hospital.name,
-          platformFile: _profilePlatformFile,
-        ))!;
-        firestoreController.uploadDoctor(
-          DoctorModel(
-            email: _emailController.text,
-            name: _nameController.text,
-            comingTime: _arrivingTimeController.text,
-            leavingTime: _leavingTimeController.text,
-            education: _educationController.text,
-            speciality: _specialityController.text,
-            otherExperiences: _otherExperienceController.text,
-            profileImage: _imageLink,
-          ),
-        );
+        _imageLink = _imageLink.isEmpty
+            ? (await MediaService.uploadFile(
+                userType: UserType.hospital.name,
+                platformFile: _profilePlatformFile,
+              ))!
+            : _imageLink;
+
+        String id = await IdService.createID();
+        log(id);
+        widget.doctorModel != null
+            ? firestoreController.updateDoctorData(
+                DoctorModel(
+                  email: _emailController.text,
+                  name: _nameController.text,
+                  comingTime: _arrivingTimeController.text,
+                  leavingTime: _leavingTimeController.text,
+                  education: _educationController.text,
+                  speciality: _specialityController.text,
+                  otherExperiences: _otherExperienceController.text,
+                  profileImage: _imageLink,
+                  doctorId: widget.doctorModel!.doctorId,
+                ),
+              )
+            : firestoreController.uploadDoctor(
+                DoctorModel(
+                  email: _emailController.text,
+                  name: _nameController.text,
+                  comingTime: _arrivingTimeController.text,
+                  leavingTime: _leavingTimeController.text,
+                  education: _educationController.text,
+                  speciality: _specialityController.text,
+                  otherExperiences: _otherExperienceController.text,
+                  profileImage: _imageLink,
+                  doctorId: id,
+                ),
+              );
         Fluttertoast.showToast(msg: "Doctor's data saved successfully");
-        Navigator.of(context).pop();
+        widget.doctorModel != null
+            ? Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const BottomNavBar(),
+                ),
+                (route) => false,
+              )
+            : Navigator.of(context).pop();
       }
     } on NoInternetException catch (e) {
       Fluttertoast.showToast(

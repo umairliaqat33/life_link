@@ -51,7 +51,9 @@ class DoctorScreen extends StatelessWidget {
                   return const CircularLoaderWidget();
                 }
                 if (snapshot.data!.isEmpty) {
-                  return const NoDataWidget(alertText: "No Doctors Found");
+                  return const Center(
+                    child: NoDataWidget(alertText: "No Doctors Found"),
+                  );
                 }
                 if (snapshot.hasError) {
                   return const Text(
