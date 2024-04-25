@@ -25,7 +25,7 @@ class TileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: cardColor,
+      color: whiteColor,
       child: ListTile(
         onTap: onTap,
         title: Text(
