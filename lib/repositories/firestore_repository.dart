@@ -217,21 +217,41 @@ class FirestoreRepository {
     }
   }
 
-  Stream<List<DoctorModel?>> getDoctorsStream() {
-    return CollectionsNames.firestoreCollection
-        .collection(CollectionsNames.hospitalCollection)
-        .doc(FirestoreRepository.checkUser()!.uid)
-        .collection(CollectionsNames.doctorCollection)
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.docs
-              .map(
-                (doc) => DoctorModel.fromJson(
-                  doc.data(),
-                ),
-              )
-              .toList(),
-        );
+  Stream<List<DoctorModel?>> getDoctorSearchedStream(String searchValue) {
+    return searchValue.isEmpty
+        ? CollectionsNames.firestoreCollection
+            .collection(CollectionsNames.hospitalCollection)
+            .doc(FirestoreRepository.checkUser()!.uid)
+            .collection(CollectionsNames.doctorCollection)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs
+                  .map(
+                    (doc) => DoctorModel.fromJson(
+                      doc.data(),
+                    ),
+                  )
+                  .toList(),
+            )
+        : CollectionsNames.firestoreCollection
+            .collection(CollectionsNames.hospitalCollection)
+            .doc(FirestoreRepository.checkUser()!.uid)
+            .collection(CollectionsNames.doctorCollection)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs
+                  .map(
+                    (doc) => DoctorModel.fromJson(
+                      doc.data(),
+                    ),
+                  )
+                  .where(
+                    (element) => element.name.toLowerCase().contains(
+                          searchValue.toLowerCase(),
+                        ),
+                  )
+                  .toList(),
+            );
   }
 
   void uploadUID(UIDModel uidModel) {

@@ -143,7 +143,7 @@ class FirestoreController {
     }
   }
 
-  Stream<List<DoctorModel?>> getDoctorStreamList() {
-    return _firestoreRepository.getDoctorsStream();
+  Stream<List<DoctorModel?>> getDoctorSearchedStreamList(String searchValue) {
+    return _firestoreRepository.getDoctorSearchedStream(searchValue);
   }
 }

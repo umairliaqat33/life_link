@@ -1,7 +1,5 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
-// import 'package:life_link/UI/screens/home_screen/home_screen.dart';
 import 'package:life_link/UI/screens/onboarding_screen/onboarding_items.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
