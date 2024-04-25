@@ -41,10 +41,11 @@ class AuthRepository {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'wrong-password' || e.code == 'user-not-found') {
-        throw IncorrectPasswordOrUserNotFound(AppStrings.enteredWrongPassword);
-      } else if (e.code == 'invalid-credential') {
+      if (e.code == 'wrong-password' ||
+          e.code == 'user-not-found' ||
+          e.code == 'invalid-credential') {
         log(e.message.toString());
+        throw IncorrectPasswordOrUserNotFound(AppStrings.enteredWrongPassword);
       } else if (e.code == AppStrings.noInternet) {
         throw SocketException("${e.code}${e.message}");
       } else {

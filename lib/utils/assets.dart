@@ -1,34 +1,37 @@
 class Assets {
   static const String _assetDir = 'assets';
-  static const String _iconDir = '$_assetDir/icons';
   static const String _imagesDir = '$_assetDir/images';
-  static const String _svgDir = '$_iconDir/svgs';
+  static const String _svgIconsDir = '$_assetDir/svg_icons';
 
   //Icons
-  static const String helpIcon = "$_svgDir/help_icon.svg";
+  static const String helpIcon = "$_svgIconsDir/help_icon.svg";
   static const String passwordVisibilityOn =
-      "$_svgDir/password_visibility_on_icon.svg";
+      "$_svgIconsDir/password_visibility_on_icon.svg";
   static const String passwordVisibilityOff =
-      "$_svgDir/password_visibility_off_icon.svg";
-  static const String arrowForwardHead = "$_svgDir/forward_arrow_head_icon.svg";
-  static const String settingsIcon = "$_svgDir/settings_icon.svg";
-  static const String historyIcon = "$_svgDir/history_icon.svg";
-  static const String homeEmptyIcon = "$_svgDir/home_empty_icon.svg";
-  static const String homeFilledIcon = "$_svgDir/home_filled_icon.svg";
-  static const String hospitalBedIcon = "$_svgDir/hospital_bed_icon.svg";
+      "$_svgIconsDir/password_visibility_off_icon.svg";
+  static const String arrowForwardHead =
+      "$_svgIconsDir/forward_arrow_head_icon.svg";
+  static const String settingsIcon = "$_svgIconsDir/settings_icon.svg";
+  static const String historyIcon = "$_svgIconsDir/history_icon.svg";
+  static const String homeEmptyIcon = "$_svgIconsDir/home_empty_icon.svg";
+  static const String homeFilledIcon = "$_svgIconsDir/home_filled_icon.svg";
+  static const String hospitalBedIcon = "$_svgIconsDir/hospital_bed_icon.svg";
   static const String notificationEmptyIcon =
-      "$_svgDir/notification_empty_icon.svg";
+      "$_svgIconsDir/notification_empty_icon.svg";
   static const String notificationFilledIcon =
-      "$_svgDir/notification_filled_icon.svg";
-  static const String patientBedIcon = "$_svgDir/patient_icon.svg";
-  static const String profileEmptyIcon = "$_svgDir/profile_empty_icon.svg";
-  static const String profileFilledIcon = "$_svgDir/profile_filled_icon.svg";
-  static const String listIcon = "$_svgDir/list_icon.svg";
-  static const String logoutIcon = "$_svgDir/logout_icon.svg";
-  static const String patientCuredIcon = "$_svgDir/patient_cured_icon.svg";
-  static const String backButtonWhiteImage = "$_svgDir/back_button_white.svg";
-  static const String backButtonBlackImage = "$_svgDir/back_button_black.svg";
-
+      "$_svgIconsDir/notification_filled_icon.svg";
+  static const String patientBedIcon = "$_svgIconsDir/patient_icon.svg";
+  static const String profileEmptyIcon = "$_svgIconsDir/profile_empty_icon.svg";
+  static const String profileFilledIcon =
+      "$_svgIconsDir/profile_filled_icon.svg";
+  static const String listIcon = "$_svgIconsDir/list_icon.svg";
+  static const String logoutIcon = "$_svgIconsDir/logout_icon.svg";
+  static const String patientCuredIcon = "$_svgIconsDir/patient_cured_icon.svg";
+  static const String backButtonWhiteImage =
+      "$_svgIconsDir/back_button_white.svg";
+  static const String backButtonBlackImage =
+      "$_svgIconsDir/back_button_black.svg";
+  static const String doctorIcon = "$_svgIconsDir/doctor_icon.svg";
 //images
 
   static const String logo = "$_imagesDir/app_logo.png";

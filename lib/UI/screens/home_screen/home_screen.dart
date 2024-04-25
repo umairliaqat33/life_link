@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/UI/screens/available_beds_screen/available_beds_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_screen.dart';
+import 'package:life_link/UI/screens/history_screen/history_screen.dart';
 import 'package:life_link/UI/screens/home_screen/components/info_card.dart';
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
+import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
@@ -116,20 +119,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           onTap: () => onHistoryTap(),
                                         ),
                                         OptionWidget(
-                                          title: "Discharged Patients",
+                                          title: "Manage Doctors",
                                           icon: Assets.patientCuredIcon,
-                                          onTap: () =>
-                                              onDischargedPatientsTap(),
+                                          onTap: () => onManageDoctors(),
                                         ),
                                       ],
-                                    ),
-                                    SizedBox(
-                                      height: SizeConfig.height20(context),
-                                    ),
-                                    OptionWidget(
-                                      title: "Manage Doctors",
-                                      icon: Assets.patientCuredIcon,
-                                      onTap: () => onManageDoctors(),
                                     ),
                                   ],
                                 )
@@ -250,10 +244,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onRideHistoryTap() {}
   void onAvailableHospitalsTap() {}
-  void onIncomingPatientsTap() {}
-  void onAvailableBeds() {}
-  void onHistoryTap() {}
-  void onDischargedPatientsTap() {}
+  void onIncomingPatientsTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const IncomingPatientsScreen(),
+      ),
+    );
+  }
+
+  void onAvailableBeds() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const AvailableBedsScreen(),
+      ),
+    );
+  }
+
+  void onHistoryTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const HistoryScreen(),
+      ),
+    );
+  }
+
   void onManageDoctors() {
     Navigator.of(context).push(
       MaterialPageRoute(
