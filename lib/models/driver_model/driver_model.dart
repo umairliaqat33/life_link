@@ -9,7 +9,7 @@ class DriverModel with _$DriverModel {
     required String email,
     required String name,
     required int age,
-    @Default("") String uid,
+    required String uid,
     @Default("") String licenseNumber,
     @Default("") String employeeId,
   }) = _DriverModel;

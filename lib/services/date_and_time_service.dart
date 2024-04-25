@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DateAndTimeService {
   static Future<TimeOfDay?> timePicker(BuildContext context) async {
@@ -7,6 +10,20 @@ class DateAndTimeService {
       initialTime: TimeOfDay.now(),
     );
     return timeOfDay;
+  }
+
+  static String timeToString(TimeOfDay? timeOfDay) {
+    String time = '';
+    if (timeOfDay != null) {
+      DateTime now = DateTime.now();
+      time = DateFormat('hh:mm a').format(
+        DateTime(
+            now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute),
+      );
+      log(timeOfDay.toString());
+      log(time);
+    }
+    return time;
   }
 
   static Future<DateTime?> datePicker(

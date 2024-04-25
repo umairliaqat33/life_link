@@ -24,14 +24,16 @@ class NotificationScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: 'Search Notification',
-                  contentPadding: const EdgeInsets.all(16.0),
-                  fillColor: Colors.black12,
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(20.0))),
+                prefixIcon: const Icon(Icons.search),
+                hintText: 'Search Notification',
+                contentPadding: const EdgeInsets.all(16.0),
+                fillColor: Colors.black12,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
             ),
           ),
           const SizedBox(
