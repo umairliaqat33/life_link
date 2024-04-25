@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         appBar: appBarWidget(
           title: "Profile",
           context: context,
-          backButton: true,
+          backButton: false,
         ),
         body: SingleChildScrollView(
           child: Padding(

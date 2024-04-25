@@ -40,7 +40,7 @@ class OptionWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(3),
+              padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: primaryColor,

@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
@@ -206,19 +205,14 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
 
   Future<void> _selectTime(TextEditingController controller) async {
     TimeOfDay? timeOfDay = await DateAndTimeService.timePicker(context);
-    if (timeOfDay == null) {
-      Fluttertoast.showToast(msg: "Please select some time");
-    } else {
-      log(timeOfDay.toString());
-      DateTime now = DateTime.now();
-      String time = DateFormat('hh:mm a').format(
-        DateTime(
-            now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute),
-      );
+    if (timeOfDay != null) {
+      String time = DateAndTimeService.timeToString(timeOfDay);
       log(time);
       setState(() {
         controller.text = time;
       });
+    } else {
+      Fluttertoast.showToast(msg: "Please select some time");
     }
   }
 

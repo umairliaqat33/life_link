@@ -25,62 +25,64 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        onTap: _onNavBarButtonTap,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              Assets.homeEmptyIcon,
-              height: SizeConfig.height20(context),
-              width: SizeConfig.width20(context),
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          onTap: _onNavBarButtonTap,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.homeEmptyIcon,
+                height: SizeConfig.height20(context),
+                width: SizeConfig.width20(context),
+              ),
+              activeIcon: SvgPicture.asset(
+                Assets.homeFilledIcon,
+                height: SizeConfig.height20(context),
+                width: SizeConfig.width20(context),
+                colorFilter:
+                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+              ),
+              label: "Home",
             ),
-            activeIcon: SvgPicture.asset(
-              Assets.homeFilledIcon,
-              height: SizeConfig.height20(context),
-              width: SizeConfig.width20(context),
-              colorFilter:
-                  const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.notificationEmptyIcon,
+                height: SizeConfig.height20(context),
+                width: SizeConfig.width20(context),
+              ),
+              activeIcon: SvgPicture.asset(
+                Assets.notificationFilledIcon,
+                height: SizeConfig.height20(context),
+                width: SizeConfig.width20(context),
+                colorFilter:
+                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+              ),
+              label: "Notification",
             ),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              Assets.notificationEmptyIcon,
-              height: SizeConfig.height20(context),
-              width: SizeConfig.width20(context),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                Assets.profileEmptyIcon,
+                height: SizeConfig.height20(context),
+                width: SizeConfig.width20(context),
+              ),
+              activeIcon: SvgPicture.asset(
+                Assets.profileFilledIcon,
+                height: SizeConfig.height20(context),
+                width: SizeConfig.width20(context),
+                colorFilter:
+                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+              ),
+              label: "Profile",
             ),
-            activeIcon: SvgPicture.asset(
-              Assets.notificationFilledIcon,
-              height: SizeConfig.height20(context),
-              width: SizeConfig.width20(context),
-              colorFilter:
-                  const ColorFilter.mode(primaryColor, BlendMode.srcIn),
-            ),
-            label: "Notification",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              Assets.profileEmptyIcon,
-              height: SizeConfig.height20(context),
-              width: SizeConfig.width20(context),
-            ),
-            activeIcon: SvgPicture.asset(
-              Assets.profileFilledIcon,
-              height: SizeConfig.height20(context),
-              width: SizeConfig.width20(context),
-              colorFilter:
-                  const ColorFilter.mode(primaryColor, BlendMode.srcIn),
-            ),
-            label: "Profile",
-          ),
-        ],
+          ],
+        ),
+        body: _btmItems[_selectedIndex],
       ),
-      body: _btmItems[_selectedIndex],
     );
   }
 

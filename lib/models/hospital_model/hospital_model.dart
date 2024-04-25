@@ -9,7 +9,7 @@ class HospitalModel with _$HospitalModel {
     required String email,
     required String name,
     required String address,
-    @Default("") String uid,
+    required String uid,
     @Default("") String phoneNumber,
   }) = _HospitalModel;
 

@@ -10,8 +10,8 @@ _$PatientModelImpl _$$PatientModelImplFromJson(Map<String, dynamic> json) =>
     _$PatientModelImpl(
       email: json['email'] as String,
       name: json['name'] as String,
-      uid: json['uid'] as String? ?? "",
-      age: json['age'] as int? ?? 0,
+      uid: json['uid'] as String,
+      age: (json['age'] as num?)?.toInt() ?? 0,
       cnic: json['cnic'] as String? ?? "",
       disease: json['disease'] as String? ?? "",
       gender: json['gender'] as String? ?? "",

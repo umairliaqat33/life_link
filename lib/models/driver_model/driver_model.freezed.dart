@@ -168,7 +168,7 @@ class _$DriverModelImpl implements _DriverModel {
       {required this.email,
       required this.name,
       required this.age,
-      this.uid = "",
+      required this.uid,
       this.licenseNumber = "",
       this.employeeId = ""});
 
@@ -182,7 +182,6 @@ class _$DriverModelImpl implements _DriverModel {
   @override
   final int age;
   @override
-  @JsonKey()
   final String uid;
   @override
   @JsonKey()
@@ -235,7 +234,7 @@ abstract class _DriverModel implements DriverModel {
       {required final String email,
       required final String name,
       required final int age,
-      final String uid,
+      required final String uid,
       final String licenseNumber,
       final String employeeId}) = _$DriverModelImpl;
 

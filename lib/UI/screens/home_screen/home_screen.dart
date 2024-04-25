@@ -1,18 +1,33 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:life_link/UI/screens/available_beds_screen/available_beds_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_screen.dart';
+import 'package:life_link/UI/screens/history_screen/history_screen.dart';
 import 'package:life_link/UI/screens/home_screen/components/info_card.dart';
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
+import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
+import 'package:life_link/UI/screens/ride_waiting_screen/ride_waiting_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
+import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/repositories/firestore_repository.dart';
+import 'package:life_link/services/date_and_time_service.dart';
+import 'package:life_link/services/id_service.dart';
+import 'package:life_link/services/location_service.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
+import 'package:life_link/utils/exceptions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -116,26 +131,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                           onTap: () => onHistoryTap(),
                                         ),
                                         OptionWidget(
-                                          title: "Discharged Patients",
+                                          title: "Manage Doctors",
                                           icon: Assets.patientCuredIcon,
-                                          onTap: () =>
-                                              onDischargedPatientsTap(),
+                                          onTap: () => onManageDoctors(),
                                         ),
                                       ],
-                                    ),
-                                    SizedBox(
-                                      height: SizeConfig.height20(context),
-                                    ),
-                                    OptionWidget(
-                                      title: "Manage Doctors",
-                                      icon: Assets.patientCuredIcon,
-                                      onTap: () => onManageDoctors(),
                                     ),
                                   ],
                                 )
                               : Column(
                                   children: [
                                     GestureDetector(
+                                      onTap: () => _createAmbulanceRequest(),
                                       child: Container(
                                         width: SizeConfig.width20(context) * 10,
                                         height:
@@ -250,17 +257,80 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onRideHistoryTap() {}
   void onAvailableHospitalsTap() {}
-  void onIncomingPatientsTap() {}
-  void onAvailableBeds() {}
-  void onHistoryTap() {}
-  void onDischargedPatientsTap() {}
+  void onIncomingPatientsTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const IncomingPatientsScreen(),
+      ),
+    );
+  }
+
+  void onAvailableBeds() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const AvailableBedsScreen(),
+      ),
+    );
+  }
+
+  void onHistoryTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const HistoryScreen(),
+      ),
+    );
+  }
+
   void onManageDoctors() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => DoctorScreen(),
+        builder: (context) => const DoctorScreen(),
       ),
     );
   }
 
   void onOldReports() {}
+
+  Future<void> _createAmbulanceRequest() async {
+    try {
+      String reqId = await IdService.createID();
+      String time = DateAndTimeService.timeToString(TimeOfDay.now());
+      PatientModel patientModel = await _firestoreController.getPatientData();
+      Position? currentPosition = await LocationService.getCurrentPosition();
+      RequestModel requestModel = RequestModel(
+        requestId: reqId,
+        requestTime: time,
+        patientId: patientModel.uid,
+        patientLat: currentPosition!.latitude.toString(),
+        patientLon: currentPosition.longitude.toString(),
+      );
+      log(currentPosition.latitude.toString());
+      log(currentPosition.longitude.toString());
+      log(time);
+      log(patientModel.uid);
+      log(patientModel.name);
+      _firestoreController.createAmbulanceRequest(
+        requestModel,
+      );
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => RideWaitingScreen(
+            requestModel: requestModel,
+          ),
+        ),
+      );
+    } on NoInternetException catch (e) {
+      Fluttertoast.showToast(
+        msg: e.message,
+      );
+    } on FormatParsingException catch (e) {
+      Fluttertoast.showToast(
+        msg: e.message,
+      );
+    } on UnknownException catch (e) {
+      Fluttertoast.showToast(
+        msg: e.message,
+      );
+    }
+  }
 }

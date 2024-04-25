@@ -5,6 +5,7 @@ import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
+import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/uid_model/uid_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/collection_names.dart';
@@ -217,21 +218,41 @@ class FirestoreRepository {
     }
   }
 
-  Stream<List<DoctorModel?>> getDoctorsStream() {
-    return CollectionsNames.firestoreCollection
-        .collection(CollectionsNames.hospitalCollection)
-        .doc(FirestoreRepository.checkUser()!.uid)
-        .collection(CollectionsNames.doctorCollection)
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.docs
-              .map(
-                (doc) => DoctorModel.fromJson(
-                  doc.data(),
-                ),
-              )
-              .toList(),
-        );
+  Stream<List<DoctorModel?>> getDoctorSearchedStream(String searchValue) {
+    return searchValue.isEmpty
+        ? CollectionsNames.firestoreCollection
+            .collection(CollectionsNames.hospitalCollection)
+            .doc(FirestoreRepository.checkUser()!.uid)
+            .collection(CollectionsNames.doctorCollection)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs
+                  .map(
+                    (doc) => DoctorModel.fromJson(
+                      doc.data(),
+                    ),
+                  )
+                  .toList(),
+            )
+        : CollectionsNames.firestoreCollection
+            .collection(CollectionsNames.hospitalCollection)
+            .doc(FirestoreRepository.checkUser()!.uid)
+            .collection(CollectionsNames.doctorCollection)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs
+                  .map(
+                    (doc) => DoctorModel.fromJson(
+                      doc.data(),
+                    ),
+                  )
+                  .where(
+                    (element) => element.name.toLowerCase().contains(
+                          searchValue.toLowerCase(),
+                        ),
+                  )
+                  .toList(),
+            );
   }
 
   void uploadUID(UIDModel uidModel) {
@@ -261,6 +282,22 @@ class FirestoreRepository {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void createAmbulanceRequest(RequestModel requestModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.requestCollection)
+          .doc(requestModel.requestId)
+          .set(requestModel.toJson());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
     }
   }
 }

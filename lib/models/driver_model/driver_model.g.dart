@@ -10,8 +10,8 @@ _$DriverModelImpl _$$DriverModelImplFromJson(Map<String, dynamic> json) =>
     _$DriverModelImpl(
       email: json['email'] as String,
       name: json['name'] as String,
-      age: json['age'] as int,
-      uid: json['uid'] as String? ?? "",
+      age: (json['age'] as num).toInt(),
+      uid: json['uid'] as String,
       licenseNumber: json['licenseNumber'] as String? ?? "",
       employeeId: json['employeeId'] as String? ?? "",
     );
