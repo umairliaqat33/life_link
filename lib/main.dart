@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 // import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 // import 'package:life_link/UI/screens/home_screen/home_screen.dart';
 import 'package:life_link/UI/screens/onboarding_screen/onboarding_view.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: scaffoldColor,
       ),
       debugShowCheckedModeBanner: false,
-      home: onboarding ? LoginScreen() : OnboardingView(),
+      home: onboarding ? const LoginScreen() : const OnboardingView(),
     );
   }
 }
