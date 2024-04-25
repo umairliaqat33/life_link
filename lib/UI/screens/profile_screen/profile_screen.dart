@@ -9,8 +9,6 @@ import 'package:life_link/UI/screens/settings_screen/settings_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 // import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
-import 'package:life_link/controllers/firestore_controller.dart';
-import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/utils.dart';
@@ -26,9 +24,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   // var userData;
-  PatientModel? _patientModel;
-  final FirestoreController _firestoreController = FirestoreController();
-
   String? imageLink;
   String name = "";
   String email = "";
@@ -139,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )
                         ],
                       ),
-                      profile_text(text: "Name", value: "Moasib"),
+                      const profile_text(text: "Name", value: "Moasib"),
                       const profile_text(text: "Age", value: "Moasib"),
                       const profile_text(text: "Gender", value: "Moasib"),
                       const profile_text(text: "Diease", value: "Moasib"),
@@ -217,6 +212,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Future<void> edit_profile_data() async {
     String newValue = "";
     await showDialog(
@@ -260,6 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ));
   }
 
+  // ignore: non_constant_identifier_names
   Future<void> edit_personal_data() async {
     String newValue = "";
     await showDialog(
@@ -332,10 +329,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: const Text("Save"))
               ],
             ));
-  }
-
-  Future<void> _getAndSetPatientData() async {
-    _patientModel = await _firestoreController.getPatientData();
-    setState(() {});
   }
 }

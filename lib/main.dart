@@ -16,15 +16,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-<<<<<<< HEAD
-  runApp(const MyApp());
-  // DependencyInjection.init();
-=======
   runApp(MyApp(
     onboarding: onboarding,
   ));
-  DependencyInjection.init();
->>>>>>> 8a9bd0003335ef246e8c1d6b921e2850bb5f6e57
+  //DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {

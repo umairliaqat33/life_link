@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/config/size_config.dart';
 
+// ignore: camel_case_types
 class profile_text extends StatelessWidget {
   const profile_text({super.key, required this.text, required this.value});
   final String text, value;
