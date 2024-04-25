@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
@@ -9,8 +11,12 @@ import 'package:life_link/UI/screens/settings_screen/settings_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 // import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/patient_model/patient_model.dart';
+import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/utils.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -25,14 +31,20 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   // var userData;
   String? imageLink;
-  String name = "";
-  String email = "";
-
-  final currentuser = FirebaseAuth.instance.currentUser!;
+  String _name = "";
+  String _email = "";
+  int _age = 0;
+  String _gender = '';
+  String _phoneNumber = '';
+  String _disease = '';
+  PatientModel? _patientModel;
+  UserModel? _userModel;
+  final FirestoreController _firestoreController = FirestoreController();
 
   @override
   void initState() {
     super.initState();
+    _checkUserType();
   }
 
   @override
@@ -101,19 +113,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       profile_text(
                         text: "UserName",
-                        value: currentuser.email!,
+                        value: _name,
                       ),
-                      profile_text(text: "Email", value: currentuser.email!)
+                      profile_text(
+                        text: "Email",
+                        value: _email,
+                      )
                     ])),
 
                 const Divider(),
 
                 Container(
-                    padding: EdgeInsets.all(SizeConfig.pad12(context)),
-                    decoration: const BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    child: Column(children: [
+                  padding: EdgeInsets.all(SizeConfig.pad12(context)),
+                  decoration: const BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  child: Column(
+                    children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -134,13 +150,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )
                         ],
                       ),
-                      const profile_text(text: "Name", value: "Moasib"),
-                      const profile_text(text: "Age", value: "Moasib"),
-                      const profile_text(text: "Gender", value: "Moasib"),
-                      const profile_text(text: "Diease", value: "Moasib"),
-                      const profile_text(text: "Phone Number", value: "Moasib"),
-                    ])),
-
+                      profile_text(
+                        text: "Name",
+                        value: _name,
+                      ),
+                      profile_text(
+                        text: "Age",
+                        value: _age.toString(),
+                      ),
+                      profile_text(
+                        text: "Gender",
+                        value: _gender,
+                      ),
+                      profile_text(
+                        text: "Diease",
+                        value: _disease,
+                      ),
+                      profile_text(
+                        text: "Phone Number",
+                        value: _phoneNumber,
+                      ),
+                    ],
+                  ),
+                ),
                 TileWidget(
                   text: "Settings",
                   trailingImg: Assets.arrowForwardHead,
@@ -173,6 +205,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _getAndSetPatientData() async {
+    try {
+      _patientModel = await _firestoreController.getPatientData();
+      if (_patientModel != null) {
+        _name = _patientModel!.name;
+        _age = _patientModel!.age;
+        _disease = _patientModel!.disease;
+        _phoneNumber = _patientModel!.phoneNumber;
+        _gender = _patientModel!.gender;
+        _email = _patientModel!.email;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    setState(() {});
+  }
+
+  Future<void> _checkUserType() async {
+    try {
+      _userModel = await _firestoreController.getUserData();
+      if (_userModel != null) {
+        if (_userModel!.userType == UserType.patient.name) {
+          _getAndSetPatientData();
+        }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   // ProgressCard _createProgressCard(String userRole, int position) {
