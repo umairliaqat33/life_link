@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/UI/screens/doctor_screen/components/doctor_viewing_alert.dart';
+import 'package:life_link/UI/widgets/alerts/doctor_deletion_alert.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/utils/assets.dart';
@@ -95,7 +97,10 @@ class DoctorCardWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () => _viewDoctorButton(
+                            context,
+                            doctorModel,
+                          ),
                           child: Text(
                             "View Doctor",
                             style: TextStyle(
@@ -116,7 +121,10 @@ class DoctorCardWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () => _deleteDoctor(
+                            context,
+                            doctorModel.doctorId,
+                          ),
                           child: Text(
                             "Delete Doctor",
                             style: TextStyle(
@@ -134,6 +142,29 @@ class DoctorCardWidget extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _viewDoctorButton(
+    BuildContext context,
+    DoctorModel doc,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return DoctorViewingAlert(doctorModel: doc);
+      },
+    );
+  }
+
+  void _deleteDoctor(BuildContext context, String id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return DoctorDeletionAlert(
+          uid: id,
+        );
+      },
     );
   }
 }

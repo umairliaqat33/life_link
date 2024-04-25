@@ -5,6 +5,7 @@ import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
+import 'package:life_link/models/uid_model/uid_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/collection_names.dart';
 import 'package:life_link/utils/exceptions.dart';
@@ -160,10 +161,52 @@ class FirestoreRepository {
           .collection(CollectionsNames.hospitalCollection)
           .doc(FirestoreRepository.checkUser()!.uid)
           .collection(CollectionsNames.doctorCollection)
-          .doc(doctorModel.name)
+          .doc(doctorModel.doctorId)
           .set(
             doctorModel.toJson(),
           );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void updateDoctor(
+    DoctorModel doctorModel,
+  ) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
+          .collection(CollectionsNames.doctorCollection)
+          .doc(doctorModel.doctorId)
+          .update(
+            doctorModel.toJson(),
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void deleteDoctor(
+    String docId,
+  ) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
+          .collection(CollectionsNames.doctorCollection)
+          .doc(docId)
+          .delete();
     } on FirebaseAuthException catch (e) {
       if (e.code == AppStrings.noInternet) {
         throw SocketException("${e.code}${e.message}");
@@ -189,5 +232,35 @@ class FirestoreRepository {
               )
               .toList(),
         );
+  }
+
+  void uploadUID(UIDModel uidModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.usersCollection)
+          .doc()
+          .set(
+            uidModel.toJson(),
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  Future<bool> uidExist(String uid) async {
+    var v = await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.usedID)
+        .where('uid', isEqualTo: uid)
+        .get();
+    if (v.docs.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

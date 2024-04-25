@@ -113,6 +113,36 @@ class FirestoreController {
     }
   }
 
+  void updateDoctorData(
+    DoctorModel doctorModel,
+  ) async {
+    try {
+      _firestoreRepository.updateDoctor(doctorModel);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void deleteDoctorData(
+    String docId,
+  ) async {
+    try {
+      _firestoreRepository.deleteDoctor(docId);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
   Stream<List<DoctorModel?>> getDoctorStreamList() {
     return _firestoreRepository.getDoctorsStream();
   }

@@ -6,6 +6,7 @@ part 'doctor_model.g.dart';
 @freezed
 class DoctorModel with _$DoctorModel {
   const factory DoctorModel({
+    required String doctorId,
     required String email,
     required String name,
     required String comingTime,
