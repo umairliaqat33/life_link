@@ -8,4 +8,7 @@ class AppStrings {
   static String driverNotRegistered = "Not Registered!";
   static String slogan = "Get to know before you go";
   static String userNotFound = 'user-not-found';
+  static String storagePermissionDeniedPermanentlyText =
+      "Storage Permission denied Permanently";
+  static String storagePermissionDeniedText = "Storage Permission denied once";
 }

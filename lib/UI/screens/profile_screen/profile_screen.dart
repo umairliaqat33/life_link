@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:life_link/UI/screens/profile_screen/components/info_card.dart';
 import 'package:life_link/UI/screens/profile_screen/components/tile_widget.dart';
 import 'package:life_link/UI/screens/settings_screen/settings_screen.dart';
+import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 // import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/assets.dart';
@@ -31,18 +32,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 1,
-          backgroundColor: backgroundColor,
-          centerTitle: true,
-          title: Text(
-            "Profile",
-            style: TextStyle(
-              color: appTextColor,
-              fontSize: SizeConfig.font18(context),
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+        appBar: appBarWidget(
+          title: "Profile",
+          context: context,
+          backButton: true,
         ),
         body: Column(
           children: [

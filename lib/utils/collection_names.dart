@@ -8,6 +8,6 @@ class CollectionsNames {
   static String driverCollection = 'drivers';
   static String patientCollection = 'patients';
   static String hospitalCollection = 'hospitals';
-  static String articleCollection = 'articles';
-  static String soldArticleCollection = 'soldArticles';
+  static String doctorCollection = 'doctors';
+  static String usedID = 'usedId';
 }
