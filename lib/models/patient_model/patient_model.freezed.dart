@@ -193,7 +193,7 @@ class _$PatientModelImpl implements _PatientModel {
   const _$PatientModelImpl(
       {required this.email,
       required this.name,
-      this.uid = "",
+      required this.uid,
       this.age = 0,
       this.cnic = "",
       this.disease = "",
@@ -208,7 +208,6 @@ class _$PatientModelImpl implements _PatientModel {
   @override
   final String name;
   @override
-  @JsonKey()
   final String uid;
   @override
   @JsonKey()
@@ -270,7 +269,7 @@ abstract class _PatientModel implements PatientModel {
   const factory _PatientModel(
       {required final String email,
       required final String name,
-      final String uid,
+      required final String uid,
       final int age,
       final String cnic,
       final String disease,

@@ -8,7 +8,7 @@ class PatientModel with _$PatientModel {
   const factory PatientModel({
     required String email,
     required String name,
-    @Default("") String uid,
+    required String uid,
     @Default(0) int age,
     @Default("") String cnic,
     @Default("") String disease,

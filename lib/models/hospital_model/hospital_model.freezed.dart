@@ -155,7 +155,7 @@ class _$HospitalModelImpl implements _HospitalModel {
       {required this.email,
       required this.name,
       required this.address,
-      this.uid = "",
+      required this.uid,
       this.phoneNumber = ""});
 
   factory _$HospitalModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -168,7 +168,6 @@ class _$HospitalModelImpl implements _HospitalModel {
   @override
   final String address;
   @override
-  @JsonKey()
   final String uid;
   @override
   @JsonKey()
@@ -216,7 +215,7 @@ abstract class _HospitalModel implements HospitalModel {
       {required final String email,
       required final String name,
       required final String address,
-      final String uid,
+      required final String uid,
       final String phoneNumber}) = _$HospitalModelImpl;
 
   factory _HospitalModel.fromJson(Map<String, dynamic> json) =

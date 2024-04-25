@@ -11,7 +11,7 @@ _$HospitalModelImpl _$$HospitalModelImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       name: json['name'] as String,
       address: json['address'] as String,
-      uid: json['uid'] as String? ?? "",
+      uid: json['uid'] as String,
       phoneNumber: json['phoneNumber'] as String? ?? "",
     );
 

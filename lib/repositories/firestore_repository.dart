@@ -5,6 +5,7 @@ import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
+import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/uid_model/uid_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/collection_names.dart';
@@ -281,6 +282,22 @@ class FirestoreRepository {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void createAmbulanceRequest(RequestModel requestModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.requestCollection)
+          .doc(requestModel.requestId)
+          .set(requestModel.toJson());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
     }
   }
 }
