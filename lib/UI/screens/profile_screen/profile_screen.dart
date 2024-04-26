@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -65,18 +64,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(
                   height: SizeConfig.height8(context) * 2,
                 ),
-                const Center(
+                Center(
                   child: Stack(children: [
                     CircleAvatar(
-                      // backgroundImage: ,
+                      backgroundImage: null,
                       radius: 75.0,
                     ),
                     Positioned(
-                      left: 50,
-                      bottom: 50,
+                      left: 80,
+                      bottom: -10,
                       child: IconButton(
-                        onPressed: null,
-                        icon: Icon(Icons.add_a_photo_sharp),
+                        onPressed: () {},
+                        icon: Icon(Icons.edit),
                       ),
                     )
                   ]),
