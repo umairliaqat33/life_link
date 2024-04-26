@@ -24,6 +24,8 @@ mixin _$HospitalModel {
   String get name => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
+  double get hospitalLat => throw _privateConstructorUsedError;
+  double get hospitalLon => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,6 +45,8 @@ abstract class $HospitalModelCopyWith<$Res> {
       String name,
       String address,
       String uid,
+      double hospitalLat,
+      double hospitalLon,
       String phoneNumber});
 }
 
@@ -63,6 +67,8 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
     Object? name = null,
     Object? address = null,
     Object? uid = null,
+    Object? hospitalLat = null,
+    Object? hospitalLon = null,
     Object? phoneNumber = null,
   }) {
     return _then(_value.copyWith(
@@ -82,6 +88,14 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      hospitalLat: null == hospitalLat
+          ? _value.hospitalLat
+          : hospitalLat // ignore: cast_nullable_to_non_nullable
+              as double,
+      hospitalLon: null == hospitalLon
+          ? _value.hospitalLon
+          : hospitalLon // ignore: cast_nullable_to_non_nullable
+              as double,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -103,6 +117,8 @@ abstract class _$$HospitalModelImplCopyWith<$Res>
       String name,
       String address,
       String uid,
+      double hospitalLat,
+      double hospitalLon,
       String phoneNumber});
 }
 
@@ -121,6 +137,8 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? address = null,
     Object? uid = null,
+    Object? hospitalLat = null,
+    Object? hospitalLon = null,
     Object? phoneNumber = null,
   }) {
     return _then(_$HospitalModelImpl(
@@ -140,6 +158,14 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
+      hospitalLat: null == hospitalLat
+          ? _value.hospitalLat
+          : hospitalLat // ignore: cast_nullable_to_non_nullable
+              as double,
+      hospitalLon: null == hospitalLon
+          ? _value.hospitalLon
+          : hospitalLon // ignore: cast_nullable_to_non_nullable
+              as double,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -156,6 +182,8 @@ class _$HospitalModelImpl implements _HospitalModel {
       required this.name,
       required this.address,
       required this.uid,
+      required this.hospitalLat,
+      required this.hospitalLon,
       this.phoneNumber = ""});
 
   factory _$HospitalModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -170,12 +198,16 @@ class _$HospitalModelImpl implements _HospitalModel {
   @override
   final String uid;
   @override
+  final double hospitalLat;
+  @override
+  final double hospitalLon;
+  @override
   @JsonKey()
   final String phoneNumber;
 
   @override
   String toString() {
-    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, phoneNumber: $phoneNumber)';
+    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, hospitalLat: $hospitalLat, hospitalLon: $hospitalLon, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -187,14 +219,18 @@ class _$HospitalModelImpl implements _HospitalModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.hospitalLat, hospitalLat) ||
+                other.hospitalLat == hospitalLat) &&
+            (identical(other.hospitalLon, hospitalLon) ||
+                other.hospitalLon == hospitalLon) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, email, name, address, uid, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, email, name, address, uid,
+      hospitalLat, hospitalLon, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -216,6 +252,8 @@ abstract class _HospitalModel implements HospitalModel {
       required final String name,
       required final String address,
       required final String uid,
+      required final double hospitalLat,
+      required final double hospitalLon,
       final String phoneNumber}) = _$HospitalModelImpl;
 
   factory _HospitalModel.fromJson(Map<String, dynamic> json) =
@@ -229,6 +267,10 @@ abstract class _HospitalModel implements HospitalModel {
   String get address;
   @override
   String get uid;
+  @override
+  double get hospitalLat;
+  @override
+  double get hospitalLon;
   @override
   String get phoneNumber;
   @override

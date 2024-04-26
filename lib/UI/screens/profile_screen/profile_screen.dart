@@ -11,6 +11,7 @@ import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 // import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/assets.dart';
@@ -37,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _phoneNumber = '';
   String _disease = '';
   PatientModel? _patientModel;
+  HospitalModel? _hospitalModel;
   UserModel? _userModel;
   final FirestoreController _firestoreController = FirestoreController();
 
@@ -66,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Center(
                   child: Stack(children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: null,
                       radius: 75.0,
                     ),
@@ -75,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       bottom: -10,
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.edit),
+                        icon: const Icon(Icons.edit),
                       ),
                     )
                   ]),
@@ -223,12 +225,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {});
   }
 
+  Future<void> _getAndSetHospitalData() async {
+    try {
+      _hospitalModel = await _firestoreController.getHospitalData();
+      if (_hospitalModel != null) {
+        _name = _hospitalModel!.name;
+        _phoneNumber = _hospitalModel!.phoneNumber;
+        _email = _hospitalModel!.email;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    setState(() {});
+  }
+
   Future<void> _checkUserType() async {
     try {
       _userModel = await _firestoreController.getUserData();
       if (_userModel != null) {
         if (_userModel!.userType == UserType.patient.name) {
           _getAndSetPatientData();
+        } else if (_userModel!.userType == UserType.hospital.name) {
+          _getAndSetHospitalData();
         }
       }
     } catch (e) {

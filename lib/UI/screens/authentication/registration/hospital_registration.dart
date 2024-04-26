@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:life_link/UI/screens/authentication/components/auth_label_widget.dart';
 import 'package:life_link/UI/screens/authentication/components/other_auth_option.dart';
 import 'package:life_link/UI/screens/authentication/design_layers/layer_two.dart';
@@ -14,6 +15,7 @@ import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/services/location_service.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
@@ -119,7 +121,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
                               controller: _addressController,
                               validator: (value) =>
                                   Utils.addressValidator(value),
-                              hintText: "Wadat Road",
+                              hintText: "Wahdat Road",
                               inputType: TextInputType.text,
                               inputAction: TextInputAction.next,
                             ),
@@ -207,6 +209,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
               userType: UserType.hospital.name,
             ),
           );
+          Position? position = await LocationService.getCurrentPosition();
           firestoreController.uploadHospitalInformation(
             HospitalModel(
               email: _emailController.text,
@@ -214,6 +217,8 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
               address: _addressController.text,
               uid: userCredential.user!.uid,
               phoneNumber: _phoneControler.text,
+              hospitalLat: position!.latitude,
+              hospitalLon: position.longitude,
             ),
           );
           log("Signup Successful");
