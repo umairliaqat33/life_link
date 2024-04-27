@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/screens/doctor_screen/components/doctor_viewing_alert.dart';
 import 'package:life_link/UI/widgets/alerts/doctor_deletion_alert.dart';
+import 'package:life_link/UI/widgets/switchs/custom_switch.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/utils/assets.dart';
@@ -8,13 +9,17 @@ import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
 
 class DoctorCardWidget extends StatelessWidget {
-  const DoctorCardWidget({
+  DoctorCardWidget({
     super.key,
     required this.doctorModel,
     required this.isAvailable,
+    required this.switchValue,
+    required this.onChanged,
   });
   final DoctorModel doctorModel;
   final bool isAvailable;
+  final bool switchValue;
+  final ValueChanged<bool> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -24,28 +29,45 @@ class DoctorCardWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              doctorModel.name,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: SizeConfig.font18(context),
-                color: appTextColor,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  doctorModel.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.font18(context),
+                    color: appTextColor,
+                  ),
+                ),
+                CustomSwitch(
+                  value: switchValue,
+                  onChanged: onChanged,
+                  activeColor: Colors.green,
+                  inactiveColor: Colors.red,
+                )
+              ],
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                doctorModel.profileImage.isEmpty
-                    ? Image.asset(
-                        Assets.blankProfilePicture,
-                        height: SizeConfig.height10(context) * 10,
-                        width: SizeConfig.width10(context) * 8,
-                      )
-                    : Image.network(
-                        doctorModel.profileImage,
-                        height: SizeConfig.height10(context) * 10,
-                        width: SizeConfig.width10(context) * 8,
-                      ),
+                CircleAvatar(
+                  radius: SizeConfig.width10(context) * 8 / 2,
+                  child: doctorModel.profileImage.isEmpty
+                      ? Image.asset(
+                          Assets.blankProfilePicture,
+                          height: SizeConfig.height10(context) * 10,
+                          width: SizeConfig.width10(context) * 8,
+                        )
+                      : ClipOval(
+                          child: Image.network(
+                            doctorModel.profileImage,
+                            height: SizeConfig.height10(context) * 10,
+                            width: SizeConfig.width10(context) * 8,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                ),
                 SizedBox(
                   width: SizeConfig.width5(context),
                 ),

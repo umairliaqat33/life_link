@@ -11,6 +11,7 @@ import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 // import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
@@ -37,8 +38,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _gender = '';
   String _phoneNumber = '';
   String _disease = '';
+  String _address = '';
+  String _emp_id = '';
+  String _license = "";
   PatientModel? _patientModel;
   HospitalModel? _hospitalModel;
+  DriverModel? _driverModel;
   UserModel? _userModel;
   final FirestoreController _firestoreController = FirestoreController();
 
@@ -59,121 +64,385 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: SizeConfig.height8(context) * 2,
-                ),
-                Center(
-                  child: Stack(children: [
-                    const CircleAvatar(
-                      backgroundImage: null,
-                      radius: 75.0,
-                    ),
-                    Positioned(
-                      left: 80,
-                      bottom: -10,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.edit),
-                      ),
-                    )
-                  ]),
-                ),
-                SizedBox(
-                  height: SizeConfig.height12(context),
-                ),
-                const Divider(),
-                Container(
-                    padding: EdgeInsets.all(SizeConfig.pad12(context)),
-                    decoration: const BoxDecoration(
-                        color: whiteColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                _userModel!.userType == UserType.patient.name
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "PROFILE INFORMATION",
-                            style: TextStyle(
-                              color: blackColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.font16(context),
+                          SizedBox(
+                            height: SizeConfig.height8(context) * 2,
+                          ),
+                          Center(
+                            child: Stack(children: [
+                              const CircleAvatar(
+                                backgroundImage: null,
+                                radius: 75.0,
+                              ),
+                              Positioned(
+                                left: 80,
+                                bottom: -10,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.edit),
+                                ),
+                              )
+                            ]),
+                          ),
+                          SizedBox(
+                            height: SizeConfig.height12(context),
+                          ),
+                          const Divider(),
+                          Container(
+                              padding:
+                                  EdgeInsets.all(SizeConfig.pad12(context)),
+                              decoration: const BoxDecoration(
+                                  color: whiteColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: Column(children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "PROFILE INFORMATION",
+                                      style: TextStyle(
+                                        color: blackColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: SizeConfig.font16(context),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => edit_profile_data(),
+                                      child: const Text(
+                                        "Edit",
+                                        style: TextStyle(color: redColor),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                profile_text(
+                                  text: "UserName",
+                                  value: _name,
+                                ),
+                                profile_text(
+                                  text: "Email",
+                                  value: _email,
+                                )
+                              ])),
+
+                          const Divider(),
+
+                          Container(
+                            padding: EdgeInsets.all(SizeConfig.pad12(context)),
+                            decoration: const BoxDecoration(
+                                color: whiteColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0))),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "PROFILE INFORMATION",
+                                      style: TextStyle(
+                                        color: blackColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: SizeConfig.font16(context),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => edit_personal_data(),
+                                      child: const Text(
+                                        "Edit",
+                                        style: TextStyle(color: redColor),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                profile_text(
+                                  text: "Name",
+                                  value: _name,
+                                ),
+                                profile_text(
+                                  text: "Age",
+                                  value: _age.toString(),
+                                ),
+                                profile_text(
+                                  text: "Gender",
+                                  value: _gender,
+                                ),
+                                profile_text(
+                                  text: "Diease",
+                                  value: _disease,
+                                ),
+                                profile_text(
+                                  text: "Phone Number",
+                                  value: _phoneNumber,
+                                ),
+                              ],
                             ),
                           ),
-                          TextButton(
-                            onPressed: () => edit_profile_data(),
-                            child: const Text(
-                              "Edit",
-                              style: TextStyle(color: redColor),
-                            ),
-                          )
+
+                          // TileWidget(
+                          //   text: getUserType() == UserType.driver.name
+                          //       ? AppStrings.favoriteBusinesses
+                          //       : AppStrings.favoriteDrivers,
+                          //   trailingImg: Assets.arrowForwardHead,
+                          //   onTap: null,
+                          //   cardColor: backgroundColor,
+                          //   leadingImg: Assets.favoriteIcon,
+                          //   titleTextColor: appTextColor,
+                          // ),
+                          // const TileWidget(
+                          //   text: "Help",
+                          //   trailingImg: Assets.arrowForwardHead,
+                          //   onTap: null,
+                          //   cardColor: backgroundColor,
+                          //   leadingImg: Assets.helpIcon,
+                          //   titleTextColor: appTextColor,
+                          // ),
                         ],
-                      ),
-                      profile_text(
-                        text: "UserName",
-                        value: _name,
-                      ),
-                      profile_text(
-                        text: "Email",
-                        value: _email,
                       )
-                    ])),
+                    : _userModel!.userType == UserType.hospital.name
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: SizeConfig.height8(context) * 2,
+                              ),
+                              // Center(
+                              //   child: Stack(children: [
+                              //     const CircleAvatar(
+                              //       backgroundImage: null,
+                              //       radius: 75.0,
+                              //     ),
+                              //     Positioned(
+                              //       left: 80,
+                              //       bottom: -10,
+                              //       child: IconButton(
+                              //         onPressed: () {},
+                              //         icon: const Icon(Icons.edit),
+                              //       ),
+                              //     )
+                              //   ]),
+                              // ),
+                              SizedBox(
+                                height: SizeConfig.height12(context),
+                              ),
+                              const Divider(),
+                              Container(
+                                  padding:
+                                      EdgeInsets.all(SizeConfig.pad12(context)),
+                                  decoration: const BoxDecoration(
+                                      color: whiteColor,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
+                                  child: Column(children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "PROFILE INFORMATION",
+                                          style: TextStyle(
+                                            color: blackColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize:
+                                                SizeConfig.font16(context),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => edit_profile_data(),
+                                          child: const Text(
+                                            "Edit",
+                                            style: TextStyle(color: redColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    profile_text(
+                                      text: "UserName",
+                                      value: _name,
+                                    ),
+                                    profile_text(
+                                      text: "Email",
+                                      value: _email,
+                                    )
+                                  ])),
 
-                const Divider(),
+                              const Divider(),
 
-                Container(
-                  padding: EdgeInsets.all(SizeConfig.pad12(context)),
-                  decoration: const BoxDecoration(
-                      color: whiteColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "PROFILE INFORMATION",
-                            style: TextStyle(
-                              color: blackColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.font16(context),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => edit_personal_data(),
-                            child: const Text(
-                              "Edit",
-                              style: TextStyle(color: redColor),
-                            ),
+                              Container(
+                                padding:
+                                    EdgeInsets.all(SizeConfig.pad12(context)),
+                                decoration: const BoxDecoration(
+                                    color: whiteColor,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "PROFILE INFORMATION",
+                                          style: TextStyle(
+                                            color: blackColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize:
+                                                SizeConfig.font16(context),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => edit_personal_data(),
+                                          child: const Text(
+                                            "Edit",
+                                            style: TextStyle(color: redColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    profile_text(
+                                      text: "Name",
+                                      value: _name,
+                                    ),
+                                    profile_text(
+                                      text: "Address",
+                                      value: _address,
+                                    ),
+                                    profile_text(
+                                      text: "Phone Number",
+                                      value: _phoneNumber,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           )
-                        ],
-                      ),
-                      profile_text(
-                        text: "Name",
-                        value: _name,
-                      ),
-                      profile_text(
-                        text: "Age",
-                        value: _age.toString(),
-                      ),
-                      profile_text(
-                        text: "Gender",
-                        value: _gender,
-                      ),
-                      profile_text(
-                        text: "Diease",
-                        value: _disease,
-                      ),
-                      profile_text(
-                        text: "Phone Number",
-                        value: _phoneNumber,
-                      ),
-                    ],
-                  ),
-                ),
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: SizeConfig.height8(context) * 2,
+                              ),
+                              // Center(
+                              //   child: Stack(children: [
+                              //     const CircleAvatar(
+                              //       backgroundImage: null,
+                              //       radius: 75.0,
+                              //     ),
+                              //     Positioned(
+                              //       left: 80,
+                              //       bottom: -10,
+                              //       child: IconButton(
+                              //         onPressed: () {},
+                              //         icon: const Icon(Icons.edit),
+                              //       ),
+                              //     )
+                              //   ]),
+                              // ),
+                              SizedBox(
+                                height: SizeConfig.height12(context),
+                              ),
+                              const Divider(),
+                              Container(
+                                  padding:
+                                      EdgeInsets.all(SizeConfig.pad12(context)),
+                                  decoration: const BoxDecoration(
+                                      color: whiteColor,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
+                                  child: Column(children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "PROFILE INFORMATION",
+                                          style: TextStyle(
+                                            color: blackColor,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize:
+                                                SizeConfig.font16(context),
+                                          ),
+                                        ),
+                                        // TextButton(
+                                        //   onPressed: () => edit_profile_data(),
+                                        //   child: const Text(
+                                        //     "Edit",
+                                        //     style: TextStyle(color: redColor),
+                                        //   ),
+                                        // )
+                                      ],
+                                    ),
+                                    profile_text(
+                                      text: "UserName",
+                                      value: _name,
+                                    ),
+                                    profile_text(
+                                      text: "Email",
+                                      value: _email,
+                                    )
+                                  ])),
+
+                              const Divider(),
+
+                              Container(
+                                padding:
+                                    EdgeInsets.all(SizeConfig.pad12(context)),
+                                decoration: const BoxDecoration(
+                                    color: whiteColor,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "PROFILE INFORMATION",
+                                            style: TextStyle(
+                                              color: blackColor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  SizeConfig.font16(context),
+                                            ),
+                                          ),
+                                          // TextButton(
+                                          //   onPressed: () => edit_personal_data(),
+                                          //   child: const Text(
+                                          //     "Edit",
+                                          //     style: TextStyle(color: redColor),
+                                          //   ),
+                                          // )
+                                        ]),
+                                    profile_text(
+                                      text: "Name",
+                                      value: _name,
+                                    ),
+                                    profile_text(
+                                      text: "Age",
+                                      value: _age.toString(),
+                                    ),
+                                    profile_text(
+                                      text: "Employee Id",
+                                      value: _emp_id,
+                                    ),
+                                    profile_text(
+                                      text: "License No",
+                                      value: _license,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                 TileWidget(
                   text: "Settings",
                   trailingImg: Assets.arrowForwardHead,
@@ -182,27 +451,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   leadingImg: Assets.settingsIcon,
                   titleTextColor: appTextColor,
                 ),
-                // TileWidget(
-                //   text: getUserType() == UserType.driver.name
-                //       ? AppStrings.favoriteBusinesses
-                //       : AppStrings.favoriteDrivers,
-                //   trailingImg: Assets.arrowForwardHead,
-                //   onTap: null,
-                //   cardColor: backgroundColor,
-                //   leadingImg: Assets.favoriteIcon,
-                //   titleTextColor: appTextColor,
-                // ),
-                // const TileWidget(
-                //   text: "Help",
-                //   trailingImg: Assets.arrowForwardHead,
-                //   onTap: null,
-                //   cardColor: backgroundColor,
-                //   leadingImg: Assets.helpIcon,
-                //   titleTextColor: appTextColor,
-                // ),
-              ],
-            ),
-          ),
+              ])),
         ),
       ),
     );
@@ -232,6 +481,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _name = _hospitalModel!.name;
         _phoneNumber = _hospitalModel!.phoneNumber;
         _email = _hospitalModel!.email;
+        _address = _hospitalModel!.address;
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+    setState(() {});
+  }
+
+  Future<void> _getAndSetDriverData() async {
+    try {
+      _driverModel = await _firestoreController.getDriverData();
+      if (_driverModel != null) {
+        _email = _driverModel!.email;
+        _name = _driverModel!.name;
+        _age = _driverModel!.age;
+        _emp_id = _driverModel!.employeeId;
+        _license = _driverModel!.licenseNumber;
       }
     } catch (e) {
       log(e.toString());
@@ -247,6 +513,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _getAndSetPatientData();
         } else if (_userModel!.userType == UserType.hospital.name) {
           _getAndSetHospitalData();
+        } else {
+          _getAndSetDriverData();
         }
       }
     } catch (e) {
@@ -254,35 +522,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  // ProgressCard _createProgressCard(String userRole, int position) {
-  //   String image;
-  //   String data;
-  //   if (userRole == AppStrings.roleBusiness) {
-  //     if (position == 0) {
-  //       image = Assets.iconParkSolid;
-  //       data = AppStrings.roleBusiness;
-  //     } else {
-  //       image = Assets.iconBoldTruck;
-  //       data = AppStrings.subscription;
-  //     }
-  //   } else {
-  //     if (position == 0) {
-  //       image = Assets.smallTickMark;
-  //       data =
-  //           //  userData.data == null ? "0 Jobs done" :
-  //           "83 jobs";
-  //     } else {
-  //       image = Assets.smallStar;
-  //       data =
-  //           //  userData.data == null ? "0/0" :
-  //           "4.5/5";
-  //     }
-  //   }
-  //   return ProgressCard(
-  //     imageLink: image,
-  //     text: data,
-  //   );
-  // }
   void settingsButton() {
     Navigator.of(context).push(
       MaterialPageRoute(

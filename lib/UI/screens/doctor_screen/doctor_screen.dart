@@ -116,10 +116,15 @@ class _DoctorScreenState extends State<DoctorScreen> {
                         return ListView.builder(
                           itemCount: doctorList!.length,
                           itemBuilder: (BuildContext context, int index) {
+                            bool isAvailable = _checkAvailability(
+                                doctorList[index]!.leavingTime);
                             return DoctorCardWidget(
                               doctorModel: doctorList[index]!,
-                              isAvailable: _checkAvailability(
-                                  doctorList[index]!.leavingTime),
+                              isAvailable: isAvailable,
+                              switchValue: isAvailable,
+                              onChanged: (value) {
+                                setState(() {});
+                              },
                             );
                           },
                         );
@@ -145,7 +150,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
         (currentTime.hour == closingDateTime.hour &&
             currentTime.minute == closingDateTime.minute);
     log(isAvailable.toString());
-
     return isAvailable;
   }
 
