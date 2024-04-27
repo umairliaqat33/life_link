@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
@@ -43,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   HospitalModel? _hospitalModel;
   final FirestoreController _firestoreController = FirestoreController();
   bool _isLoading = true;
+  bool _requestLoading = false;
   String _userName = '';
   String _email = '';
   @override
@@ -169,16 +168,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                         child: Center(
-                                          child: Text(
-                                            "SOS",
-                                            style: TextStyle(
-                                              color: whiteColor,
-                                              fontSize:
-                                                  SizeConfig.font28(context) +
-                                                      2,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
+                                          child: _requestLoading
+                                              ? const CircularLoaderWidget(
+                                                  loaderColor: whiteColor,
+                                                )
+                                              : Text(
+                                                  "SOS",
+                                                  style: TextStyle(
+                                                    color: whiteColor,
+                                                    fontSize: SizeConfig.font28(
+                                                            context) +
+                                                        2,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                     ),
@@ -292,6 +295,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void onOldReports() {}
 
   Future<void> _createAmbulanceRequest() async {
+    setState(() {
+      _requestLoading = true;
+    });
     try {
       String reqId = await IdService.createID();
       String time = DateAndTimeService.timeToString(TimeOfDay.now());
@@ -301,22 +307,15 @@ class _HomeScreenState extends State<HomeScreen> {
         requestId: reqId,
         requestTime: time,
         patientId: patientModel.uid,
-        patientLat: currentPosition!.latitude.toString(),
-        patientLon: currentPosition.longitude.toString(),
+        patientLat: currentPosition!.latitude,
+        patientLon: currentPosition.longitude,
       );
-      log(currentPosition.latitude.toString());
-      log(currentPosition.longitude.toString());
-      log(time);
-      log(patientModel.uid);
-      log(patientModel.name);
-      _firestoreController.createAmbulanceRequest(
-        requestModel,
-      );
+      // _firestoreController.createAmbulanceRequest(
+      //   requestModel,
+      // );
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => RideWaitingScreen(
-            requestModel: requestModel,
-          ),
+          builder: (context) => RideWaitingScreen(),
         ),
       );
     } on NoInternetException catch (e) {
@@ -332,5 +331,8 @@ class _HomeScreenState extends State<HomeScreen> {
         msg: e.message,
       );
     }
+    setState(() {
+      _requestLoading = false;
+    });
   }
 }

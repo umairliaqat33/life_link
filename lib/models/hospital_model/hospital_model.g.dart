@@ -12,6 +12,8 @@ _$HospitalModelImpl _$$HospitalModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       address: json['address'] as String,
       uid: json['uid'] as String,
+      hospitalLat: (json['hospitalLat'] as num).toDouble(),
+      hospitalLon: (json['hospitalLon'] as num).toDouble(),
       phoneNumber: json['phoneNumber'] as String? ?? "",
     );
 
@@ -21,5 +23,7 @@ Map<String, dynamic> _$$HospitalModelImplToJson(_$HospitalModelImpl instance) =>
       'name': instance.name,
       'address': instance.address,
       'uid': instance.uid,
+      'hospitalLat': instance.hospitalLat,
+      'hospitalLon': instance.hospitalLon,
       'phoneNumber': instance.phoneNumber,
     };

@@ -255,10 +255,25 @@ class FirestoreRepository {
             );
   }
 
+  Future<List<HospitalModel?>> getHospitalList() async {
+    return await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .get()
+        .then(
+          (value) => value.docs
+              .map(
+                (doc) => HospitalModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .toList(),
+        );
+  }
+
   void uploadUID(UIDModel uidModel) {
     try {
       CollectionsNames.firestoreCollection
-          .collection(CollectionsNames.usersCollection)
+          .collection(CollectionsNames.usedID)
           .doc()
           .set(
             uidModel.toJson(),
@@ -299,5 +314,20 @@ class FirestoreRepository {
             "${AppStrings.wentWrong} ${e.code} ${e.message}");
       }
     }
+  }
+
+  Stream<RequestModel?> getRequestStream() {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.requestCollection)
+        .where(
+          'patientId',
+          isEqualTo: FirestoreRepository.checkUser()!.uid,
+        )
+        .snapshots()
+        .map(
+          (snapshot) => RequestModel.fromJson(
+            snapshot.docs.first.data(),
+          ),
+        );
   }
 }

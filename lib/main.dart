@@ -5,7 +5,6 @@ import 'package:life_link/UI/screens/onboarding_screen/onboarding_view.dart';
 import 'package:life_link/UI/screens/splash_screen/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:life_link/firebase_options.dart';
-import 'package:life_link/services/dependency_injection.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +18,7 @@ void main() async {
   runApp(MyApp(
     onboarding: onboarding,
   ));
-  DependencyInjection.init();
+  //DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {

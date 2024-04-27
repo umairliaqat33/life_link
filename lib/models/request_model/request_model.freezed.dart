@@ -23,8 +23,8 @@ mixin _$RequestModel {
   String get requestId => throw _privateConstructorUsedError;
   String get requestTime => throw _privateConstructorUsedError;
   String get patientId => throw _privateConstructorUsedError;
-  String get patientLat => throw _privateConstructorUsedError;
-  String get patientLon => throw _privateConstructorUsedError;
+  double get patientLat => throw _privateConstructorUsedError;
+  double get patientLon => throw _privateConstructorUsedError;
   String get ambulanceDriverId => throw _privateConstructorUsedError;
   String get hospitalToBeTakeAtId => throw _privateConstructorUsedError;
   String get assignedBedNumber => throw _privateConstructorUsedError;
@@ -46,8 +46,8 @@ abstract class $RequestModelCopyWith<$Res> {
       {String requestId,
       String requestTime,
       String patientId,
-      String patientLat,
-      String patientLon,
+      double patientLat,
+      double patientLon,
       String ambulanceDriverId,
       String hospitalToBeTakeAtId,
       String assignedBedNumber,
@@ -93,11 +93,11 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
       patientLat: null == patientLat
           ? _value.patientLat
           : patientLat // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       patientLon: null == patientLon
           ? _value.patientLon
           : patientLon // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       ambulanceDriverId: null == ambulanceDriverId
           ? _value.ambulanceDriverId
           : ambulanceDriverId // ignore: cast_nullable_to_non_nullable
@@ -130,8 +130,8 @@ abstract class _$$RequestModelImplCopyWith<$Res>
       {String requestId,
       String requestTime,
       String patientId,
-      String patientLat,
-      String patientLon,
+      double patientLat,
+      double patientLon,
       String ambulanceDriverId,
       String hospitalToBeTakeAtId,
       String assignedBedNumber,
@@ -175,11 +175,11 @@ class __$$RequestModelImplCopyWithImpl<$Res>
       patientLat: null == patientLat
           ? _value.patientLat
           : patientLat // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       patientLon: null == patientLon
           ? _value.patientLon
           : patientLon // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       ambulanceDriverId: null == ambulanceDriverId
           ? _value.ambulanceDriverId
           : ambulanceDriverId // ignore: cast_nullable_to_non_nullable
@@ -224,9 +224,9 @@ class _$RequestModelImpl implements _RequestModel {
   @override
   final String patientId;
   @override
-  final String patientLat;
+  final double patientLat;
   @override
-  final String patientLon;
+  final double patientLon;
   @override
   @JsonKey()
   final String ambulanceDriverId;
@@ -303,8 +303,8 @@ abstract class _RequestModel implements RequestModel {
       {required final String requestId,
       required final String requestTime,
       required final String patientId,
-      required final String patientLat,
-      required final String patientLon,
+      required final double patientLat,
+      required final double patientLon,
       final String ambulanceDriverId,
       final String hospitalToBeTakeAtId,
       final String assignedBedNumber,
@@ -320,9 +320,9 @@ abstract class _RequestModel implements RequestModel {
   @override
   String get patientId;
   @override
-  String get patientLat;
+  double get patientLat;
   @override
-  String get patientLon;
+  double get patientLon;
   @override
   String get ambulanceDriverId;
   @override

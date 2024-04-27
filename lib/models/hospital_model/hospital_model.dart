@@ -10,6 +10,8 @@ class HospitalModel with _$HospitalModel {
     required String name,
     required String address,
     required String uid,
+    required double hospitalLat,
+    required double hospitalLon,
     @Default("") String phoneNumber,
   }) = _HospitalModel;
 

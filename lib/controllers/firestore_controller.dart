@@ -160,4 +160,12 @@ class FirestoreController {
       }
     }
   }
+
+  Stream<RequestModel?> getUserAmbulanceRequestStream() {
+    return _firestoreRepository.getRequestStream();
+  }
+
+  Future<List<HospitalModel?>> getHospitaList() async {
+    return await _firestoreRepository.getHospitalList();
+  }
 }
