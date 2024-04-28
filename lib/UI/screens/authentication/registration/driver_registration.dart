@@ -249,12 +249,12 @@ class _DriverRegistrationState extends State<DriverRegistration> {
             DriverModel(
               email: _emailController.text,
               name: _nameController.text,
-              age: int.parse(
-                _ageController.text,
-              ),
               uid: userCredential.user!.uid,
-              employeeId: _employeeidController.text,
               licenseNumber: _licenceController.text,
+              ambulanceId: '',
+              ambulanceRegistrationNo: '',
+              hospitalId: '',
+              assignedRequestId: '',
             ),
           );
           log("Signup Successful");

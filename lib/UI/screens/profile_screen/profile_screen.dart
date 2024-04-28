@@ -235,8 +235,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (_driverModel != null) {
         _email = _driverModel!.email;
         _name = _driverModel!.name;
-        _age = _driverModel!.age;
-        _empid = _driverModel!.employeeId;
         _license = _driverModel!.licenseNumber;
       }
     } catch (e) {

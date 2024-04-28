@@ -10,18 +10,22 @@ _$DriverModelImpl _$$DriverModelImplFromJson(Map<String, dynamic> json) =>
     _$DriverModelImpl(
       email: json['email'] as String,
       name: json['name'] as String,
-      age: (json['age'] as num).toInt(),
+      ambulanceId: json['ambulanceId'] as String,
+      ambulanceRegistrationNo: json['ambulanceRegistrationNo'] as String,
       uid: json['uid'] as String,
+      hospitalId: json['hospitalId'] as String,
+      assignedRequestId: json['assignedRequestId'] as String,
       licenseNumber: json['licenseNumber'] as String? ?? "",
-      employeeId: json['employeeId'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$DriverModelImplToJson(_$DriverModelImpl instance) =>
     <String, dynamic>{
       'email': instance.email,
       'name': instance.name,
-      'age': instance.age,
+      'ambulanceId': instance.ambulanceId,
+      'ambulanceRegistrationNo': instance.ambulanceRegistrationNo,
       'uid': instance.uid,
+      'hospitalId': instance.hospitalId,
+      'assignedRequestId': instance.assignedRequestId,
       'licenseNumber': instance.licenseNumber,
-      'employeeId': instance.employeeId,
     };
