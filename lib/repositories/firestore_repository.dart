@@ -255,12 +255,12 @@ class FirestoreRepository {
             );
   }
 
-  Future<List<HospitalModel?>> getHospitalList() async {
-    return await CollectionsNames.firestoreCollection
+  Stream<List<HospitalModel>> getHospitalStreamList() {
+    return CollectionsNames.firestoreCollection
         .collection(CollectionsNames.hospitalCollection)
-        .get()
-        .then(
-          (value) => value.docs
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
               .map(
                 (doc) => HospitalModel.fromJson(
                   doc.data(),
@@ -306,6 +306,22 @@ class FirestoreRepository {
           .collection(CollectionsNames.requestCollection)
           .doc(requestModel.requestId)
           .set(requestModel.toJson());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void updateAmbulanceRequest(RequestModel requestModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.requestCollection)
+          .doc(requestModel.requestId)
+          .update(requestModel.toJson());
     } on FirebaseAuthException catch (e) {
       if (e.code == AppStrings.noInternet) {
         throw SocketException("${e.code}${e.message}");

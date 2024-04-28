@@ -161,11 +161,24 @@ class FirestoreController {
     }
   }
 
+  void updateAmbulanceRequestFields(RequestModel requestModel) {
+    try {
+      _firestoreRepository.updateAmbulanceRequest(requestModel);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
   Stream<RequestModel?> getUserAmbulanceRequestStream() {
     return _firestoreRepository.getRequestStream();
   }
 
-  Future<List<HospitalModel?>> getHospitaList() async {
-    return await _firestoreRepository.getHospitalList();
+  Stream<List<HospitalModel>> getHospitaList() {
+    return _firestoreRepository.getHospitalStreamList();
   }
 }

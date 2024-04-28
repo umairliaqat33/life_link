@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
@@ -19,6 +20,7 @@ class RideWaitingScreen extends StatelessWidget {
   final bool _isHospitalAssigned = true;
   final FirestoreController _firestoreController = FirestoreController();
   RequestModel? _requestModel;
+  List<HospitalModel> hospitalList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,61 +38,81 @@ class RideWaitingScreen extends StatelessWidget {
           ),
           child: StreamBuilder<RequestModel?>(
             stream: _firestoreController.getUserAmbulanceRequestStream(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+            builder: (context, requestSnapshot) {
+              if (requestSnapshot.connectionState == ConnectionState.waiting) {
                 return const CircularLoaderWidget();
               }
-              _requestModel = snapshot.data;
-              Future<List<HospitalModel?>> _hospitalList =
-                  _firestoreController.getHospitaList();
-              String nearestHospitaId;
-              _iterateHospitalList(_hospitalList, _requestModel!.patientLat,
-                  _requestModel!.patientLon);
-              return Column(
-                children: [
-                  LoadingAnimationWidget.staggeredDotsWave(
-                    color: primaryColor,
-                    size: SizeConfig.height20(context) * 5,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: SizeConfig.height20(context) * 5,
-                    decoration: _changeDecoration(_isDriverAssigned),
-                    child: Center(
-                      child: Text(
-                        "I am Driver Widget",
-                        style: TextStyle(
-                          color: _isDriverAssigned ? primaryColor : greyColor,
+              _requestModel = requestSnapshot.data;
+
+              return StreamBuilder<List<HospitalModel>>(
+                  stream: _firestoreController.getHospitaList(),
+                  builder: (context, hosPitalSnapshot) {
+                    if (hosPitalSnapshot.hasData) {
+                      hospitalList = hosPitalSnapshot.data!;
+                      String id = _checkDistanceBetweenTwoLocations(
+                        patientLat: _requestModel!.patientLat,
+                        patientLon: _requestModel!.patientLon,
+                        hList: hospitalList,
+                      );
+                      log(id);
+                      _updateRequest(id);
+                    }
+                    return Column(
+                      children: [
+                        LoadingAnimationWidget.staggeredDotsWave(
+                          color: primaryColor,
+                          size: SizeConfig.height20(context) * 5,
                         ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: SizeConfig.height8(context),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: SizeConfig.height20(context) * 5,
-                    decoration: _changeDecoration(_isHospitalAssigned),
-                    child: Center(
-                      child: Text(
-                        "I am Hospital Widget",
-                        style: TextStyle(
-                          color: _isHospitalAssigned ? primaryColor : greyColor,
+                        Container(
+                          width: double.infinity,
+                          height: SizeConfig.height20(context) * 5,
+                          decoration: _changeDecoration(_isDriverAssigned),
+                          child: Center(
+                            child: Text(
+                              "I am Driver Widget",
+                              style: TextStyle(
+                                color: _isDriverAssigned
+                                    ? primaryColor
+                                    : greyColor,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: SizeConfig.height8(context),
-                  ),
-                  Text("Patient Id: ${_requestModel!.patientId}"),
-                  Text("Patient Latitude: ${_requestModel!.patientLat}"),
-                  Text("Patient Longitude: ${_requestModel!.patientLon}"),
-                  Text("Request Id: ${_requestModel!.requestId}"),
-                  Text("Request time: ${_requestModel!.requestTime}"),
-                ],
-              );
+                        SizedBox(
+                          height: SizeConfig.height8(context),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: SizeConfig.height20(context) * 5,
+                          decoration: _changeDecoration(_isHospitalAssigned),
+                          child: Center(
+                            child: Text(
+                              "I am Hospital Widget",
+                              style: TextStyle(
+                                color: _isHospitalAssigned
+                                    ? primaryColor
+                                    : greyColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.height8(context),
+                        ),
+                        Text("Patient Id: ${_requestModel!.patientId}"),
+                        Text("Patient Latitude: ${_requestModel!.patientLat}"),
+                        Text("Patient Longitude: ${_requestModel!.patientLon}"),
+                        Text("Request Id: ${_requestModel!.requestId}"),
+                        Text("Request time: ${_requestModel!.requestTime}"),
+                        Text(
+                            "Hospital to be taken at: ${_requestModel!.hospitalToBeTakeAtId}"),
+                        Text(
+                            "Ambulance Driver Id: ${_requestModel!.ambulanceDriverId}"),
+                        Text(
+                            "Assigned bed number: ${_requestModel!.assignedBedNumber}"),
+                      ],
+                    );
+                  });
             },
           ),
         ),
@@ -111,43 +133,59 @@ class RideWaitingScreen extends StatelessWidget {
     );
   }
 
-  String _iterateHospitalList(
-    Future<List<HospitalModel?>> _hospitalList,
-    double patientLat,
-    double patientLon,
-  ) {
-    double d1 = 0;
-    String uid = '';
-    _hospitalList.then((list) {
-      for (int i = 0; i < list.length; i++) {
-        double d = _checkDistanceBetweenTwoLocations(
-          p1Lat: patientLat,
-          p1Lon: patientLon,
-          p2Lat: list[i]!.hospitalLat,
-          p2Lon: list[i]!.hospitalLat,
+  String _checkDistanceBetweenTwoLocations({
+    required double patientLat,
+    required double patientLon,
+    required List<HospitalModel> hList,
+  }) {
+    String hospitalId = '';
+    double newDistance = 0;
+    double oldDistance = 0;
+    for (int i = 0; i < hList.length; i++) {
+      if (oldDistance == 0) {
+        oldDistance = Geolocator.distanceBetween(
+          patientLat,
+          patientLon,
+          hList[i].hospitalLat,
+          hList[i].hospitalLon,
         );
-        if (d > d1) {
-          d1 = d;
-          uid = list[i]!.uid;
-        }
+      } else {
+        newDistance = Geolocator.distanceBetween(
+          patientLat,
+          patientLon,
+          hList[i].hospitalLat,
+          hList[i].hospitalLon,
+        );
       }
-    });
-    log(uid);
-    return uid;
+      if (newDistance > oldDistance) {
+        log(oldDistance.toString());
+        hospitalId = hList[i].uid;
+      } else {
+        if (newDistance != 0) {
+          oldDistance = newDistance;
+          log(oldDistance.toString());
+          hospitalId = hList[i].uid;
+        }
+        log(newDistance.toString());
+      }
+    }
+    return hospitalId;
   }
 
-  double _checkDistanceBetweenTwoLocations({
-    required double p1Lat,
-    required double p1Lon,
-    required double p2Lat,
-    required double p2Lon,
-  }) {
-    double distanceInMeters = Geolocator.distanceBetween(
-      p1Lat,
-      p1Lon,
-      p2Lat,
-      p2Lon,
+  void _updateRequest(
+    String hospitalId,
+  ) {
+    // if (hospitalId.isNotEmpty) {
+    _firestoreController.updateAmbulanceRequestFields(
+      RequestModel(
+        requestId: _requestModel!.requestId,
+        requestTime: _requestModel!.requestTime,
+        patientId: _requestModel!.patientId,
+        patientLat: _requestModel!.patientLat,
+        patientLon: _requestModel!.patientLon,
+        hospitalToBeTakeAtId: hospitalId,
+      ),
     );
-    return distanceInMeters;
+    // }
   }
 }
