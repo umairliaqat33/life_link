@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DoctorInfoCardTile extends StatelessWidget {
-  const DoctorInfoCardTile({
+class InfoCardTile extends StatelessWidget {
+  const InfoCardTile({
     super.key,
     required this.title,
     required this.valueText,

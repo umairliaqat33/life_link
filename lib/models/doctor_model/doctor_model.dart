@@ -15,6 +15,7 @@ class DoctorModel with _$DoctorModel {
     required String speciality,
     @Default("") String profileImage,
     @Default("") String otherExperiences,
+    @Default(false) bool isAvailable,
   }) = _DoctorModel;
   factory DoctorModel.fromJson(Map<String, dynamic> json) =>
       _$DoctorModelFromJson(json);

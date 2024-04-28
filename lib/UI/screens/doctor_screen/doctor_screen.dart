@@ -121,10 +121,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
                             return DoctorCardWidget(
                               doctorModel: doctorList[index]!,
                               isAvailable: isAvailable,
-                              switchValue: isAvailable,
-                              onChanged: (value) {
-                                setState(() {});
-                              },
                             );
                           },
                         );

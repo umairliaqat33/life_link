@@ -8,18 +8,21 @@ import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
 
-class DoctorCardWidget extends StatelessWidget {
-  DoctorCardWidget({
+class DoctorCardWidget extends StatefulWidget {
+  const DoctorCardWidget({
     super.key,
     required this.doctorModel,
     required this.isAvailable,
-    required this.switchValue,
-    required this.onChanged,
   });
   final DoctorModel doctorModel;
   final bool isAvailable;
-  final bool switchValue;
-  final ValueChanged<bool> onChanged;
+
+  @override
+  State<DoctorCardWidget> createState() => _DoctorCardWidgetState();
+}
+
+class _DoctorCardWidgetState extends State<DoctorCardWidget> {
+  bool _toggleValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class DoctorCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  doctorModel.name,
+                  widget.doctorModel.name,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: SizeConfig.font18(context),
@@ -41,8 +44,8 @@ class DoctorCardWidget extends StatelessWidget {
                   ),
                 ),
                 CustomSwitch(
-                  value: switchValue,
-                  onChanged: onChanged,
+                  value: _toggleValue,
+                  onChanged: (value) => _toggleOnChanged(value),
                   activeColor: Colors.green,
                   inactiveColor: Colors.red,
                 )
@@ -53,7 +56,7 @@ class DoctorCardWidget extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: SizeConfig.width10(context) * 8 / 2,
-                  child: doctorModel.profileImage.isEmpty
+                  child: widget.doctorModel.profileImage.isEmpty
                       ? Image.asset(
                           Assets.blankProfilePicture,
                           height: SizeConfig.height10(context) * 10,
@@ -61,7 +64,7 @@ class DoctorCardWidget extends StatelessWidget {
                         )
                       : ClipOval(
                           child: Image.network(
-                            doctorModel.profileImage,
+                            widget.doctorModel.profileImage,
                             height: SizeConfig.height10(context) * 10,
                             width: SizeConfig.width10(context) * 8,
                             fit: BoxFit.fill,
@@ -80,11 +83,11 @@ class DoctorCardWidget extends StatelessWidget {
                           Radius.circular(10),
                         ),
                         border: Border.all(
-                          color: isAvailable
+                          color: widget.isAvailable
                               ? doctorAvailableBubbleBorderColor
                               : doctorNotAvailableBubbleBorderColor,
                         ),
-                        color: isAvailable
+                        color: widget.isAvailable
                             ? doctorAvailableBubbleColor
                             : doctorNotAvailableBubbleColor,
                       ),
@@ -92,7 +95,7 @@ class DoctorCardWidget extends StatelessWidget {
                         SizeConfig.height5(context),
                       ),
                       child: Text(
-                        isAvailable
+                        widget.isAvailable
                             ? Availability.available.name
                             : Availability.unavailable.name,
                         style: TextStyle(
@@ -102,7 +105,7 @@ class DoctorCardWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      doctorModel.speciality,
+                      widget.doctorModel.speciality,
                       style: TextStyle(
                         fontSize: SizeConfig.font12(context),
                         color: appTextColor,
@@ -121,7 +124,7 @@ class DoctorCardWidget extends StatelessWidget {
                           ),
                           onPressed: () => _viewDoctorButton(
                             context,
-                            doctorModel,
+                            widget.doctorModel,
                           ),
                           child: Text(
                             "View Doctor",
@@ -145,7 +148,7 @@ class DoctorCardWidget extends StatelessWidget {
                           ),
                           onPressed: () => _deleteDoctor(
                             context,
-                            doctorModel.doctorId,
+                            widget.doctorModel.doctorId,
                           ),
                           child: Text(
                             "Delete Doctor",
@@ -188,5 +191,10 @@ class DoctorCardWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _toggleOnChanged(bool toggle) {
+    _toggleValue = !_toggleValue;
+    setState(() {});
   }
 }

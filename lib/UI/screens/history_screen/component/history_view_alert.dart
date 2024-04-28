@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/history_screen/component/history_info_widget.dart';
+import 'package:life_link/UI/widgets/cards/info_card_widget.dart';
 import 'package:life_link/utils/colors.dart';
 
 class HistoryViewingAlert extends StatelessWidget {
@@ -39,12 +39,18 @@ class HistoryViewingAlert extends StatelessWidget {
       ),
       content: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          HistoryInfo(
-              bedno: "BD-25",
-              comingDate: "12-04-2024",
-              dischargeDate: "12-05-2024",
-              checkby: "DR.Moasib",
-              disease: "Fever")
+          InfoCardWidget(
+            item1: "BD-25",
+            item2: "12-04-2024",
+            item3: "12-05-2024",
+            item4: "DR.Moasib",
+            item5: "Fever",
+            item1Title: 'Bed No',
+            item2Title: 'Arriving Date',
+            item3Title: 'Arriving Date',
+            item4Title: 'Checked By',
+            item5Title: 'Disease',
+          )
         ]),
       ),
     );

@@ -29,6 +29,7 @@ mixin _$DoctorModel {
   String get speciality => throw _privateConstructorUsedError;
   String get profileImage => throw _privateConstructorUsedError;
   String get otherExperiences => throw _privateConstructorUsedError;
+  bool get isAvailable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +52,8 @@ abstract class $DoctorModelCopyWith<$Res> {
       String education,
       String speciality,
       String profileImage,
-      String otherExperiences});
+      String otherExperiences,
+      bool isAvailable});
 }
 
 /// @nodoc
@@ -76,6 +78,7 @@ class _$DoctorModelCopyWithImpl<$Res, $Val extends DoctorModel>
     Object? speciality = null,
     Object? profileImage = null,
     Object? otherExperiences = null,
+    Object? isAvailable = null,
   }) {
     return _then(_value.copyWith(
       doctorId: null == doctorId
@@ -114,6 +117,10 @@ class _$DoctorModelCopyWithImpl<$Res, $Val extends DoctorModel>
           ? _value.otherExperiences
           : otherExperiences // ignore: cast_nullable_to_non_nullable
               as String,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -135,7 +142,8 @@ abstract class _$$DoctorModelImplCopyWith<$Res>
       String education,
       String speciality,
       String profileImage,
-      String otherExperiences});
+      String otherExperiences,
+      bool isAvailable});
 }
 
 /// @nodoc
@@ -158,6 +166,7 @@ class __$$DoctorModelImplCopyWithImpl<$Res>
     Object? speciality = null,
     Object? profileImage = null,
     Object? otherExperiences = null,
+    Object? isAvailable = null,
   }) {
     return _then(_$DoctorModelImpl(
       doctorId: null == doctorId
@@ -196,6 +205,10 @@ class __$$DoctorModelImplCopyWithImpl<$Res>
           ? _value.otherExperiences
           : otherExperiences // ignore: cast_nullable_to_non_nullable
               as String,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -212,7 +225,8 @@ class _$DoctorModelImpl implements _DoctorModel {
       required this.education,
       required this.speciality,
       this.profileImage = "",
-      this.otherExperiences = ""});
+      this.otherExperiences = "",
+      this.isAvailable = false});
 
   factory _$DoctorModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$DoctorModelImplFromJson(json);
@@ -237,10 +251,13 @@ class _$DoctorModelImpl implements _DoctorModel {
   @override
   @JsonKey()
   final String otherExperiences;
+  @override
+  @JsonKey()
+  final bool isAvailable;
 
   @override
   String toString() {
-    return 'DoctorModel(doctorId: $doctorId, email: $email, name: $name, comingTime: $comingTime, leavingTime: $leavingTime, education: $education, speciality: $speciality, profileImage: $profileImage, otherExperiences: $otherExperiences)';
+    return 'DoctorModel(doctorId: $doctorId, email: $email, name: $name, comingTime: $comingTime, leavingTime: $leavingTime, education: $education, speciality: $speciality, profileImage: $profileImage, otherExperiences: $otherExperiences, isAvailable: $isAvailable)';
   }
 
   @override
@@ -263,7 +280,9 @@ class _$DoctorModelImpl implements _DoctorModel {
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
             (identical(other.otherExperiences, otherExperiences) ||
-                other.otherExperiences == otherExperiences));
+                other.otherExperiences == otherExperiences) &&
+            (identical(other.isAvailable, isAvailable) ||
+                other.isAvailable == isAvailable));
   }
 
   @JsonKey(ignore: true)
@@ -278,7 +297,8 @@ class _$DoctorModelImpl implements _DoctorModel {
       education,
       speciality,
       profileImage,
-      otherExperiences);
+      otherExperiences,
+      isAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -304,7 +324,8 @@ abstract class _DoctorModel implements DoctorModel {
       required final String education,
       required final String speciality,
       final String profileImage,
-      final String otherExperiences}) = _$DoctorModelImpl;
+      final String otherExperiences,
+      final bool isAvailable}) = _$DoctorModelImpl;
 
   factory _DoctorModel.fromJson(Map<String, dynamic> json) =
       _$DoctorModelImpl.fromJson;
@@ -327,6 +348,8 @@ abstract class _DoctorModel implements DoctorModel {
   String get profileImage;
   @override
   String get otherExperiences;
+  @override
+  bool get isAvailable;
   @override
   @JsonKey(ignore: true)
   _$$DoctorModelImplCopyWith<_$DoctorModelImpl> get copyWith =>

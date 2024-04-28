@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/doctor_screen/components/doctor_info_card_tile.dart';
+import 'package:life_link/UI/widgets/cards/info_card_tile.dart';
 
 class ReportInfo extends StatelessWidget {
   const ReportInfo(
@@ -25,31 +25,31 @@ class ReportInfo extends StatelessWidget {
     return Card(
         child: Column(
       children: [
-        DoctorInfoCardTile(
+        InfoCardTile(
           title: "Hospital Name",
           valueText: hospital,
         ),
-        DoctorInfoCardTile(
+        InfoCardTile(
           title: 'Arriving Date',
           valueText: admitDate,
         ),
-        DoctorInfoCardTile(
+        InfoCardTile(
           title: 'Bed No',
           valueText: bedno,
         ),
-        DoctorInfoCardTile(
+        InfoCardTile(
           title: 'Checked By',
           valueText: checkby,
         ),
-        DoctorInfoCardTile(
+        InfoCardTile(
           title: 'Disease',
           valueText: disease,
         ),
-        DoctorInfoCardTile(
+        InfoCardTile(
           title: 'Discharge Date',
           valueText: dischargeDate,
         ),
-        DoctorInfoCardTile(
+        InfoCardTile(
           title: "Ambulance Driver",
           valueText: driver,
         )

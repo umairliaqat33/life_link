@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/doctor_screen/components/doctor_info_card_widget.dart';
+import 'package:life_link/UI/widgets/cards/info_card_widget.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_adding_screen.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
@@ -65,12 +65,17 @@ class DoctorViewingAlert extends StatelessWidget {
                     height: SizeConfig.height10(context) * 10,
                     width: SizeConfig.width10(context) * 8,
                   ),
-            HistoryInfoCard(
-              education: doctorModel.education,
-              comingTime: doctorModel.comingTime,
-              leavingTime: doctorModel.leavingTime,
-              speciality: doctorModel.speciality,
-              otherExperience: doctorModel.otherExperiences,
+            InfoCardWidget(
+              item1: doctorModel.education,
+              item2: doctorModel.comingTime,
+              item3: doctorModel.leavingTime,
+              item4: doctorModel.speciality,
+              item5: doctorModel.otherExperiences,
+              item1Title: 'Education',
+              item2Title: 'Arriving time',
+              item3Title: 'Leaving time',
+              item4Title: 'Speciality',
+              item5Title: 'Other Experience',
             ),
           ],
         ),
