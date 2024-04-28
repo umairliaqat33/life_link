@@ -65,7 +65,7 @@ class DoctorViewingAlert extends StatelessWidget {
                     height: SizeConfig.height10(context) * 10,
                     width: SizeConfig.width10(context) * 8,
                   ),
-            DoctorInfoCard(
+            HistoryInfoCard(
               education: doctorModel.education,
               comingTime: doctorModel.comingTime,
               leavingTime: doctorModel.leavingTime,

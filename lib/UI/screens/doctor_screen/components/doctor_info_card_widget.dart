@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/screens/doctor_screen/components/doctor_info_card_tile.dart';
 
-class DoctorInfoCard extends StatelessWidget {
-  const DoctorInfoCard({
+class HistoryInfoCard extends StatelessWidget {
+  const HistoryInfoCard({
     super.key,
     required this.education,
     required this.comingTime,
