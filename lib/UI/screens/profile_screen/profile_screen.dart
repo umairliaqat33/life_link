@@ -230,18 +230,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _getAndSetDriverData() async {
-    try {
-      _driverModel =
-          await _firestoreController.getAvailableDriverDataAHospital();
-      if (_driverModel != null) {
-        _email = _driverModel!.email;
-        _name = _driverModel!.name;
-        _license = _driverModel!.licenseNumber;
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    setState(() {});
+    // try {
+    //   _driverModel =
+    //       await _firestoreController.getAvailableDriverDataAHospital();
+    //   if (_driverModel != null) {
+    //     _email = _driverModel!.email;
+    //     _name = _driverModel!.name;
+    //     _license = _driverModel!.licenseNumber;
+    //   }
+    // } catch (e) {
+    //   log(e.toString());
+    // }
+    // setState(() {});
   }
 
   Future<void> _checkUserType() async {

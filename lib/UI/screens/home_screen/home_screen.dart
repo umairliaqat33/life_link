@@ -230,13 +230,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _getAndSetDriverData() async {
-    _driverModel = await _firestoreController.getAvailableDriverDataAHospital();
-    if (_driverModel != null) {
-      _email = _driverModel!.email;
-      _userName = _driverModel!.name;
-      _isLoading = false;
-      setState(() {});
-    }
+    // _driverModel = await _firestoreController.getAvailableDriverDataAHospital();
+    // if (_driverModel != null) {
+    //   _email = _driverModel!.email;
+    //   _userName = _driverModel!.name;
+    //   _isLoading = false;
+    //   setState(() {});
+    // }
   }
 
   Future<void> _getAndSetHospitalData() async {

@@ -102,7 +102,7 @@ class FirestoreRepository {
       String hospitalId) async {
     return CollectionsNames.firestoreCollection
         .collection(CollectionsNames.hospitalCollection)
-        .doc(FirestoreRepository.checkUser()!.uid)
+        .doc(hospitalId)
         .collection(CollectionsNames.driverCollection)
         .where('isAvailable', isEqualTo: true)
         .limit(1)
