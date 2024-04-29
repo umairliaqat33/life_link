@@ -254,7 +254,6 @@ class _DriverRegistrationState extends State<DriverRegistration> {
               ambulanceId: '',
               ambulanceRegistrationNo: '',
               hospitalId: '',
-              assignedRequestId: '',
             ),
           );
           log("Signup Successful");

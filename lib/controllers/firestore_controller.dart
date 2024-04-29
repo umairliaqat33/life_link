@@ -70,8 +70,10 @@ class FirestoreController {
     return _firestoreRepository.getUserData();
   }
 
-  Future<DriverModel> getDriverData() {
-    return _firestoreRepository.getDriverData();
+  Future<DriverModel?> getAvailableDriverDataAHospital(
+    String hId,
+  ) {
+    return _firestoreRepository.getAvailableDriverDataForSpecificHospital(hId);
   }
 
   Future<HospitalModel> getHospitalData() {

@@ -231,7 +231,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _getAndSetDriverData() async {
     try {
-      _driverModel = await _firestoreController.getDriverData();
+      _driverModel =
+          await _firestoreController.getAvailableDriverDataAHospital();
       if (_driverModel != null) {
         _email = _driverModel!.email;
         _name = _driverModel!.name;

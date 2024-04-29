@@ -26,7 +26,7 @@ mixin _$DriverModel {
   String get ambulanceRegistrationNo => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get hospitalId => throw _privateConstructorUsedError;
-  String get assignedRequestId => throw _privateConstructorUsedError;
+  bool get isAvailable => throw _privateConstructorUsedError;
   String get licenseNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $DriverModelCopyWith<$Res> {
       String ambulanceRegistrationNo,
       String uid,
       String hospitalId,
-      String assignedRequestId,
+      bool isAvailable,
       String licenseNumber});
 }
 
@@ -71,7 +71,7 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
     Object? ambulanceRegistrationNo = null,
     Object? uid = null,
     Object? hospitalId = null,
-    Object? assignedRequestId = null,
+    Object? isAvailable = null,
     Object? licenseNumber = null,
   }) {
     return _then(_value.copyWith(
@@ -99,10 +99,10 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
           ? _value.hospitalId
           : hospitalId // ignore: cast_nullable_to_non_nullable
               as String,
-      assignedRequestId: null == assignedRequestId
-          ? _value.assignedRequestId
-          : assignedRequestId // ignore: cast_nullable_to_non_nullable
-              as String,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       licenseNumber: null == licenseNumber
           ? _value.licenseNumber
           : licenseNumber // ignore: cast_nullable_to_non_nullable
@@ -126,7 +126,7 @@ abstract class _$$DriverModelImplCopyWith<$Res>
       String ambulanceRegistrationNo,
       String uid,
       String hospitalId,
-      String assignedRequestId,
+      bool isAvailable,
       String licenseNumber});
 }
 
@@ -147,7 +147,7 @@ class __$$DriverModelImplCopyWithImpl<$Res>
     Object? ambulanceRegistrationNo = null,
     Object? uid = null,
     Object? hospitalId = null,
-    Object? assignedRequestId = null,
+    Object? isAvailable = null,
     Object? licenseNumber = null,
   }) {
     return _then(_$DriverModelImpl(
@@ -175,10 +175,10 @@ class __$$DriverModelImplCopyWithImpl<$Res>
           ? _value.hospitalId
           : hospitalId // ignore: cast_nullable_to_non_nullable
               as String,
-      assignedRequestId: null == assignedRequestId
-          ? _value.assignedRequestId
-          : assignedRequestId // ignore: cast_nullable_to_non_nullable
-              as String,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
       licenseNumber: null == licenseNumber
           ? _value.licenseNumber
           : licenseNumber // ignore: cast_nullable_to_non_nullable
@@ -197,7 +197,7 @@ class _$DriverModelImpl implements _DriverModel {
       required this.ambulanceRegistrationNo,
       required this.uid,
       required this.hospitalId,
-      required this.assignedRequestId,
+      this.isAvailable = true,
       this.licenseNumber = ""});
 
   factory _$DriverModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -216,14 +216,15 @@ class _$DriverModelImpl implements _DriverModel {
   @override
   final String hospitalId;
   @override
-  final String assignedRequestId;
+  @JsonKey()
+  final bool isAvailable;
   @override
   @JsonKey()
   final String licenseNumber;
 
   @override
   String toString() {
-    return 'DriverModel(email: $email, name: $name, ambulanceId: $ambulanceId, ambulanceRegistrationNo: $ambulanceRegistrationNo, uid: $uid, hospitalId: $hospitalId, assignedRequestId: $assignedRequestId, licenseNumber: $licenseNumber)';
+    return 'DriverModel(email: $email, name: $name, ambulanceId: $ambulanceId, ambulanceRegistrationNo: $ambulanceRegistrationNo, uid: $uid, hospitalId: $hospitalId, isAvailable: $isAvailable, licenseNumber: $licenseNumber)';
   }
 
   @override
@@ -241,24 +242,16 @@ class _$DriverModelImpl implements _DriverModel {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.hospitalId, hospitalId) ||
                 other.hospitalId == hospitalId) &&
-            (identical(other.assignedRequestId, assignedRequestId) ||
-                other.assignedRequestId == assignedRequestId) &&
+            (identical(other.isAvailable, isAvailable) ||
+                other.isAvailable == isAvailable) &&
             (identical(other.licenseNumber, licenseNumber) ||
                 other.licenseNumber == licenseNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      email,
-      name,
-      ambulanceId,
-      ambulanceRegistrationNo,
-      uid,
-      hospitalId,
-      assignedRequestId,
-      licenseNumber);
+  int get hashCode => Object.hash(runtimeType, email, name, ambulanceId,
+      ambulanceRegistrationNo, uid, hospitalId, isAvailable, licenseNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -282,7 +275,7 @@ abstract class _DriverModel implements DriverModel {
       required final String ambulanceRegistrationNo,
       required final String uid,
       required final String hospitalId,
-      required final String assignedRequestId,
+      final bool isAvailable,
       final String licenseNumber}) = _$DriverModelImpl;
 
   factory _DriverModel.fromJson(Map<String, dynamic> json) =
@@ -301,7 +294,7 @@ abstract class _DriverModel implements DriverModel {
   @override
   String get hospitalId;
   @override
-  String get assignedRequestId;
+  bool get isAvailable;
   @override
   String get licenseNumber;
   @override

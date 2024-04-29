@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -97,14 +98,28 @@ class FirestoreRepository {
         );
   }
 
-  Future<DriverModel> getDriverData() async {
+  Future<DriverModel?> getAvailableDriverDataForSpecificHospital(
+      String hospitalId) async {
     return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(FirestoreRepository.checkUser()!.uid)
         .collection(CollectionsNames.driverCollection)
-        .doc(_user!.uid)
+        .where('isAvailable', isEqualTo: true)
+        .limit(1)
         .get()
-        .then(
-          (value) => DriverModel.fromJson(value.data()!),
-        );
+        .then((QuerySnapshot snapshot) {
+      if (snapshot.size > 0) {
+        Map<String, dynamic> data =
+            snapshot.docs.first.data() as Map<String, dynamic>;
+
+        DriverModel driverModel = DriverModel.fromJson(data);
+        // Use the driverModel as needed
+        return driverModel;
+      } else {
+        print('No available driver found.');
+        return null; // Return null when no driver is found
+      }
+    });
   }
 
   Future<HospitalModel> getHospitalData() async {
@@ -257,15 +272,20 @@ class FirestoreRepository {
   }
 
   Future<List<HospitalModel>> getHospitalStreamList() async {
-    QuerySnapshot querySnapshot = await CollectionsNames.firestoreCollection
-        .collection(CollectionsNames.hospitalCollection)
-        .get();
-    List<HospitalModel> hospitalModels = querySnapshot.docs.map(
-      (doc) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return HospitalModel.fromJson(data);
-      },
-    ).toList();
+    List<HospitalModel> hospitalModels = [];
+    try {
+      QuerySnapshot querySnapshot = await CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .get();
+      hospitalModels = querySnapshot.docs.map(
+        (doc) {
+          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+          return HospitalModel.fromJson(data);
+        },
+      ).toList();
+    } catch (e) {
+      log(e.toString());
+    }
     return hospitalModels;
   }
 

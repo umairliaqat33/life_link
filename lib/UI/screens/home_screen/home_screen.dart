@@ -230,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _getAndSetDriverData() async {
-    _driverModel = await _firestoreController.getDriverData();
+    _driverModel = await _firestoreController.getAvailableDriverDataAHospital();
     if (_driverModel != null) {
       _email = _driverModel!.email;
       _userName = _driverModel!.name;
@@ -319,19 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
       // );
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => RideWaitingScreen(
-            requestModel: const RequestModel(
-              ambulanceDriverId: "",
-              assignedBedNumber: "",
-              assignedDoctorId: "",
-              hospitalToBeTakeAtId: "sP0uGBCJNXPyMl6v0XfzF1p5N313",
-              patientId: "znIC9fjU67R0xnkiQfigmzscZdM2",
-              patientLat: 31.5006602,
-              patientLon: 74.3295742,
-              requestId: "0q23W3KTX1VbDCWozP4",
-              requestTime: "01:53 AM",
-            ),
-          ),
+          builder: (context) => RideWaitingScreen(),
         ),
       );
     } on NoInternetException catch (e) {

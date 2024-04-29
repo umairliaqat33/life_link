@@ -12,7 +12,7 @@ class DriverModel with _$DriverModel {
     required String ambulanceRegistrationNo,
     required String uid,
     required String hospitalId,
-    required String assignedRequestId,
+    @Default(true) bool isAvailable,
     @Default("") String licenseNumber,
   }) = _DriverModel;
 
