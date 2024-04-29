@@ -38,7 +38,7 @@ dependencies:
   firebase_core: ^2.25.4
   cloud_firestore: ^4.15.4
   fluttertoast: ^8.2.4
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   freezed_annotation: ^2.4.1
   flutter_svg: ^2.0.10+1
   get: ^4.6.6

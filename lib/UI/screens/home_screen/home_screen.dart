@@ -319,7 +319,19 @@ class _HomeScreenState extends State<HomeScreen> {
       // );
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => RideWaitingScreen(),
+          builder: (context) => RideWaitingScreen(
+            requestModel: const RequestModel(
+              ambulanceDriverId: "",
+              assignedBedNumber: "",
+              assignedDoctorId: "",
+              hospitalToBeTakeAtId: "sP0uGBCJNXPyMl6v0XfzF1p5N313",
+              patientId: "znIC9fjU67R0xnkiQfigmzscZdM2",
+              patientLat: 31.5006602,
+              patientLon: 74.3295742,
+              requestId: "0q23W3KTX1VbDCWozP4",
+              requestTime: "01:53 AM",
+            ),
+          ),
         ),
       );
     } on NoInternetException catch (e) {

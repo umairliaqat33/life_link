@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
@@ -255,19 +256,17 @@ class FirestoreRepository {
             );
   }
 
-  Stream<List<HospitalModel>> getHospitalStreamList() {
-    return CollectionsNames.firestoreCollection
+  Future<List<HospitalModel>> getHospitalStreamList() async {
+    QuerySnapshot querySnapshot = await CollectionsNames.firestoreCollection
         .collection(CollectionsNames.hospitalCollection)
-        .snapshots()
-        .map(
-          (snapshot) => snapshot.docs
-              .map(
-                (doc) => HospitalModel.fromJson(
-                  doc.data(),
-                ),
-              )
-              .toList(),
-        );
+        .get();
+    List<HospitalModel> hospitalModels = querySnapshot.docs.map(
+      (doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return HospitalModel.fromJson(data);
+      },
+    ).toList();
+    return hospitalModels;
   }
 
   void uploadUID(UIDModel uidModel) {

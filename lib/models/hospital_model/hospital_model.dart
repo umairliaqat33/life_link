@@ -13,6 +13,8 @@ class HospitalModel with _$HospitalModel {
     required double hospitalLat,
     required double hospitalLon,
     @Default("") String phoneNumber,
+    @Default(0) int totalBeds,
+    @Default(0) int availableBeds,
   }) = _HospitalModel;
 
   factory HospitalModel.fromJson(Map<String, dynamic> json) =>

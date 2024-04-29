@@ -178,7 +178,7 @@ class FirestoreController {
     return _firestoreRepository.getRequestStream();
   }
 
-  Stream<List<HospitalModel>> getHospitaList() {
+  Future<List<HospitalModel>> getFutureHospitaList() {
     return _firestoreRepository.getHospitalStreamList();
   }
 }
