@@ -22,7 +22,14 @@ class DoctorCardWidget extends StatefulWidget {
 }
 
 class _DoctorCardWidgetState extends State<DoctorCardWidget> {
-  bool _toggleValue = false;
+  late bool _toggleValue;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _toggleValue = widget.isAvailable;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +90,11 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
                           Radius.circular(10),
                         ),
                         border: Border.all(
-                          color: widget.isAvailable
+                          color: _toggleValue
                               ? doctorAvailableBubbleBorderColor
                               : doctorNotAvailableBubbleBorderColor,
                         ),
-                        color: widget.isAvailable
+                        color: _toggleValue
                             ? doctorAvailableBubbleColor
                             : doctorNotAvailableBubbleColor,
                       ),
@@ -95,7 +102,7 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
                         SizeConfig.height5(context),
                       ),
                       child: Text(
-                        widget.isAvailable
+                        _toggleValue
                             ? Availability.available.name
                             : Availability.unavailable.name,
                         style: TextStyle(

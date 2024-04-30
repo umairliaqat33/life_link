@@ -271,7 +271,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // ignore: non_constant_identifier_names
   Future<void> edit_profile_data() async {
-    String newValue = "";
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -288,11 +287,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               actions: [
                 TextButton(
+                    style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.red)),
                     onPressed: () => Navigator.pop(context),
-                    child: const Text("Cancel")),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.white),
+                    )),
                 TextButton(
-                    onPressed: () => resetpassword,
-                    child: const Text("Confirm"))
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                  ),
+                  onPressed: () {
+                    // Navigate to the forgot password screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen()),
+                    );
+                  },
+                  child: const Text(
+                    "Confirm",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ],
             ));
   }
@@ -307,67 +325,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
               title: const Text("Edit Personal Details"),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextFormField(
-                    validator: (value) => Utils.nameValidator(value),
-                    decoration: const InputDecoration(
-                      hintText: "Enter Name",
-                    ),
-                    onChanged: (value) {
-                      newValue = value;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                      validator: (value) => Utils.ageValidator(value),
-                      decoration: const InputDecoration(
-                        hintText: "Enter Age",
-                      ),
-                      onChanged: (value) {
-                        newValue = value;
-                      }),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextField(
-                      decoration: const InputDecoration(
-                        hintText: "Enter Gender",
-                      ),
-                      onChanged: (value) {
-                        newValue = value;
-                      }),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                      validator: (value) => Utils.diseaseValidator(value),
-                      decoration: const InputDecoration(
-                        hintText: "Enter Disease",
-                      ),
-                      onChanged: (value) {
-                        newValue = value;
-                      }),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Enter Phone Number",
-                      ),
-                      onChanged: (value) {
-                        newValue = value;
-                      }),
-                ],
+                children: [Text("Are you Sure you want to Edit Details!")],
               ),
               actions: [
                 TextButton(
+                    style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.red)),
                     onPressed: () => Navigator.pop(context),
-                    child: const Text("Cancel")),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.white),
+                    )),
                 TextButton(
-                    onPressed: () => Navigator.of(context).pop(newValue),
-                    child: const Text("Save"))
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen()),
+                    );
+                  },
+                  child: const Text(
+                    "Confirm",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ],
             ));
   }
