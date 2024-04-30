@@ -10,6 +10,8 @@
         android:label="life_link"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAOEklFjRu8Li9vbyh8HTrvEAb3M2RpvLA"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

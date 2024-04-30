@@ -116,7 +116,7 @@ class FirestoreRepository {
         // Use the driverModel as needed
         return driverModel;
       } else {
-        print('No available driver found.');
+        log('No available driver found.');
         return null; // Return null when no driver is found
       }
     });

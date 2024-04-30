@@ -7,3 +7,4 @@ String incrementSymbol = "+";
 String decrementSymbol = "-";
 String phoneNumberPattern = '^(?:[+0]9)?[0-9]{11}\$';
 String developerEmail = "umairliaqat552@gmail.com";
+String mapsAPIKey = 'AIzaSyAOEklFjRu8Li9vbyh8HTrvEAb3M2RpvLA';
