@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:life_link/UI/screens/available_beds_screen/available_beds_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_screen.dart';
+import 'package:life_link/UI/screens/drivers_screen/drivers_screen.dart';
 import 'package:life_link/UI/screens/history_screen/history_screen.dart';
 import 'package:life_link/UI/screens/home_screen/components/info_card.dart';
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
@@ -137,6 +138,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ],
                                     ),
+                                    SizedBox(
+                                      height: SizeConfig.height20(context),
+                                    ),
+                                    OptionWidget(
+                                      title: "Manage Drivers",
+                                      icon: Assets.patientCuredIcon,
+                                      onTap: () => onManageDriver(),
+                                    )
                                   ],
                                 )
                               : Column(
@@ -289,6 +298,14 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const DoctorScreen(),
+      ),
+    );
+  }
+
+  void onManageDriver() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const DriverScreen(),
       ),
     );
   }
