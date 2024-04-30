@@ -1,7 +1,10 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:life_link/UI/screens/map_screen/map_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
@@ -80,6 +83,13 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                       if (requestSnapshot.hasData) {
                         _requestModel = requestSnapshot.data;
                       }
+                      if (_isHospitalWithBedAndDriverAvailable &&
+                          _requestModel!.ambulanceDriverId.isNotEmpty &&
+                          _requestModel!.hospitalToBeTakeAtId.isNotEmpty) {
+                        Future.delayed(Duration.zero, () {
+                          _goToMapScreen();
+                        });
+                      }
                       return !_isHospitalWithBedAndDriverAvailable &&
                               _requestModel!.ambulanceDriverId.isEmpty &&
                               _requestModel!.hospitalToBeTakeAtId.isEmpty
@@ -147,8 +157,6 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                                       "Hospital to be taken at: ${_requestModel!.hospitalToBeTakeAtId}"),
                                   Text(
                                       "Ambulance Driver Id: ${_requestModel!.ambulanceDriverId}"),
-                                  Text(
-                                      "Assigned bed number: ${_requestModel!.assignedBedNumber}"),
                                 ],
                               ),
                             );
@@ -316,5 +324,13 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
             _requestModel!.hospitalToBeTakeAtId.isNotEmpty
         ? true
         : false;
+  }
+
+  void _goToMapScreen() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const MapScreen(),
+      ),
+    );
   }
 }

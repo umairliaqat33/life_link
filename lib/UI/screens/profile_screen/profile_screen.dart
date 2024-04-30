@@ -9,7 +9,7 @@ import 'package:life_link/UI/screens/settings_screen/settings_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
-import 'package:life_link/models/driver_model/driver_model.dart';
+// import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
@@ -36,12 +36,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _gender = '';
   String _phoneNumber = '';
   String _disease = '';
-  String _address = '';
-  String _empid = '';
-  String _license = "";
+  // String _address = '';
+  // String _empid = '';
+  // String _license = "";
   PatientModel? _patientModel;
   HospitalModel? _hospitalModel;
-  DriverModel? _driverModel;
+  // DriverModel? _driverModel;
   UserModel? _userModel;
   final FirestoreController _firestoreController = FirestoreController();
 
@@ -221,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _name = _hospitalModel!.name;
         _phoneNumber = _hospitalModel!.phoneNumber;
         _email = _hospitalModel!.email;
-        _address = _hospitalModel!.address;
+        // _address = _hospitalModel!.address;
       }
     } catch (e) {
       log(e.toString());
@@ -271,6 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // ignore: non_constant_identifier_names
   Future<void> edit_profile_data() async {
+    // String newValue = "";
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(

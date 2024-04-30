@@ -13,8 +13,6 @@ class RequestModel with _$RequestModel {
     required double patientLon,
     @Default("") String ambulanceDriverId,
     @Default("") String hospitalToBeTakeAtId,
-    @Default("") String assignedBedNumber,
-    @Default("") String assignedDoctorId,
   }) = _RequestModel;
 
   factory RequestModel.fromJson(Map<String, dynamic> json) =>
