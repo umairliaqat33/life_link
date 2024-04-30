@@ -319,7 +319,9 @@ class _HomeScreenState extends State<HomeScreen> {
       // );
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => RideWaitingScreen(),
+          builder: (context) => RideWaitingScreen(
+            requestModel: requestModel,
+          ),
         ),
       );
     } on NoInternetException catch (e) {

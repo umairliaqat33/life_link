@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
+import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
@@ -12,15 +13,45 @@ import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class RideWaitingScreen extends StatelessWidget {
-  RideWaitingScreen({
+class RideWaitingScreen extends StatefulWidget {
+  const RideWaitingScreen({
     super.key,
+    required this.requestModel,
   });
+  final RequestModel requestModel;
+
+  @override
+  State<RideWaitingScreen> createState() => _RideWaitingScreenState();
+}
+
+class _RideWaitingScreenState extends State<RideWaitingScreen> {
   RequestModel? _requestModel;
-
   final FirestoreController _firestoreController = FirestoreController();
-
   List<HospitalModel> hospitalList = [];
+  bool _isLoading = false;
+  bool _isHospitalWithBedAndDriverAvailable = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.requestModel != null) {
+      _requestModel = widget.requestModel;
+    }
+    _firestoreController
+        .getFutureHospitaList()
+        .then((List<HospitalModel> models) {
+      setState(() {
+        hospitalList = models;
+        _processAmbulanceRequest(hospitalList);
+        _isLoading = false;
+      });
+    }).catchError((error) {
+      log('Error fetching hospital models: $error');
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,98 +62,98 @@ class RideWaitingScreen extends StatelessWidget {
           context: context,
           backButton: true,
         ),
-        body: Padding(
-          padding: EdgeInsets.only(
-            left: SizeConfig.height15(context),
-            right: SizeConfig.height15(context),
-          ),
-          child: StreamBuilder<RequestModel?>(
-              stream: _firestoreController.getUserAmbulanceRequestStream(),
-              builder: (context, requestSnapshot) {
-                if (requestSnapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const CircularLoaderWidget();
-                }
-                if (requestSnapshot.hasData) {
-                  _requestModel = requestSnapshot.data;
-                }
-                return FutureBuilder<List<HospitalModel>>(
-                  future: _firestoreController.getFutureHospitaList(),
-                  builder: (BuildContext context, hospitalListFuturesnapshot) {
-                    if (hospitalListFuturesnapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const CircularLoaderWidget();
-                    }
-
-                    if (hospitalListFuturesnapshot.hasData) {
-                      hospitalList = hospitalListFuturesnapshot.data!;
-                      _processAmbulanceRequest(hospitalList);
-                    }
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          LoadingAnimationWidget.staggeredDotsWave(
-                            color: primaryColor,
-                            size: SizeConfig.height20(context) * 5,
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: SizeConfig.height20(context) * 5,
-                            decoration: _changeDecoration(
-                                _isDriverAssigned(_requestModel!)),
-                            child: Center(
-                              child: Text(
-                                "I am Driver Widget",
-                                style: TextStyle(
-                                  color: _isDriverAssigned(_requestModel!)
-                                      ? primaryColor
-                                      : greyColor,
-                                ),
+        body: _isLoading
+            ? const CircularLoaderWidget()
+            : Padding(
+                padding: EdgeInsets.only(
+                  left: SizeConfig.height15(context),
+                  right: SizeConfig.height15(context),
+                ),
+                child: StreamBuilder<RequestModel?>(
+                    stream:
+                        _firestoreController.getUserAmbulanceRequestStream(),
+                    builder: (context, requestSnapshot) {
+                      if (requestSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const CircularLoaderWidget();
+                      }
+                      if (requestSnapshot.hasData) {
+                        _requestModel = requestSnapshot.data;
+                      }
+                      return !_isHospitalWithBedAndDriverAvailable &&
+                              _requestModel!.ambulanceDriverId.isEmpty &&
+                              _requestModel!.hospitalToBeTakeAtId.isEmpty
+                          ? const Center(
+                              child:
+                                  NoDataWidget(alertText: "No Hospital Found"))
+                          : SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  LoadingAnimationWidget.staggeredDotsWave(
+                                    color: primaryColor,
+                                    size: SizeConfig.height20(context) * 5,
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: SizeConfig.height20(context) * 5,
+                                    decoration: _changeDecoration(
+                                        _isDriverAssigned(_requestModel!)),
+                                    child: Center(
+                                      child: Text(
+                                        "I am Driver Widget",
+                                        style: TextStyle(
+                                          color:
+                                              _isDriverAssigned(_requestModel!)
+                                                  ? primaryColor
+                                                  : greyColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.height8(context),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: SizeConfig.height20(context) * 5,
+                                    decoration: _changeDecoration(
+                                        _isHospitalAssigned(_requestModel!)),
+                                    child: Center(
+                                      child: Text(
+                                        "I am Hospital Widget",
+                                        style: TextStyle(
+                                          color: _isHospitalAssigned(
+                                                  _requestModel!)
+                                              ? primaryColor
+                                              : greyColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.height8(context),
+                                  ),
+                                  Text(
+                                      "Patient Id: ${_requestModel!.patientId}"),
+                                  Text(
+                                      "Patient Latitude: ${_requestModel!.patientLat}"),
+                                  Text(
+                                      "Patient Longitude: ${_requestModel!.patientLon}"),
+                                  Text(
+                                      "Request Id: ${_requestModel!.requestId}"),
+                                  Text(
+                                      "Request time: ${_requestModel!.requestTime}"),
+                                  Text(
+                                      "Hospital to be taken at: ${_requestModel!.hospitalToBeTakeAtId}"),
+                                  Text(
+                                      "Ambulance Driver Id: ${_requestModel!.ambulanceDriverId}"),
+                                  Text(
+                                      "Assigned bed number: ${_requestModel!.assignedBedNumber}"),
+                                ],
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: SizeConfig.height8(context),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: SizeConfig.height20(context) * 5,
-                            decoration: _changeDecoration(
-                                _isHospitalAssigned(_requestModel!)),
-                            child: Center(
-                              child: Text(
-                                "I am Hospital Widget",
-                                style: TextStyle(
-                                  color: _isHospitalAssigned(_requestModel!)
-                                      ? primaryColor
-                                      : greyColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: SizeConfig.height8(context),
-                          ),
-                          Text("Patient Id: ${_requestModel!.patientId}"),
-                          Text(
-                              "Patient Latitude: ${_requestModel!.patientLat}"),
-                          Text(
-                              "Patient Longitude: ${_requestModel!.patientLon}"),
-                          Text("Request Id: ${_requestModel!.requestId}"),
-                          Text("Request time: ${_requestModel!.requestTime}"),
-                          Text(
-                              "Hospital to be taken at: ${_requestModel!.hospitalToBeTakeAtId}"),
-                          Text(
-                              "Ambulance Driver Id: ${_requestModel!.ambulanceDriverId}"),
-                          Text(
-                              "Assigned bed number: ${_requestModel!.assignedBedNumber}"),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              }),
-        ),
+                            );
+                    }),
+              ),
       ),
     );
   }
@@ -140,7 +171,7 @@ class RideWaitingScreen extends StatelessWidget {
     );
   }
 
-  void _processAmbulanceRequest(List<HospitalModel> hList) {
+  Future<void> _processAmbulanceRequest(List<HospitalModel> hList) async {
     try {
       String id = _checkDistanceBetweenTwoLocations(
         patientLat: _requestModel!.patientLat,
@@ -152,7 +183,7 @@ class RideWaitingScreen extends StatelessWidget {
       if (!isBedAvailable) {
         hList.removeWhere((element) => element.uid == id);
         if (hList.isNotEmpty) {
-          _processAmbulanceRequest(hospitalList);
+          _processAmbulanceRequest(hList);
         }
       } else {
         _updateRequest(
@@ -160,7 +191,17 @@ class RideWaitingScreen extends StatelessWidget {
           driverId: "",
         );
         log("Bed & hospital are available");
-        // Future<bool> isDriverAvailable = _isDriverAvailable(id, hList);
+        bool isDriverPresent = await _isDriverAvailable(id, hList);
+        if (!isDriverPresent && hList.length <= 1) {
+          _isHospitalWithBedAndDriverAvailable = false;
+          log("No Hospitals available with beds and drivers");
+          _updateRequest(
+            driverId: '',
+            hospitalId: '',
+          );
+          setState(() {});
+        }
+        return;
         // log(isDriverAvailable.toString());
       }
     } catch (e) {
@@ -196,7 +237,7 @@ class RideWaitingScreen extends StatelessWidget {
         log(oldDistance.toString());
         hospitalId = hList[i].uid;
       } else {
-        if (newDistance != 0) {
+        if (newDistance != 0 || hList.length == 1) {
           oldDistance = newDistance;
           log(oldDistance.toString());
           hospitalId = hList[i].uid;
@@ -257,7 +298,7 @@ class RideWaitingScreen extends StatelessWidget {
     } else {
       hList.removeWhere((element) => element.uid == id);
       if (hList.isNotEmpty) {
-        _processAmbulanceRequest(hospitalList);
+        _processAmbulanceRequest(hList);
       }
       return false;
     }
