@@ -10,11 +10,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  final onboarding = prefs.getBool('onboarding') ?? false;
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final onboarding = prefs.getBool('onboarding') ?? false;
   runApp(MyApp(
     onboarding: onboarding,
   ));
