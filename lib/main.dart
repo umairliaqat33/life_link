@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:life_link/UI/screens/onboarding_screen/onboarding_view.dart';
 import 'package:life_link/UI/screens/splash_screen/splash_screen.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:life_link/firebase_options.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
         primaryColor: primaryColor,
-        textTheme: GoogleFonts.interTextTheme(),
+        // textTheme: GoogleFonts.interTextTheme(),
         scaffoldBackgroundColor: scaffoldColor,
       ),
       debugShowCheckedModeBanner: false,

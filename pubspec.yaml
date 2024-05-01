@@ -49,7 +49,7 @@ dependencies:
   firebase_storage: ^11.7.2
   permission_handler: ^11.3.1
   file_picker: ^8.0.2
-  google_fonts: ^6.2.1
+  # google_fonts: ^6.2.1
   geolocator: ^11.0.0
   loading_animation_widget: ^1.2.1
   google_maps_flutter: ^2.2.8
