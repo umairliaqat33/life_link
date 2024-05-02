@@ -131,6 +131,21 @@ class FirestoreController {
     }
   }
 
+  void updateDriverData(
+    DriverModel driverModel,
+  ) async {
+    try {
+      _firestoreRepository.updateDriver(driverModel);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
   void deleteDoctorData(
     String docId,
   ) async {
@@ -146,8 +161,27 @@ class FirestoreController {
     }
   }
 
+  void deleteDriverData(
+    String driverId,
+  ) async {
+    try {
+      _firestoreRepository.deleteDoctor(driverId);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
   Stream<List<DoctorModel?>> getDoctorSearchedStreamList(String searchValue) {
     return _firestoreRepository.getDoctorSearchedStream(searchValue);
+  }
+
+  Stream<List<DriverModel?>> getDriverSearchedStreamList(String searchValue) {
+    return _firestoreRepository.getDriverSearchedStream(searchValue);
   }
 
   void createAmbulanceRequest(RequestModel requestModel) {

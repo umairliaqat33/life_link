@@ -8,12 +8,13 @@ class DriverModel with _$DriverModel {
   const factory DriverModel({
     required String email,
     required String name,
-    required String ambulanceId,
     required String ambulanceRegistrationNo,
     required String uid,
     required String hospitalId,
-    @Default(true) bool isAvailable,
+    required String hospitalName,
     @Default("") String licenseNumber,
+    @Default("") String profilePicture,
+    @Default(true) bool isAvailable,
   }) = _DriverModel;
 
   factory DriverModel.fromJson(Map<String, dynamic> json) =>

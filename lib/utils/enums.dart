@@ -1,4 +1,4 @@
-enum UserType { driver, admin, hospital, patient }
+enum UserType { driver, admin, hospital, patient, doctor }
 
 enum Gender { male, female }
 

@@ -137,9 +137,25 @@ class Utils {
     }
   }
 
+  static String? ambulanceRegistrationNumberValidator(String? value) {
+    if (value!.isEmpty) {
+      return "Ambulance registration number is required";
+    } else {
+      return null;
+    }
+  }
+
   static String? specialityValidator(String? value) {
     if (value!.isEmpty) {
       return "Speciality is required";
+    } else {
+      return null;
+    }
+  }
+
+  static String? licenseNumberValidator(String? value) {
+    if (value!.isEmpty) {
+      return "License number is required";
     } else {
       return null;
     }

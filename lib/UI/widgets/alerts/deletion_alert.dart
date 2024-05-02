@@ -3,21 +3,24 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 
-class DoctorDeletionAlert extends StatelessWidget {
-  const DoctorDeletionAlert({
+class DeletionAlert extends StatelessWidget {
+  const DeletionAlert({
     super.key,
     required this.uid,
+    required this.userType,
   });
   final String uid;
+  final UserType userType;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceBetween,
       title: const Text(
-        "Delete doctor data",
+        "Delete data",
         style: TextStyle(
           fontWeight: FontWeight.w700,
           fontSize: 15,
@@ -87,7 +90,9 @@ class DoctorDeletionAlert extends StatelessWidget {
   ) {
     try {
       FirestoreController firestoreController = FirestoreController();
-      firestoreController.deleteDoctorData(id);
+      userType == UserType.driver
+          ? firestoreController.deleteDriverData(id)
+          : firestoreController.deleteDoctorData(id);
       Fluttertoast.showToast(msg: 'Data deletion completed');
       Navigator.of(context).pop();
     } on UnknownException catch (e) {

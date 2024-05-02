@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/doctor_screen/components/doctor_viewing_alert.dart';
+import 'package:life_link/UI/screens/drivers_screen/components/driver_viewing_alert.dart';
 import 'package:life_link/UI/widgets/alerts/deletion_alert.dart';
 import 'package:life_link/UI/widgets/switchs/custom_switch.dart';
 import 'package:life_link/config/size_config.dart';
-import 'package:life_link/models/doctor_model/doctor_model.dart';
+import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
 
-class DoctorCardWidget extends StatefulWidget {
-  const DoctorCardWidget({
+class DriverCardWidget extends StatefulWidget {
+  const DriverCardWidget({
     super.key,
-    required this.doctorModel,
-    required this.isAvailable,
+    required this.driverModel,
   });
-  final DoctorModel doctorModel;
-  final bool isAvailable;
+  final DriverModel driverModel;
 
   @override
-  State<DoctorCardWidget> createState() => _DoctorCardWidgetState();
+  State<DriverCardWidget> createState() => _DriverCardWidgetState();
 }
 
-class _DoctorCardWidgetState extends State<DoctorCardWidget> {
+class _DriverCardWidgetState extends State<DriverCardWidget> {
   late bool _toggleValue;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _toggleValue = widget.isAvailable;
+    _toggleValue = widget.driverModel.isAvailable;
   }
 
   @override
@@ -43,7 +40,7 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.doctorModel.name,
+                  widget.driverModel.name,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: SizeConfig.font18(context),
@@ -63,7 +60,7 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
               children: [
                 CircleAvatar(
                   radius: SizeConfig.width10(context) * 8 / 2,
-                  child: widget.doctorModel.profileImage.isEmpty
+                  child: widget.driverModel.profilePicture.isEmpty
                       ? Image.asset(
                           Assets.blankProfilePicture,
                           height: SizeConfig.height10(context) * 10,
@@ -71,7 +68,7 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
                         )
                       : ClipOval(
                           child: Image.network(
-                            widget.doctorModel.profileImage,
+                            widget.driverModel.profilePicture,
                             height: SizeConfig.height10(context) * 10,
                             width: SizeConfig.width10(context) * 8,
                             fit: BoxFit.fill,
@@ -111,13 +108,13 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
                         ),
                       ),
                     ),
-                    Text(
-                      widget.doctorModel.speciality,
-                      style: TextStyle(
-                        fontSize: SizeConfig.font12(context),
-                        color: appTextColor,
-                      ),
-                    ),
+                    // Text(
+                    //   widget.driverModel.speciality,
+                    //   style: TextStyle(
+                    //     fontSize: SizeConfig.font12(context),
+                    //     color: appTextColor,
+                    //   ),
+                    // ),
                     Row(
                       children: [
                         MaterialButton(
@@ -129,12 +126,12 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
                               ),
                             ),
                           ),
-                          onPressed: () => _viewDoctorButton(
+                          onPressed: () => _viewDriverButton(
                             context,
-                            widget.doctorModel,
+                            widget.driverModel,
                           ),
                           child: Text(
-                            "View Doctor",
+                            "View Driver",
                             style: TextStyle(
                               color: whiteColor,
                               fontSize: SizeConfig.font12(context),
@@ -153,12 +150,12 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
                               ),
                             ),
                           ),
-                          onPressed: () => _deleteDoctor(
+                          onPressed: () => _deleteDriver(
                             context,
-                            widget.doctorModel.doctorId,
+                            widget.driverModel.uid,
                           ),
                           child: Text(
-                            "Delete Doctor",
+                            "Delete Driver",
                             style: TextStyle(
                               color: whiteColor,
                               fontSize: SizeConfig.font12(context),
@@ -177,25 +174,25 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
     );
   }
 
-  void _viewDoctorButton(
+  void _viewDriverButton(
     BuildContext context,
-    DoctorModel doc,
+    DriverModel driver,
   ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return DoctorViewingAlert(doctorModel: doc);
+        return DriverViewingAlert(driverModel: driver);
       },
     );
   }
 
-  void _deleteDoctor(BuildContext context, String id) {
+  void _deleteDriver(BuildContext context, String id) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return DeletionAlert(
           uid: id,
-          userType: UserType.doctor,
+          userType: UserType.driver,
         );
       },
     );

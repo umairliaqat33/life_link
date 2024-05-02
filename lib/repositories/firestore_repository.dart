@@ -214,6 +214,28 @@ class FirestoreRepository {
     }
   }
 
+  void updateDriver(
+    DriverModel driverModel,
+  ) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
+          .collection(CollectionsNames.driverCollection)
+          .doc(driverModel.uid)
+          .update(
+            driverModel.toJson(),
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
   void deleteDoctor(
     String docId,
   ) {
@@ -223,6 +245,26 @@ class FirestoreRepository {
           .doc(FirestoreRepository.checkUser()!.uid)
           .collection(CollectionsNames.doctorCollection)
           .doc(docId)
+          .delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void deleteDriver(
+    String driverId,
+  ) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
+          .collection(CollectionsNames.driverCollection)
+          .doc(driverId)
           .delete();
     } on FirebaseAuthException catch (e) {
       if (e.code == AppStrings.noInternet) {
@@ -259,6 +301,43 @@ class FirestoreRepository {
               (snapshot) => snapshot.docs
                   .map(
                     (doc) => DoctorModel.fromJson(
+                      doc.data(),
+                    ),
+                  )
+                  .where(
+                    (element) => element.name.toLowerCase().contains(
+                          searchValue.toLowerCase(),
+                        ),
+                  )
+                  .toList(),
+            );
+  }
+
+  Stream<List<DriverModel?>> getDriverSearchedStream(String searchValue) {
+    return searchValue.isEmpty
+        ? CollectionsNames.firestoreCollection
+            .collection(CollectionsNames.hospitalCollection)
+            .doc(FirestoreRepository.checkUser()!.uid)
+            .collection(CollectionsNames.driverCollection)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs
+                  .map(
+                    (doc) => DriverModel.fromJson(
+                      doc.data(),
+                    ),
+                  )
+                  .toList(),
+            )
+        : CollectionsNames.firestoreCollection
+            .collection(CollectionsNames.hospitalCollection)
+            .doc(FirestoreRepository.checkUser()!.uid)
+            .collection(CollectionsNames.driverCollection)
+            .snapshots()
+            .map(
+              (snapshot) => snapshot.docs
+                  .map(
+                    (doc) => DriverModel.fromJson(
                       doc.data(),
                     ),
                   )
