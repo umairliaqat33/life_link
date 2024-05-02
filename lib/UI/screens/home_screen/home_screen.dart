@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     OptionWidget(
                                       title: "Manage Drivers",
-                                      icon: Assets.patientCuredIcon,
+                                      icon: Assets.driverIcon,
                                       onTap: () => onManageDriver(),
                                     )
                                   ],

@@ -27,6 +27,7 @@ class Assets {
   static const String listIcon = "$_svgIconsDir/list_icon.svg";
   static const String logoutIcon = "$_svgIconsDir/logout_icon.svg";
   static const String patientCuredIcon = "$_svgIconsDir/patient_cured_icon.svg";
+  static const String driverIcon = "$_svgIconsDir/driver_icon.svg";
 
   static const String backButtonWhiteImage =
       "$_svgIconsDir/back_button_white.svg";
