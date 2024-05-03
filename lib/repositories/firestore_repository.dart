@@ -37,6 +37,8 @@ class FirestoreRepository {
   Future<void> uploadDriverData(DriverModel driverModel) async {
     try {
       CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
           .collection(CollectionsNames.driverCollection)
           .doc(driverModel.uid)
           .set(
