@@ -18,57 +18,61 @@ class _AddingBedState extends State<AddingBed> {
       backgroundColor: scaffoldColor,
       title: Row(
         children: [
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Add Beds"),
-                  IconButton(
-                    color: redColor,
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: SizeConfig.height15(context),
-              ),
-              Card(
-                child: ListTile(
-                  title: const Text("No of Beds: "),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove),
-                        onPressed: () {
-                          if (numberOfBeds > 1) {
+          Expanded(
+            flex: 3,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Add Beds"),
+                    IconButton(
+                      color: redColor,
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: SizeConfig.height15(context),
+                ),
+                Card(
+                  child: ListTile(
+                    title: const Text("No of Beds: "),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.remove),
+                          onPressed: () {
+                            if (numberOfBeds > 1) {
+                              setState(() {
+                                numberOfBeds--;
+                              });
+                            }
+                          },
+                        ),
+                        Text(
+                          "$numberOfBeds",
+                          style:
+                              TextStyle(fontSize: SizeConfig.font14(context)),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () {
                             setState(() {
-                              numberOfBeds--;
+                              numberOfBeds++;
                             });
-                          }
-                        },
-                      ),
-                      Text(
-                        "$numberOfBeds",
-                        style: TextStyle(fontSize: SizeConfig.font14(context)),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: () {
-                          setState(() {
-                            numberOfBeds++;
-                          });
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -81,7 +85,7 @@ class _AddingBedState extends State<AddingBed> {
             // Save functionality goes here
           },
           child: const Text(
-            "SAVE",
+            "ADD",
             style: TextStyle(color: Colors.white),
           ),
         ),

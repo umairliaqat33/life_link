@@ -50,28 +50,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: SizeConfig.height(context) / 15,
-            ),
             Padding(
               padding: EdgeInsets.only(
                 top: SizeConfig.height(context) / 6,
               ),
               child: const SingleChildScrollView(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      HistoryCard(),
-                      HistoryCard(),
-                      HistoryCard(),
-                      HistoryCard(),
-                      HistoryCard(),
-                      HistoryCard(),
-                      HistoryCard(),
-                      HistoryCard(),
-                      HistoryCard(),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    HistoryCard(),
+                    HistoryCard(),
+                    HistoryCard(),
+                    HistoryCard(),
+                    HistoryCard(),
+                    HistoryCard(),
+                    HistoryCard(),
+                    HistoryCard(),
+                    HistoryCard(),
+                  ],
                 ),
               ),
             )
