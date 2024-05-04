@@ -318,13 +318,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // ignore: non_constant_identifier_names
   Future<void> edit_personal_data() async {
-    String newValue = "";
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
               backgroundColor: whiteColor,
               title: const Text("Edit Personal Details"),
-              content: Column(
+              content: const Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [Text("Are you Sure you want to Edit Details!")],
               ),

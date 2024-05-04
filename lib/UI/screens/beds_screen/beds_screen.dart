@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/available_beds_screen/components/bed_add.dart';
-import 'package:life_link/UI/screens/available_beds_screen/components/bedcard.dart';
+import 'package:life_link/UI/screens/beds_screen/components/bed_add.dart';
+import 'package:life_link/UI/screens/beds_screen/components/avail_bed_card.dart';
+import 'package:life_link/UI/screens/beds_screen/components/unavial_bed_card.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/colors.dart';
@@ -17,31 +18,24 @@ class _BedsScreenState extends State<BedsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: appBarWidget(
-          title: "History",
-          context: context,
-          backButton: true,
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: primaryColor,
-          onPressed: () {
-            // showDialog(
-            //   context: context,
-            //   builder: (BuildContext context) {
-            //     return AddingBed();
-            //   },
-            // );
-          },
-          child: const Icon(
-            Icons.add,
-            color: whiteColor,
+    return SafeArea(
+      child: Scaffold(
+          appBar: appBarWidget(
+            title: "Bed Management",
+            context: context,
+            backButton: true,
           ),
-        ),
-        body: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {},
-          child: Stack(
+          floatingActionButton: _toggleValue
+              ? FloatingActionButton(
+                  backgroundColor: primaryColor,
+                  onPressed: () => addBed(context),
+                  child: const Icon(
+                    Icons.add,
+                    color: whiteColor,
+                  ),
+                )
+              : null,
+          body: Stack(
             children: [
               Container(
                   color: appBarColor,
@@ -55,7 +49,7 @@ class _BedsScreenState extends State<BedsScreen> {
                   child: Column(
                     children: [
                       Text(
-                        "10",
+                        _toggleValue ? "10" : "5",
                         style: TextStyle(
                             fontSize: SizeConfig.font28(context),
                             fontWeight: FontWeight.bold,
@@ -129,24 +123,40 @@ class _BedsScreenState extends State<BedsScreen> {
                   ),
                 ),
               ),
-              Positioned(
-                top: SizeConfig.height(context) / 4, // Adjust as needed
-                width: SizeConfig.width(context),
-                child: _toggleValue
-                    ? Column(
-                        children: [
-                          BedCard(),
-                          BedCard(),
-                          BedCard(),
-                          BedCard(),
-                          BedCard(),
-                        ],
-                      )
-                    : const SizedBox(), // Conditionally show BedCard
+              Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.height(context) / 4,
+                ),
+                child: SingleChildScrollView(
+                  child: _toggleValue
+                      ? const Column(
+                          children: [
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                            AvailBedCard(),
+                          ],
+                        )
+                      : const Column(
+                          children: [
+                            UnAvailBedCard(),
+                            UnAvailBedCard(),
+                            UnAvailBedCard(),
+                            UnAvailBedCard(),
+                            UnAvailBedCard(),
+                          ],
+                        ),
+                ),
               ),
             ],
-          ),
-        ));
+          )),
+    );
   }
 
   void changedAvailableButton() {
@@ -159,5 +169,13 @@ class _BedsScreenState extends State<BedsScreen> {
     setState(() {
       _toggleValue = false;
     });
+  }
+
+  void addBed(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AddingBed();
+        });
   }
 }
