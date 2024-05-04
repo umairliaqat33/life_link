@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 
 class RulesAndTermsScreen extends StatelessWidget {
   const RulesAndTermsScreen({super.key});
@@ -6,8 +7,10 @@ class RulesAndTermsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Rules and Terms'),
+      appBar: appBarWidget(
+        title: "Rules And Terms",
+        context: context,
+        backButton: true,
       ),
       body: const Padding(
         padding: EdgeInsets.all(16.0),
