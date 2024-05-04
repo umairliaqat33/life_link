@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/available_beds_screen/components/bed_add.dart';
-import 'package:life_link/UI/screens/available_beds_screen/components/avail_bed_card.dart';
-import 'package:life_link/UI/screens/available_beds_screen/components/unavial_bed_card.dart';
+import 'package:life_link/UI/screens/beds_screen/components/bed_add.dart';
+import 'package:life_link/UI/screens/beds_screen/components/avail_bed_card.dart';
+import 'package:life_link/UI/screens/beds_screen/components/unavial_bed_card.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/colors.dart';
