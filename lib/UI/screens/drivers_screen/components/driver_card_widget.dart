@@ -3,6 +3,7 @@ import 'package:life_link/UI/screens/drivers_screen/components/driver_viewing_al
 import 'package:life_link/UI/widgets/alerts/deletion_alert.dart';
 import 'package:life_link/UI/widgets/switchs/custom_switch.dart';
 import 'package:life_link/config/size_config.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
@@ -200,6 +201,21 @@ class _DriverCardWidgetState extends State<DriverCardWidget> {
 
   void _toggleOnChanged(bool toggle) {
     _toggleValue = !_toggleValue;
+    FirestoreController firestoreController = FirestoreController();
+    firestoreController.updateDriverData(
+      DriverModel(
+        email: widget.driverModel.email,
+        name: widget.driverModel.name,
+        ambulanceRegistrationNo: widget.driverModel.ambulanceRegistrationNo,
+        uid: widget.driverModel.uid,
+        hospitalId: widget.driverModel.hospitalId,
+        hospitalName: widget.driverModel.hospitalName,
+        driverPassword: widget.driverModel.driverPassword,
+        licenseNumber: widget.driverModel.licenseNumber,
+        profilePicture: widget.driverModel.profilePicture,
+        isAvailable: _toggleValue,
+      ),
+    );
     setState(() {});
   }
 }

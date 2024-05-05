@@ -3,6 +3,7 @@ import 'package:life_link/UI/screens/doctor_screen/components/doctor_viewing_ale
 import 'package:life_link/UI/widgets/alerts/deletion_alert.dart';
 import 'package:life_link/UI/widgets/switchs/custom_switch.dart';
 import 'package:life_link/config/size_config.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
@@ -12,10 +13,8 @@ class DoctorCardWidget extends StatefulWidget {
   const DoctorCardWidget({
     super.key,
     required this.doctorModel,
-    required this.isAvailable,
   });
   final DoctorModel doctorModel;
-  final bool isAvailable;
 
   @override
   State<DoctorCardWidget> createState() => _DoctorCardWidgetState();
@@ -27,7 +26,7 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
   @override
   void initState() {
     super.initState();
-    _toggleValue = widget.isAvailable;
+    _toggleValue = widget.doctorModel.isAvailable;
   }
 
   @override
@@ -202,6 +201,21 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
 
   void _toggleOnChanged(bool toggle) {
     _toggleValue = !_toggleValue;
+    FirestoreController firestoreControlle = FirestoreController();
+    firestoreControlle.updateDoctorData(
+      DoctorModel(
+        doctorId: widget.doctorModel.doctorId,
+        email: widget.doctorModel.email,
+        name: widget.doctorModel.name,
+        comingTime: widget.doctorModel.comingTime,
+        leavingTime: widget.doctorModel.leavingTime,
+        education: widget.doctorModel.education,
+        speciality: widget.doctorModel.speciality,
+        profileImage: widget.doctorModel.profileImage,
+        otherExperiences: widget.doctorModel.otherExperiences,
+        isAvailable: _toggleValue,
+      ),
+    );
     setState(() {});
   }
 }

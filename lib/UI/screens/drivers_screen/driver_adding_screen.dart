@@ -206,7 +206,7 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
         }
         _imageLink = _imageLink.isEmpty
             ? (await MediaService.uploadFile(
-                userType: UserType.hospital.name,
+                userType: UserType.driver.name,
                 platformFile: _profilePlatformFile,
               ))!
             : _imageLink;

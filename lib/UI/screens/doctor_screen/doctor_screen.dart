@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_adding_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/components/doctor_card_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
@@ -116,11 +113,8 @@ class _DoctorScreenState extends State<DoctorScreen> {
                         return ListView.builder(
                           itemCount: doctorList!.length,
                           itemBuilder: (BuildContext context, int index) {
-                            bool isAvailable = _checkAvailability(
-                                doctorList[index]!.leavingTime);
                             return DoctorCardWidget(
                               doctorModel: doctorList[index]!,
-                              isAvailable: isAvailable,
                             );
                           },
                         );
@@ -132,21 +126,6 @@ class _DoctorScreenState extends State<DoctorScreen> {
         ),
       ),
     );
-  }
-
-  bool _checkAvailability(String closingTime) {
-    // Get current time
-    DateTime currentTime = DateTime.now();
-
-    DateFormat format = DateFormat("hh:mm a");
-    DateTime closingDateTime = format.parse(closingTime);
-    bool isAvailable = currentTime.hour < closingDateTime.hour ||
-        (currentTime.hour == closingDateTime.hour &&
-            currentTime.minute < closingDateTime.minute) ||
-        (currentTime.hour == closingDateTime.hour &&
-            currentTime.minute == closingDateTime.minute);
-    log(isAvailable.toString());
-    return isAvailable;
   }
 
   void _searchOnchaged() {
