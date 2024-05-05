@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:life_link/UI/screens/available_beds_screen/available_beds_screen.dart';
+import 'package:life_link/UI/screens/beds_screen/beds_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_screen.dart';
 import 'package:life_link/UI/screens/drivers_screen/driver_screen.dart';
 import 'package:life_link/UI/screens/history_screen/history_screen.dart';
@@ -11,6 +11,7 @@ import 'package:life_link/UI/screens/home_screen/components/info_card.dart';
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
 import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
 import 'package:life_link/UI/screens/patient_screen/oldreports.dart';
+import 'package:life_link/UI/screens/patient_screen/ride_history.dart';
 import 'package:life_link/UI/screens/ride_waiting_screen/ride_waiting_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
@@ -268,7 +269,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void onRideHistoryTap() {}
+  void onRideHistoryTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const RideHistory(),
+      ),
+    );
+  }
+
   void onAvailableHospitalsTap() {}
   void onIncomingPatientsTap() {
     Navigator.of(context).push(
@@ -281,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void onAvailableBeds() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const AvailableBedsScreen(),
+        builder: (context) => const BedsScreen(),
       ),
     );
   }
