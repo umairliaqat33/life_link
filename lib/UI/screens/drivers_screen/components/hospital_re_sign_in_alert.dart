@@ -55,7 +55,6 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      titlePadding: EdgeInsets.zero,
       title: const Icon(
         Icons.security,
         color: primaryColor,

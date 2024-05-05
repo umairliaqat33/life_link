@@ -329,7 +329,9 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
   void _goToMapScreen() {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => const MapScreen(),
+        builder: (context) => MapScreen(
+          requestModel: _requestModel!,
+        ),
       ),
     );
   }

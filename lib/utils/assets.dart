@@ -48,4 +48,9 @@ class Assets {
       "$_imagesDir/delete_account_alert.png";
   static const String primaryBackgroundImage =
       "$_imagesDir/background_gradient.png";
+  static const String ambulanceIcon = "$_imagesDir/ambulance_icon.png";
+  static const String patientOnGroundIcon =
+      "$_imagesDir/patient_on_ground_icon.png";
+  static const String patientOnStecherIcon =
+      "$_imagesDir/patient_on_stecher_icon.png";
 }
