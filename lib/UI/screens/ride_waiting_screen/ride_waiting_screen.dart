@@ -29,6 +29,8 @@ class RideWaitingScreen extends StatefulWidget {
 
 class _RideWaitingScreenState extends State<RideWaitingScreen> {
   RequestModel? _requestModel;
+  DriverModel? _driverModel;
+  HospitalModel? _hospitalModel;
   final FirestoreController _firestoreController = FirestoreController();
   List<HospitalModel> hospitalList = [];
   bool _isLoading = false;
@@ -198,6 +200,8 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
           hospitalId: id,
           driverId: "",
         );
+        int i = hList.indexWhere((h) => h.uid == id);
+        _hospitalModel = hList[i];
         log("Bed & hospital are available");
         bool isDriverPresent = await _isDriverAvailable(id, hList);
         if (!isDriverPresent && hList.length <= 1) {
@@ -302,6 +306,8 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         hospitalId: id,
         driverId: driverModel.uid,
       );
+      _driverModel = driverModel;
+
       return true;
     } else {
       hList.removeWhere((element) => element.uid == id);
@@ -327,10 +333,14 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
   }
 
   void _goToMapScreen() {
+    log(_hospitalModel!.email);
+    log(_driverModel!.email);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => MapScreen(
           requestModel: _requestModel!,
+          hospitalModel: _hospitalModel!,
+          driverModel: _driverModel!,
         ),
       ),
     );

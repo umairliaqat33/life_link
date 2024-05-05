@@ -446,4 +446,27 @@ class FirestoreRepository {
           ),
         );
   }
+
+  Future<HospitalModel> getSpecificHospitalData(String uid) async {
+    var doc = await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(uid)
+        .get();
+
+    return HospitalModel.fromJson(doc.data()!);
+  }
+
+  Future<DriverModel> getSpecificDriverData(
+    String hId,
+    String driverId,
+  ) async {
+    var doc = await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(hId)
+        .collection(CollectionsNames.driverCollection)
+        .doc(driverId)
+        .get();
+
+    return DriverModel.fromJson(doc.data()!);
+  }
 }

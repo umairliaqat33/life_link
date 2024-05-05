@@ -217,4 +217,18 @@ class FirestoreController {
   Future<List<HospitalModel>> getFutureHospitaList() {
     return _firestoreRepository.getHospitalStreamList();
   }
+
+  Future<HospitalModel> getSpecificHospital(String id) {
+    return _firestoreRepository.getSpecificHospitalData(id);
+  }
+
+  Future<DriverModel> getSpecificDriver(
+    String hId,
+    String driverID,
+  ) {
+    return _firestoreRepository.getSpecificDriverData(
+      hId,
+      driverID,
+    );
+  }
 }
