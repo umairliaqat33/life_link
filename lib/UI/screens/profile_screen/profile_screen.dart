@@ -9,14 +9,12 @@ import 'package:life_link/UI/screens/settings_screen/settings_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
-// import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
-import 'package:life_link/utils/utils.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({

@@ -26,7 +26,6 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _toggleValue = widget.isAvailable;
   }

@@ -6,7 +6,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/screens/drivers_screen/components/hospital_re_sign_in_alert.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
@@ -19,7 +18,6 @@ import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
-import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/services/id_service.dart';
 import 'package:life_link/services/media_service.dart';
 import 'package:life_link/utils/colors.dart';
@@ -233,8 +231,8 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
             : createDriverAccount(
                 hospitalModel.uid,
                 hospitalModel.name,
-                _imageLink,
                 hospitalModel.email,
+                _imageLink,
               );
         if (widget.driverModel == null) {
           // Navigator.of(context).pop();
@@ -304,30 +302,32 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
           _emailController.text,
           _passwordController.text,
         );
-        FirebaseAuth.instance.signOut();
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return HospitalReSignInAlert(email: hospitalEmail);
-          },
-        );
+
         if (userCredential != null) {
-          uploadDriver(
-            userCredential.user!.uid,
-            hospitalId,
-            hospitalName,
-            profileImage,
+          FirebaseAuth.instance.signOut();
+
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return HospitalReSignInAlert(
+                hospitalEmail: hospitalEmail,
+                drvierUid: userCredential!.user!.uid,
+                hospitalId: hospitalId,
+                hospitalName: hospitalName,
+                profileImage: profileImage,
+                driverEmail: _emailController.text,
+                driverName: _nameController.text,
+                licenseNumber: _licenseNumberController.text,
+                ambulanceRegistration:
+                    _ambulanceRegistrationNumberController.text,
+                driverPassword: _passwordController.text,
+              );
+            },
           );
           log("Driver Account Creation Successful");
           Fluttertoast.showToast(msg: 'Driver Account Creation Successful');
-          Fluttertoast.showToast(msg: "Driver's data saved successfully");
-          // Navigator.of(context).pushAndRemoveUntil(
-          //   MaterialPageRoute(
-          //     builder: (context) => const BottomNavBar(),
-          //   ),
-          //   (route) => false,
-          // );
+          Navigator.pop(context);
         }
       }
     } on EmailAlreadyExistException catch (e) {
@@ -339,28 +339,5 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
       log("Driver Account Creation failed");
       Fluttertoast.showToast(msg: 'Driver Account Creation Failed');
     }
-  }
-
-  void uploadDriver(
-    String uid,
-    String hospitalId,
-    String hospitalName,
-    String profileImage,
-  ) {
-    FirestoreController firestoreController = FirestoreController();
-    firestoreController.uploadDriverInformation(
-      DriverModel(
-        email: _emailController.text,
-        name: _nameController.text,
-        uid: uid,
-        licenseNumber: _licenseNumberController.text,
-        ambulanceRegistrationNo: _ambulanceRegistrationNumberController.text,
-        hospitalId: hospitalId,
-        hospitalName: hospitalName,
-        profilePicture: profileImage,
-        isAvailable: true,
-        driverPassword: _passwordController.text,
-      ),
-    );
   }
 }

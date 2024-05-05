@@ -11,6 +11,11 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   GoogleMapController? _mapController;
   final LatLng _center = const LatLng(31.5006602, 74.3295742);
+  @override
+  void dispose() {
+    _mapController!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
