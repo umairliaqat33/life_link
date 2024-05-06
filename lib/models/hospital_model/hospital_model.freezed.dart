@@ -26,7 +26,7 @@ mixin _$HospitalModel {
   String get uid => throw _privateConstructorUsedError;
   double get hospitalLat => throw _privateConstructorUsedError;
   double get hospitalLon => throw _privateConstructorUsedError;
-  String get fcmToke => throw _privateConstructorUsedError;
+  String get fcmToken => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   int get totalBeds => throw _privateConstructorUsedError;
   int get availableBeds => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $HospitalModelCopyWith<$Res> {
       String uid,
       double hospitalLat,
       double hospitalLon,
-      String fcmToke,
+      String fcmToken,
       String phoneNumber,
       int totalBeds,
       int availableBeds});
@@ -75,7 +75,7 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
     Object? uid = null,
     Object? hospitalLat = null,
     Object? hospitalLon = null,
-    Object? fcmToke = null,
+    Object? fcmToken = null,
     Object? phoneNumber = null,
     Object? totalBeds = null,
     Object? availableBeds = null,
@@ -105,9 +105,9 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
           ? _value.hospitalLon
           : hospitalLon // ignore: cast_nullable_to_non_nullable
               as double,
-      fcmToke: null == fcmToke
-          ? _value.fcmToke
-          : fcmToke // ignore: cast_nullable_to_non_nullable
+      fcmToken: null == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
               as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
@@ -140,7 +140,7 @@ abstract class _$$HospitalModelImplCopyWith<$Res>
       String uid,
       double hospitalLat,
       double hospitalLon,
-      String fcmToke,
+      String fcmToken,
       String phoneNumber,
       int totalBeds,
       int availableBeds});
@@ -163,7 +163,7 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
     Object? uid = null,
     Object? hospitalLat = null,
     Object? hospitalLon = null,
-    Object? fcmToke = null,
+    Object? fcmToken = null,
     Object? phoneNumber = null,
     Object? totalBeds = null,
     Object? availableBeds = null,
@@ -193,9 +193,9 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
           ? _value.hospitalLon
           : hospitalLon // ignore: cast_nullable_to_non_nullable
               as double,
-      fcmToke: null == fcmToke
-          ? _value.fcmToke
-          : fcmToke // ignore: cast_nullable_to_non_nullable
+      fcmToken: null == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
               as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
@@ -223,7 +223,7 @@ class _$HospitalModelImpl implements _HospitalModel {
       required this.uid,
       required this.hospitalLat,
       required this.hospitalLon,
-      required this.fcmToke,
+      required this.fcmToken,
       this.phoneNumber = "",
       this.totalBeds = 0,
       this.availableBeds = 0});
@@ -244,7 +244,7 @@ class _$HospitalModelImpl implements _HospitalModel {
   @override
   final double hospitalLon;
   @override
-  final String fcmToke;
+  final String fcmToken;
   @override
   @JsonKey()
   final String phoneNumber;
@@ -257,7 +257,7 @@ class _$HospitalModelImpl implements _HospitalModel {
 
   @override
   String toString() {
-    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, hospitalLat: $hospitalLat, hospitalLon: $hospitalLon, fcmToke: $fcmToke, phoneNumber: $phoneNumber, totalBeds: $totalBeds, availableBeds: $availableBeds)';
+    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, hospitalLat: $hospitalLat, hospitalLon: $hospitalLon, fcmToken: $fcmToken, phoneNumber: $phoneNumber, totalBeds: $totalBeds, availableBeds: $availableBeds)';
   }
 
   @override
@@ -273,7 +273,8 @@ class _$HospitalModelImpl implements _HospitalModel {
                 other.hospitalLat == hospitalLat) &&
             (identical(other.hospitalLon, hospitalLon) ||
                 other.hospitalLon == hospitalLon) &&
-            (identical(other.fcmToke, fcmToke) || other.fcmToke == fcmToke) &&
+            (identical(other.fcmToken, fcmToken) ||
+                other.fcmToken == fcmToken) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.totalBeds, totalBeds) ||
@@ -284,8 +285,18 @@ class _$HospitalModelImpl implements _HospitalModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, name, address, uid,
-      hospitalLat, hospitalLon, fcmToke, phoneNumber, totalBeds, availableBeds);
+  int get hashCode => Object.hash(
+      runtimeType,
+      email,
+      name,
+      address,
+      uid,
+      hospitalLat,
+      hospitalLon,
+      fcmToken,
+      phoneNumber,
+      totalBeds,
+      availableBeds);
 
   @JsonKey(ignore: true)
   @override
@@ -309,7 +320,7 @@ abstract class _HospitalModel implements HospitalModel {
       required final String uid,
       required final double hospitalLat,
       required final double hospitalLon,
-      required final String fcmToke,
+      required final String fcmToken,
       final String phoneNumber,
       final int totalBeds,
       final int availableBeds}) = _$HospitalModelImpl;
@@ -330,7 +341,7 @@ abstract class _HospitalModel implements HospitalModel {
   @override
   double get hospitalLon;
   @override
-  String get fcmToke;
+  String get fcmToken;
   @override
   String get phoneNumber;
   @override

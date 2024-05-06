@@ -8,6 +8,7 @@ import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/repositories/firestore_repository.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/strings.dart';
 
@@ -230,5 +231,47 @@ class FirestoreController {
       hId,
       driverID,
     );
+  }
+
+  void changePatientFCM({
+    required String id,
+    required String token,
+  }) {
+    try {
+      _firestoreRepository.updatePatientFCMToken(
+        id: id,
+        fcmToken: token,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void changeHospitalOrDriverFCM({
+    required UserType userType,
+    required String hospitalUid,
+    required String driverId,
+    required String token,
+  }) {
+    try {
+      _firestoreRepository.updateHospitalOrDriverFCMToken(
+        userType: userType,
+        hId: hospitalUid,
+        dId: driverId,
+        fcmToken: token,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
   }
 }

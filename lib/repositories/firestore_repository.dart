@@ -11,6 +11,7 @@ import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/uid_model/uid_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/collection_names.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/strings.dart';
 
@@ -468,5 +469,111 @@ class FirestoreRepository {
         .get();
 
     return DriverModel.fromJson(doc.data()!);
+  }
+
+  Future<DriverModel?> getDriverData() async {
+    DriverModel? driverModel;
+    QuerySnapshot hospitalSnapshot =
+        await FirebaseFirestore.instance.collection('hospitals').get();
+
+    for (QueryDocumentSnapshot hospitalDoc in hospitalSnapshot.docs) {
+      QuerySnapshot driversSnapshot = await hospitalDoc.reference
+          .collection('drivers')
+          .where('uid', isEqualTo: FirestoreRepository.checkUser()!.uid)
+          .get();
+
+      if (driversSnapshot.docs.isNotEmpty) {
+        // Driver found in this hospital
+        QueryDocumentSnapshot driverDoc = driversSnapshot.docs.first;
+        Map<String, dynamic> driverData =
+            driverDoc.data() as Map<String, dynamic>;
+        driverModel = DriverModel.fromJson(driverData);
+        log('Driver found in hospital: ${hospitalDoc.id}');
+        log('Driver data: $driverData');
+        // You can use the driver data here
+        break; // Exit the loop once the driver is found
+      }
+    }
+    return driverModel;
+  }
+
+  void updatePatientFCMToken({
+    required String id,
+    required String fcmToken,
+  }) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.patientCollection)
+          .doc(id)
+          .set(
+        {"fcmToken": fcmToken},
+        SetOptions(
+          merge: true,
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void updateHospitalOrDriverFCMToken({
+    required UserType userType,
+    required String hId,
+    required String dId,
+    required String fcmToken,
+  }) {
+    try {
+      userType == UserType.hospital
+          ? CollectionsNames.firestoreCollection
+              .collection(CollectionsNames.hospitalCollection)
+              .doc(hId)
+              .set(
+              {"fcmToken": fcmToken},
+              SetOptions(
+                merge: true,
+              ),
+            )
+          : CollectionsNames.firestoreCollection
+              .collection(CollectionsNames.hospitalCollection)
+              .doc(hId)
+              .collection(CollectionsNames.driverCollection)
+              .doc(dId)
+              .set(
+              {"fcmToken": fcmToken},
+              SetOptions(
+                merge: true,
+              ),
+            );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  Future<String> getFCMToken() async {
+    UserModel userModel = await getUserData();
+    String fcmToken = '';
+    if (userModel.userType == UserType.patient.name) {
+      PatientModel patientModel = await getPatientData();
+      fcmToken = patientModel.fcmToken;
+    } else if (userModel.userType == UserType.hospital.name) {
+      HospitalModel hospitalModel = await getHospitalData();
+      fcmToken = hospitalModel.fcmToken;
+    } else if (userModel.userType == UserType.driver.name) {
+      DriverModel? driverModel = await getDriverData();
+      if (driverModel != null) {
+        fcmToken = driverModel.fcmToken;
+      }
+    }
+    return fcmToken;
   }
 }

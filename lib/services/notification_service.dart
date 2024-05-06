@@ -1,11 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
+import 'package:life_link/UI/screens/profile_screen/profile_screen.dart';
+import 'package:life_link/constants/constants.dart';
+import 'package:life_link/repositories/firestore_repository.dart';
 
 class NotificationService {
   final _localNotification = FlutterLocalNotificationsPlugin();
-  Future<void> initLocalNotification() async {
+  Future<void> _initLocalNotification() async {
     const iOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -84,5 +90,50 @@ class NotificationService {
   Future<String?> getToken() async {
     final fCMToken = await FirebaseMessaging.instance.getToken();
     return fCMToken;
+  }
+
+  void sendNotification({
+    required String body,
+  }) {
+    FirestoreRepository firestoreRepository = FirestoreRepository();
+    try {
+      http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=$cloudMessagingApi',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            "to": firestoreRepository.getFCMToken(),
+            "priority": 'high',
+            "notification": <String, dynamic>{
+              'body': body,
+              "title": "New Message !"
+            },
+            'data': <String, String>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+            }
+          },
+        ),
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void firebaseNotification(context) {
+    _initLocalNotification();
+    //background notification
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: ((context) => const ProfileScreen()),
+      ));
+    });
+    //foreground notification
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      await _showNotification(message);
+    });
   }
 }

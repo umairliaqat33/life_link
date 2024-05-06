@@ -94,7 +94,7 @@ class _DriverScreenState extends State<DriverScreen> {
                             ConnectionState.waiting) {
                           return const CircularLoaderWidget();
                         }
-                        if (snapshot.data!.isEmpty) {
+                        if (snapshot.data != null) {
                           return const Center(
                             child: NoDataWidget(alertText: "No Doctors Found"),
                           );

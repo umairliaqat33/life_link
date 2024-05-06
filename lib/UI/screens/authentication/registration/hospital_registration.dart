@@ -223,7 +223,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
               phoneNumber: _phoneControler.text,
               hospitalLat: position!.latitude,
               hospitalLon: position.longitude,
-              fcmToke: token!,
+              fcmToken: token!,
             ),
           );
           log("Signup Successful");

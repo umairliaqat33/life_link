@@ -13,7 +13,9 @@ import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/strings.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class RideWaitingScreen extends StatefulWidget {
@@ -89,6 +91,10 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                           _requestModel!.ambulanceDriverId.isNotEmpty &&
                           _requestModel!.hospitalToBeTakeAtId.isNotEmpty) {
                         Future.delayed(Duration.zero, () {
+                          final notificationService = NotificationService();
+                          notificationService.sendNotification(
+                            body: AppStrings.incomingPatientText,
+                          );
                           _goToMapScreen();
                         });
                       }

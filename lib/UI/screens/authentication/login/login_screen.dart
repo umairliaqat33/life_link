@@ -14,8 +14,13 @@ import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/hospital_model/hospital_model.dart';
+import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 import 'package:life_link/utils/utils.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
@@ -184,6 +189,34 @@ class _LoginScreenState extends State<LoginScreen> {
           _passController.text,
         );
         if (userCredential != null) {
+          final notificationSerivce = NotificationService();
+
+          await notificationSerivce.requestPermission();
+          String? token = await notificationSerivce.getToken();
+          final FirestoreController firestoreController = FirestoreController();
+          UserModel userModel = await firestoreController.getUserData();
+          if (userModel.userType == UserType.patient.name) {
+            firestoreController.changePatientFCM(
+              id: userModel.uid,
+              token: token!,
+            );
+          } else if (userModel.userType == UserType.hospital.name) {
+            firestoreController.changeHospitalOrDriverFCM(
+                userType: UserType.hospital,
+                hospitalUid: userModel.uid,
+                driverId: "",
+                token: token!);
+          } else {
+            HospitalModel hospitalModel =
+                await firestoreController.getHospitalData();
+            firestoreController.changeHospitalOrDriverFCM(
+              userType: UserType.driver,
+              hospitalUid: hospitalModel.uid,
+              driverId: userModel.uid,
+              token: token!,
+            );
+          }
+
           log("SignIn successful");
           Fluttertoast.showToast(msg: "SignIn successful");
           Navigator.of(context).pushAndRemoveUntil(
