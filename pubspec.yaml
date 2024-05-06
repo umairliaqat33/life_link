@@ -53,6 +53,8 @@ dependencies:
   geolocator: ^11.0.0
   loading_animation_widget: ^1.2.1
   google_maps_flutter: ^2.2.8
+  firebase_messaging: ^14.9.1
+  flutter_local_notifications: ^17.1.1
 
 dev_dependencies:
   flutter_test:

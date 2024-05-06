@@ -12,6 +12,7 @@ import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
+import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/exceptions.dart';
 
@@ -134,7 +135,7 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
     });
   }
 
-  void uploadDriver({
+  Future<void> uploadDriver({
     required String drvierUid,
     required String hospitalId,
     required String hospitalName,
@@ -144,8 +145,12 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
     required String licenseNumber,
     required String ambulanceRegistration,
     required String driverPassword,
-  }) {
+  }) async {
     FirestoreController firestoreController = FirestoreController();
+    final notificationSerivce = NotificationService();
+
+    await notificationSerivce.requestPermission();
+    String? token = await notificationSerivce.getToken();
     firestoreController.uploadDriverInformation(
       DriverModel(
         email: driverEmail,
@@ -158,6 +163,7 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
         profilePicture: profileImage,
         isAvailable: true,
         driverPassword: driverPassword,
+        fcmToken: token!,
       ),
     );
     Fluttertoast.showToast(msg: "Driver's data saved successfully");

@@ -9,6 +9,7 @@ class PatientModel with _$PatientModel {
     required String email,
     required String name,
     required String uid,
+    required String fcmToken,
     @Default(0) int age,
     @Default("") String cnic,
     @Default("") String disease,

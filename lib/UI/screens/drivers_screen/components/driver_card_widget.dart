@@ -214,6 +214,7 @@ class _DriverCardWidgetState extends State<DriverCardWidget> {
         licenseNumber: widget.driverModel.licenseNumber,
         profilePicture: widget.driverModel.profilePicture,
         isAvailable: _toggleValue,
+        fcmToken: widget.driverModel.fcmToken,
       ),
     );
     setState(() {});

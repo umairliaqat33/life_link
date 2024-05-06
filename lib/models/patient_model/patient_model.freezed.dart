@@ -23,6 +23,7 @@ mixin _$PatientModel {
   String get email => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
+  String get fcmToken => throw _privateConstructorUsedError;
   int get age => throw _privateConstructorUsedError;
   String get cnic => throw _privateConstructorUsedError;
   String get disease => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $PatientModelCopyWith<$Res> {
       {String email,
       String name,
       String uid,
+      String fcmToken,
       int age,
       String cnic,
       String disease,
@@ -68,6 +70,7 @@ class _$PatientModelCopyWithImpl<$Res, $Val extends PatientModel>
     Object? email = null,
     Object? name = null,
     Object? uid = null,
+    Object? fcmToken = null,
     Object? age = null,
     Object? cnic = null,
     Object? disease = null,
@@ -86,6 +89,10 @@ class _$PatientModelCopyWithImpl<$Res, $Val extends PatientModel>
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      fcmToken: null == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
               as String,
       age: null == age
           ? _value.age
@@ -123,6 +130,7 @@ abstract class _$$PatientModelImplCopyWith<$Res>
       {String email,
       String name,
       String uid,
+      String fcmToken,
       int age,
       String cnic,
       String disease,
@@ -144,6 +152,7 @@ class __$$PatientModelImplCopyWithImpl<$Res>
     Object? email = null,
     Object? name = null,
     Object? uid = null,
+    Object? fcmToken = null,
     Object? age = null,
     Object? cnic = null,
     Object? disease = null,
@@ -162,6 +171,10 @@ class __$$PatientModelImplCopyWithImpl<$Res>
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      fcmToken: null == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
               as String,
       age: null == age
           ? _value.age
@@ -194,6 +207,7 @@ class _$PatientModelImpl implements _PatientModel {
       {required this.email,
       required this.name,
       required this.uid,
+      required this.fcmToken,
       this.age = 0,
       this.cnic = "",
       this.disease = "",
@@ -209,6 +223,8 @@ class _$PatientModelImpl implements _PatientModel {
   final String name;
   @override
   final String uid;
+  @override
+  final String fcmToken;
   @override
   @JsonKey()
   final int age;
@@ -227,7 +243,7 @@ class _$PatientModelImpl implements _PatientModel {
 
   @override
   String toString() {
-    return 'PatientModel(email: $email, name: $name, uid: $uid, age: $age, cnic: $cnic, disease: $disease, gender: $gender, phoneNumber: $phoneNumber)';
+    return 'PatientModel(email: $email, name: $name, uid: $uid, fcmToken: $fcmToken, age: $age, cnic: $cnic, disease: $disease, gender: $gender, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -238,6 +254,8 @@ class _$PatientModelImpl implements _PatientModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.fcmToken, fcmToken) ||
+                other.fcmToken == fcmToken) &&
             (identical(other.age, age) || other.age == age) &&
             (identical(other.cnic, cnic) || other.cnic == cnic) &&
             (identical(other.disease, disease) || other.disease == disease) &&
@@ -248,8 +266,8 @@ class _$PatientModelImpl implements _PatientModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, email, name, uid, age, cnic, disease, gender, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, email, name, uid, fcmToken, age,
+      cnic, disease, gender, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -270,6 +288,7 @@ abstract class _PatientModel implements PatientModel {
       {required final String email,
       required final String name,
       required final String uid,
+      required final String fcmToken,
       final int age,
       final String cnic,
       final String disease,
@@ -285,6 +304,8 @@ abstract class _PatientModel implements PatientModel {
   String get name;
   @override
   String get uid;
+  @override
+  String get fcmToken;
   @override
   int get age;
   @override

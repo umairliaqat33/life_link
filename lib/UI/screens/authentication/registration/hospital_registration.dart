@@ -16,6 +16,7 @@ import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/services/location_service.dart';
+import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
@@ -40,6 +41,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
   final _phoneControler = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _showSpinner = false;
+  static final notificationSerivce = NotificationService();
   @override
   void dispose() {
     _emailController.dispose();
@@ -201,6 +203,8 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
           _passController.text,
         );
         if (userCredential != null) {
+          await notificationSerivce.requestPermission();
+          String? token = await notificationSerivce.getToken();
           firestoreController.uploadUserInformation(
             UserModel(
               email: _emailController.text,
@@ -219,6 +223,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
               phoneNumber: _phoneControler.text,
               hospitalLat: position!.latitude,
               hospitalLon: position.longitude,
+              fcmToke: token!,
             ),
           );
           log("Signup Successful");

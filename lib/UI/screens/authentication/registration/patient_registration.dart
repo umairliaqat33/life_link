@@ -14,6 +14,7 @@ import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
@@ -39,6 +40,7 @@ class _PatientRegistrationState extends State<PatientRegistration> {
   final _phoneController = TextEditingController();
   final _diseaseController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  static final notificationSerivce = NotificationService();
 
   bool _showSpinner = false;
   Gender _gender = Gender.male;
@@ -267,6 +269,8 @@ class _PatientRegistrationState extends State<PatientRegistration> {
           _passController.text,
         );
         if (userCredential != null) {
+          await notificationSerivce.requestPermission();
+          String? token = await notificationSerivce.getToken();
           firestoreController.uploadUserInformation(
             UserModel(
               email: _emailController.text,
@@ -285,6 +289,7 @@ class _PatientRegistrationState extends State<PatientRegistration> {
               disease: _diseaseController.text,
               gender: _gender.name,
               phoneNumber: _phoneController.text,
+              fcmToken: token!,
             ),
           );
           log("Signup Successful");

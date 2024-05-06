@@ -13,6 +13,7 @@ import 'package:life_link/utils/strings.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  static const route = '/splash-screen';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

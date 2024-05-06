@@ -12,6 +12,7 @@ class DriverModel with _$DriverModel {
     required String uid,
     required String hospitalId,
     required String hospitalName,
+    required String fcmToken,
     @Default("") String driverPassword,
     @Default("") String licenseNumber,
     @Default("") String profilePicture,

@@ -26,6 +26,7 @@ mixin _$DriverModel {
   String get uid => throw _privateConstructorUsedError;
   String get hospitalId => throw _privateConstructorUsedError;
   String get hospitalName => throw _privateConstructorUsedError;
+  String get fcmToken => throw _privateConstructorUsedError;
   String get driverPassword => throw _privateConstructorUsedError;
   String get licenseNumber => throw _privateConstructorUsedError;
   String get profilePicture => throw _privateConstructorUsedError;
@@ -50,6 +51,7 @@ abstract class $DriverModelCopyWith<$Res> {
       String uid,
       String hospitalId,
       String hospitalName,
+      String fcmToken,
       String driverPassword,
       String licenseNumber,
       String profilePicture,
@@ -75,6 +77,7 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
     Object? uid = null,
     Object? hospitalId = null,
     Object? hospitalName = null,
+    Object? fcmToken = null,
     Object? driverPassword = null,
     Object? licenseNumber = null,
     Object? profilePicture = null,
@@ -104,6 +107,10 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
       hospitalName: null == hospitalName
           ? _value.hospitalName
           : hospitalName // ignore: cast_nullable_to_non_nullable
+              as String,
+      fcmToken: null == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
               as String,
       driverPassword: null == driverPassword
           ? _value.driverPassword
@@ -140,6 +147,7 @@ abstract class _$$DriverModelImplCopyWith<$Res>
       String uid,
       String hospitalId,
       String hospitalName,
+      String fcmToken,
       String driverPassword,
       String licenseNumber,
       String profilePicture,
@@ -163,6 +171,7 @@ class __$$DriverModelImplCopyWithImpl<$Res>
     Object? uid = null,
     Object? hospitalId = null,
     Object? hospitalName = null,
+    Object? fcmToken = null,
     Object? driverPassword = null,
     Object? licenseNumber = null,
     Object? profilePicture = null,
@@ -192,6 +201,10 @@ class __$$DriverModelImplCopyWithImpl<$Res>
       hospitalName: null == hospitalName
           ? _value.hospitalName
           : hospitalName // ignore: cast_nullable_to_non_nullable
+              as String,
+      fcmToken: null == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
               as String,
       driverPassword: null == driverPassword
           ? _value.driverPassword
@@ -223,6 +236,7 @@ class _$DriverModelImpl implements _DriverModel {
       required this.uid,
       required this.hospitalId,
       required this.hospitalName,
+      required this.fcmToken,
       this.driverPassword = "",
       this.licenseNumber = "",
       this.profilePicture = "",
@@ -244,6 +258,8 @@ class _$DriverModelImpl implements _DriverModel {
   @override
   final String hospitalName;
   @override
+  final String fcmToken;
+  @override
   @JsonKey()
   final String driverPassword;
   @override
@@ -258,7 +274,7 @@ class _$DriverModelImpl implements _DriverModel {
 
   @override
   String toString() {
-    return 'DriverModel(email: $email, name: $name, ambulanceRegistrationNo: $ambulanceRegistrationNo, uid: $uid, hospitalId: $hospitalId, hospitalName: $hospitalName, driverPassword: $driverPassword, licenseNumber: $licenseNumber, profilePicture: $profilePicture, isAvailable: $isAvailable)';
+    return 'DriverModel(email: $email, name: $name, ambulanceRegistrationNo: $ambulanceRegistrationNo, uid: $uid, hospitalId: $hospitalId, hospitalName: $hospitalName, fcmToken: $fcmToken, driverPassword: $driverPassword, licenseNumber: $licenseNumber, profilePicture: $profilePicture, isAvailable: $isAvailable)';
   }
 
   @override
@@ -276,6 +292,8 @@ class _$DriverModelImpl implements _DriverModel {
                 other.hospitalId == hospitalId) &&
             (identical(other.hospitalName, hospitalName) ||
                 other.hospitalName == hospitalName) &&
+            (identical(other.fcmToken, fcmToken) ||
+                other.fcmToken == fcmToken) &&
             (identical(other.driverPassword, driverPassword) ||
                 other.driverPassword == driverPassword) &&
             (identical(other.licenseNumber, licenseNumber) ||
@@ -296,6 +314,7 @@ class _$DriverModelImpl implements _DriverModel {
       uid,
       hospitalId,
       hospitalName,
+      fcmToken,
       driverPassword,
       licenseNumber,
       profilePicture,
@@ -323,6 +342,7 @@ abstract class _DriverModel implements DriverModel {
       required final String uid,
       required final String hospitalId,
       required final String hospitalName,
+      required final String fcmToken,
       final String driverPassword,
       final String licenseNumber,
       final String profilePicture,
@@ -343,6 +363,8 @@ abstract class _DriverModel implements DriverModel {
   String get hospitalId;
   @override
   String get hospitalName;
+  @override
+  String get fcmToken;
   @override
   String get driverPassword;
   @override
