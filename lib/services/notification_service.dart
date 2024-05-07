@@ -23,10 +23,10 @@ class NotificationService {
       android: android,
       iOS: iOS,
     );
-    await _localNotification.initialize(setting,
-        onDidReceiveBackgroundNotificationResponse: (response) {
-      debugPrint(response.payload.toString());
-    });
+    // await _localNotification.initialize(setting,
+    //     onDidReceiveBackgroundNotificationResponse: (response) {
+    //   debugPrint(response.payload.toString());
+    // });
   }
 
   Future<void> _showNotification(RemoteMessage remoteMessage) async {

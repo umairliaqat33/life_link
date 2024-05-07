@@ -53,7 +53,7 @@ class _DoctorCardWidgetState extends State<DoctorCardWidget> {
                   onChanged: (value) => _toggleOnChanged(value),
                   activeColor: Colors.green,
                   inactiveColor: Colors.red,
-                )
+                ),
               ],
             ),
             Row(
