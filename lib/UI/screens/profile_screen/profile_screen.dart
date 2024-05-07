@@ -223,6 +223,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } catch (e) {
       log(e.toString());
     }
+    if (!mounted) return;
     setState(() {});
   }
 
