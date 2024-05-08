@@ -605,4 +605,24 @@ class FirestoreRepository {
     // }
     return fcmToken;
   }
+
+  void changeBedAvailability(
+    List<bool> bedsList,
+  ) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
+          .update(
+        {"bedsList": bedsList},
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
 }

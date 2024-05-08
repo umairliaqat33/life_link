@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/config/size_config.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/exceptions.dart';
 
 class AddingBed extends StatefulWidget {
-  const AddingBed({super.key});
-
+  const AddingBed({
+    super.key,
+    required this.bedList,
+  });
+  final List<bool> bedList;
   @override
   State<AddingBed> createState() => _AddingBedState();
 }
@@ -81,9 +88,7 @@ class _AddingBedState extends State<AddingBed> {
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.green),
           ),
-          onPressed: () {
-            // Save functionality goes here
-          },
+          onPressed: () => _addBedsButton(numberOfBeds),
           child: const Text(
             "ADD",
             style: TextStyle(color: Colors.white),
@@ -91,5 +96,39 @@ class _AddingBedState extends State<AddingBed> {
         ),
       ],
     );
+  }
+
+  void _addBedsButton(int beds) {
+    try {
+      List<bool> list = [];
+      for (int i = 0; i < beds + widget.bedList.length; i++) {
+        if (i < widget.bedList.length) {
+          list.add(widget.bedList[i]);
+        } else {
+          list.add(false);
+        }
+      }
+      FirestoreController firestoreController = FirestoreController();
+      firestoreController.changeBedAvailability(list);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const BottomNavBar(),
+        ),
+        (route) => false,
+      );
+    } on NoInternetException catch (e) {
+      Fluttertoast.showToast(
+        msg: e.message,
+      );
+    } on FormatParsingException catch (e) {
+      Fluttertoast.showToast(
+        msg: e.message,
+      );
+    } on UnknownException catch (e) {
+      Fluttertoast.showToast(
+        msg: e.message,
+      );
+    }
   }
 }

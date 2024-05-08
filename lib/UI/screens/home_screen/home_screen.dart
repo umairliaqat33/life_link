@@ -289,7 +289,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void onAvailableBeds() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const BedsScreen(),
+        builder: (context) => BedsScreen(
+          bedsList: _hospitalModel!.bedsList,
+        ),
       ),
     );
   }

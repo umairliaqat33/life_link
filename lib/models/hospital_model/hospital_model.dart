@@ -14,6 +14,7 @@ class HospitalModel with _$HospitalModel {
     required double hospitalLon,
     required String fcmToken,
     @Default("") String phoneNumber,
+    @Default([]) List<bool> bedsList,
     @Default(0) int totalBeds,
     @Default(0) int availableBeds,
   }) = _HospitalModel;

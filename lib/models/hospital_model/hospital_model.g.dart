@@ -16,6 +16,10 @@ _$HospitalModelImpl _$$HospitalModelImplFromJson(Map<String, dynamic> json) =>
       hospitalLon: (json['hospitalLon'] as num).toDouble(),
       fcmToken: json['fcmToken'] as String,
       phoneNumber: json['phoneNumber'] as String? ?? "",
+      bedsList: (json['bedsList'] as List<dynamic>?)
+              ?.map((e) => e as bool)
+              .toList() ??
+          const [],
       totalBeds: (json['totalBeds'] as num?)?.toInt() ?? 0,
       availableBeds: (json['availableBeds'] as num?)?.toInt() ?? 0,
     );
@@ -30,6 +34,7 @@ Map<String, dynamic> _$$HospitalModelImplToJson(_$HospitalModelImpl instance) =>
       'hospitalLon': instance.hospitalLon,
       'fcmToken': instance.fcmToken,
       'phoneNumber': instance.phoneNumber,
+      'bedsList': instance.bedsList,
       'totalBeds': instance.totalBeds,
       'availableBeds': instance.availableBeds,
     };

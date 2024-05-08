@@ -281,4 +281,17 @@ class FirestoreController {
   ) {
     return _firestoreRepository.getReceiverFCMToken(receiverUid, userType);
   }
+
+  void changeBedAvailability(List<bool> hospitalAvailabilityList) {
+    try {
+      _firestoreRepository.changeBedAvailability(hospitalAvailabilityList);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
 }
