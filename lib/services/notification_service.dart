@@ -7,11 +7,16 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:life_link/UI/screens/profile_screen/profile_screen.dart';
 import 'package:life_link/constants/constants.dart';
-import 'package:life_link/repositories/firestore_repository.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/utils/enums.dart';
+
+void backgroundMessageHandler(NotificationResponse response) {
+  log("Notification id: ${response.id}");
+}
 
 class NotificationService {
   final _localNotification = FlutterLocalNotificationsPlugin();
-  Future<void> _initLocalNotification() async {
+  Future<void> initLocalNotification() async {
     const iOS = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -23,10 +28,12 @@ class NotificationService {
       android: android,
       iOS: iOS,
     );
-    // await _localNotification.initialize(setting,
-    //     onDidReceiveBackgroundNotificationResponse: (response) {
-    //   debugPrint(response.payload.toString());
-    // });
+    await _localNotification.initialize(setting,
+        onDidReceiveBackgroundNotificationResponse: backgroundMessageHandler
+        // (response) {
+        //   debugPrint(response.payload.toString());
+        // },
+        );
   }
 
   Future<void> _showNotification(RemoteMessage remoteMessage) async {
@@ -92,10 +99,16 @@ class NotificationService {
     return fCMToken;
   }
 
-  void sendNotification({
+  Future<void> sendNotification({
     required String body,
-  }) {
-    FirestoreRepository firestoreRepository = FirestoreRepository();
+    required String receiverUid,
+    required UserType userType,
+  }) async {
+    FirestoreController firestoreController = FirestoreController();
+    String fcmToken = await firestoreController.getReceiverFCMTokenViaUid(
+      receiverUid,
+      userType,
+    );
     try {
       http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -105,7 +118,7 @@ class NotificationService {
         },
         body: jsonEncode(
           <String, dynamic>{
-            "to": firestoreRepository.getFCMToken(),
+            "to": fcmToken,
             "priority": 'high',
             "notification": <String, dynamic>{
               'body': body,
@@ -124,7 +137,7 @@ class NotificationService {
   }
 
   void firebaseNotification(context) {
-    _initLocalNotification();
+    initLocalNotification();
     //background notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       Navigator.of(context).push(MaterialPageRoute(

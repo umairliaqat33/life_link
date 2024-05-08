@@ -576,4 +576,33 @@ class FirestoreRepository {
     }
     return fcmToken;
   }
+
+  Future<PatientModel> getSpecificPatientModel(String uid) async {
+    var docSnapshot = await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.patientCollection)
+        .doc(uid)
+        .get();
+    return PatientModel.fromJson(docSnapshot.data()!);
+  }
+
+  Future<String> getReceiverFCMToken(
+    String receiverUid,
+    UserType userType,
+  ) async {
+    String fcmToken = '';
+    if (userType == UserType.patient) {
+      PatientModel patientModel = await getSpecificPatientModel(receiverUid);
+      fcmToken = patientModel.fcmToken;
+    } else if (userType == UserType.hospital) {
+      HospitalModel hospitalModel = await getSpecificHospitalData(receiverUid);
+      fcmToken = hospitalModel.fcmToken;
+    }
+    //  else if (userType == UserType.driver) {
+    //   DriverModel? driverModel = await getDriverData();
+    //   if (driverModel != null) {
+    //     fcmToken = driverModel.fcmToken;
+    //   }
+    // }
+    return fcmToken;
+  }
 }

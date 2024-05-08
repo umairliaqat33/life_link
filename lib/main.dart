@@ -6,15 +6,11 @@ import 'package:life_link/UI/screens/onboarding_screen/onboarding_view.dart';
 import 'package:life_link/UI/screens/splash_screen/splash_screen.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:life_link/firebase_options.dart';
+import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
-Future<void> _backgroundMessageHandler(RemoteMessage remoteMessage) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +19,9 @@ void main() async {
   );
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final onboarding = prefs.getBool('onboarding') ?? false;
+  final NotificationService notificationService = NotificationService();
+  await notificationService.initLocalNotification();
   await FirebaseMessaging.instance.getInitialMessage();
-  FirebaseMessaging.onBackgroundMessage(_backgroundMessageHandler);
   runApp(MyApp(
     onboarding: onboarding,
   ));

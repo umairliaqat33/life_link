@@ -274,4 +274,11 @@ class FirestoreController {
       }
     }
   }
+
+  Future<String> getReceiverFCMTokenViaUid(
+    String receiverUid,
+    UserType userType,
+  ) {
+    return _firestoreRepository.getReceiverFCMToken(receiverUid, userType);
+  }
 }

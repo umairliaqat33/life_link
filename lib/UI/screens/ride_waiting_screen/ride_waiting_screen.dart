@@ -15,6 +15,7 @@ import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/strings.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -94,6 +95,8 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                           final notificationService = NotificationService();
                           notificationService.sendNotification(
                             body: AppStrings.incomingPatientText,
+                            receiverUid: _requestModel!.hospitalToBeTakeAtId,
+                            userType: UserType.hospital,
                           );
                           _goToMapScreen();
                         });
