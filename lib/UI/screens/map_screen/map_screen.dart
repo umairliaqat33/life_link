@@ -54,12 +54,6 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   @override
-  void dispose() {
-    _mapController!.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -184,6 +178,7 @@ class _MapScreenState extends State<MapScreen> {
       position: LatLng(markerLatitude, markerLongitude),
     );
     _marketList.add(marker);
+    if (!mounted) return;
     setState(() {});
   }
 }

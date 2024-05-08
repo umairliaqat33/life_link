@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
 
 import 'dart:developer';
 
@@ -32,8 +32,6 @@ class RideWaitingScreen extends StatefulWidget {
 
 class _RideWaitingScreenState extends State<RideWaitingScreen> {
   RequestModel? _requestModel;
-  DriverModel? _driverModel;
-  HospitalModel? _hospitalModel;
   final FirestoreController _firestoreController = FirestoreController();
   List<HospitalModel> hospitalList = [];
   bool _isLoading = false;
@@ -209,8 +207,6 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
           hospitalId: id,
           driverId: "",
         );
-        int i = hList.indexWhere((h) => h.uid == id);
-        _hospitalModel = hList[i];
         log("Bed & hospital are available");
         bool isDriverPresent = await _isDriverAvailable(id, hList);
         if (!isDriverPresent && hList.length <= 1) {
@@ -315,7 +311,6 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         hospitalId: id,
         driverId: driverModel.uid,
       );
-      _driverModel = driverModel;
 
       return true;
     } else {
@@ -341,15 +336,17 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         : false;
   }
 
-  void _goToMapScreen() {
-    log(_hospitalModel!.email);
-    log(_driverModel!.email);
+  Future<void> _goToMapScreen() async {
+    HospitalModel hospitalModel = await _firestoreController
+        .getSpecificHospital(_requestModel!.hospitalToBeTakeAtId);
+    DriverModel driverModel = await _firestoreController.getSpecificDriver(
+        _requestModel!.hospitalToBeTakeAtId, _requestModel!.ambulanceDriverId);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => MapScreen(
           requestModel: _requestModel!,
-          hospitalModel: _hospitalModel!,
-          driverModel: _driverModel!,
+          hospitalModel: hospitalModel,
+          driverModel: driverModel,
         ),
       ),
     );
