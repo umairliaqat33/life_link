@@ -10,6 +10,7 @@ class CollectionsNames {
   static String hospitalCollection = 'hospitals';
   static String doctorCollection = 'doctors';
   static String usedID = 'usedId';
-  static String requestCollection = 'requestInProgress';
+  static String requestInProgressCollection = 'requestInProgress';
+  static String completedRequestCollection = 'completedRequest';
   static String bedsCollection = 'beds';
 }

@@ -206,7 +206,9 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
   Future<void> _selectTime(TextEditingController controller) async {
     TimeOfDay? timeOfDay = await DateAndTimeService.timePicker(context);
     if (timeOfDay != null) {
-      String time = DateAndTimeService.timeToString(timeOfDay);
+      String time = DateAndTimeService.timeToString(
+        timeOfDay: timeOfDay,
+      );
       log(time);
       setState(() {
         controller.text = time;

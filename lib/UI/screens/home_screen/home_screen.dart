@@ -331,12 +331,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     try {
       String reqId = await IdService.createID();
-      String time = DateAndTimeService.timeToString(TimeOfDay.now());
+      String timeAndDAte = DateAndTimeService.timeToString(
+        timeOfDay: TimeOfDay.now(),
+        isDateRequired: true,
+      );
       PatientModel patientModel = await _firestoreController.getPatientData();
       Position? currentPosition = await LocationService.getCurrentPosition();
       RequestModel requestModel = RequestModel(
         requestId: reqId,
-        requestTime: time,
+        requestTime: timeAndDAte,
         patientId: patientModel.uid,
         patientLat: currentPosition!.latitude,
         patientLon: currentPosition.longitude,

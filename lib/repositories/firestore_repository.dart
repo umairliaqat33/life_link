@@ -405,7 +405,7 @@ class FirestoreRepository {
   void createAmbulanceRequest(RequestModel requestModel) {
     try {
       CollectionsNames.firestoreCollection
-          .collection(CollectionsNames.requestCollection)
+          .collection(CollectionsNames.requestInProgressCollection)
           .doc(requestModel.requestId)
           .set(requestModel.toJson());
     } on FirebaseAuthException catch (e) {
@@ -421,7 +421,7 @@ class FirestoreRepository {
   void updateAmbulanceRequest(RequestModel requestModel) {
     try {
       CollectionsNames.firestoreCollection
-          .collection(CollectionsNames.requestCollection)
+          .collection(CollectionsNames.requestInProgressCollection)
           .doc(requestModel.requestId)
           .update(requestModel.toJson());
     } on FirebaseAuthException catch (e) {
@@ -436,7 +436,7 @@ class FirestoreRepository {
 
   Stream<RequestModel?> getRequestStream() {
     return CollectionsNames.firestoreCollection
-        .collection(CollectionsNames.requestCollection)
+        .collection(CollectionsNames.requestInProgressCollection)
         .where(
           'patientId',
           isEqualTo: FirestoreRepository.checkUser()!.uid,
@@ -680,5 +680,37 @@ class FirestoreRepository {
         return false; // Return null when no driver is found
       }
     });
+  }
+
+  void addCompletedRequests(RequestModel requestModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.completedRequestCollection)
+          .doc(requestModel.requestId)
+          .set(requestModel.toJson());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void deleteCompletedRequestFromInProgress(String requestId) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.requestInProgressCollection)
+          .doc(requestId)
+          .delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
   }
 }

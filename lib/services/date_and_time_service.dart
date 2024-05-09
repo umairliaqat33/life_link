@@ -12,7 +12,8 @@ class DateAndTimeService {
     return timeOfDay;
   }
 
-  static String timeToString(TimeOfDay? timeOfDay) {
+  static String timeToString(
+      {TimeOfDay? timeOfDay, bool isDateRequired = false}) {
     String time = '';
     if (timeOfDay != null) {
       DateTime now = DateTime.now();
@@ -20,7 +21,13 @@ class DateAndTimeService {
         DateTime(
             now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute),
       );
-      log(timeOfDay.toString());
+      log(isDateRequired.toString());
+      if (isDateRequired) {
+        time = DateFormat('yyyy-MM-dd hh:mm a').format(
+          DateTime(
+              now.year, now.month, now.day, timeOfDay.hour, timeOfDay.minute),
+        );
+      }
       log(time);
     }
     return time;

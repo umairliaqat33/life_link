@@ -3,7 +3,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/screens/map_screen/map_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
@@ -46,11 +48,10 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
     _firestoreController
         .getFutureHospitaList()
         .then((List<HospitalModel> models) {
-      setState(() {
-        hospitalList = models;
-        _processAmbulanceRequest(hospitalList);
-        _isLoading = false;
-      });
+      hospitalList = models;
+      _processAmbulanceRequest(hospitalList);
+      _isLoading = false;
+      setState(() {});
     }).catchError((error) {
       log('Error fetching hospital models: $error');
       setState(() {
@@ -197,6 +198,20 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
       );
       log(id);
       bool isBedAvailable = await _checkIsBedAvailable(hList, id);
+      log(isBedAvailable.toString());
+      if (!isBedAvailable) {
+        _isHospitalWithBedAndDriverAvailable = false;
+        _requestModel = null;
+        log("Made _isHospitalWithBedAndDriverAvailable==false;");
+        Fluttertoast.showToast(
+            msg: "No Hospitals with beds and driver are available");
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const BottomNavBar(),
+          ),
+          (route) => false,
+        );
+      }
       if (!isBedAvailable) {
         hList.removeWhere((element) => element.uid == id);
         if (hList.isNotEmpty) {

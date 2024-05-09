@@ -316,4 +316,30 @@ class FirestoreController {
   Future<bool> isBedAvailablInRequestedHospital(String uid) async {
     return await _firestoreRepository.isBedAvailableInSpecificHospital(uid);
   }
+
+  void addCompleteRequest(RequestModel requestModel) {
+    try {
+      _firestoreRepository.addCompletedRequests(requestModel);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void deleteCompletedRequest(String reqId) {
+    try {
+      _firestoreRepository.deleteCompletedRequestFromInProgress(reqId);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
 }
