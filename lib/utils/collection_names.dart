@@ -11,4 +11,5 @@ class CollectionsNames {
   static String doctorCollection = 'doctors';
   static String usedID = 'usedId';
   static String requestCollection = 'requestInProgress';
+  static String bedsCollection = 'beds';
 }

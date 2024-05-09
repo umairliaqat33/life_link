@@ -28,9 +28,6 @@ mixin _$HospitalModel {
   double get hospitalLon => throw _privateConstructorUsedError;
   String get fcmToken => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
-  List<bool> get bedsList => throw _privateConstructorUsedError;
-  int get totalBeds => throw _privateConstructorUsedError;
-  int get availableBeds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,10 +49,7 @@ abstract class $HospitalModelCopyWith<$Res> {
       double hospitalLat,
       double hospitalLon,
       String fcmToken,
-      String phoneNumber,
-      List<bool> bedsList,
-      int totalBeds,
-      int availableBeds});
+      String phoneNumber});
 }
 
 /// @nodoc
@@ -79,9 +73,6 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
     Object? hospitalLon = null,
     Object? fcmToken = null,
     Object? phoneNumber = null,
-    Object? bedsList = null,
-    Object? totalBeds = null,
-    Object? availableBeds = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -116,18 +107,6 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      bedsList: null == bedsList
-          ? _value.bedsList
-          : bedsList // ignore: cast_nullable_to_non_nullable
-              as List<bool>,
-      totalBeds: null == totalBeds
-          ? _value.totalBeds
-          : totalBeds // ignore: cast_nullable_to_non_nullable
-              as int,
-      availableBeds: null == availableBeds
-          ? _value.availableBeds
-          : availableBeds // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -148,10 +127,7 @@ abstract class _$$HospitalModelImplCopyWith<$Res>
       double hospitalLat,
       double hospitalLon,
       String fcmToken,
-      String phoneNumber,
-      List<bool> bedsList,
-      int totalBeds,
-      int availableBeds});
+      String phoneNumber});
 }
 
 /// @nodoc
@@ -173,9 +149,6 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
     Object? hospitalLon = null,
     Object? fcmToken = null,
     Object? phoneNumber = null,
-    Object? bedsList = null,
-    Object? totalBeds = null,
-    Object? availableBeds = null,
   }) {
     return _then(_$HospitalModelImpl(
       email: null == email
@@ -210,18 +183,6 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      bedsList: null == bedsList
-          ? _value._bedsList
-          : bedsList // ignore: cast_nullable_to_non_nullable
-              as List<bool>,
-      totalBeds: null == totalBeds
-          ? _value.totalBeds
-          : totalBeds // ignore: cast_nullable_to_non_nullable
-              as int,
-      availableBeds: null == availableBeds
-          ? _value.availableBeds
-          : availableBeds // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -237,11 +198,7 @@ class _$HospitalModelImpl implements _HospitalModel {
       required this.hospitalLat,
       required this.hospitalLon,
       required this.fcmToken,
-      this.phoneNumber = "",
-      final List<bool> bedsList = const [],
-      this.totalBeds = 0,
-      this.availableBeds = 0})
-      : _bedsList = bedsList;
+      required this.phoneNumber});
 
   factory _$HospitalModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HospitalModelImplFromJson(json);
@@ -261,27 +218,11 @@ class _$HospitalModelImpl implements _HospitalModel {
   @override
   final String fcmToken;
   @override
-  @JsonKey()
   final String phoneNumber;
-  final List<bool> _bedsList;
-  @override
-  @JsonKey()
-  List<bool> get bedsList {
-    if (_bedsList is EqualUnmodifiableListView) return _bedsList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_bedsList);
-  }
-
-  @override
-  @JsonKey()
-  final int totalBeds;
-  @override
-  @JsonKey()
-  final int availableBeds;
 
   @override
   String toString() {
-    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, hospitalLat: $hospitalLat, hospitalLon: $hospitalLon, fcmToken: $fcmToken, phoneNumber: $phoneNumber, bedsList: $bedsList, totalBeds: $totalBeds, availableBeds: $availableBeds)';
+    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, hospitalLat: $hospitalLat, hospitalLon: $hospitalLon, fcmToken: $fcmToken, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -300,29 +241,13 @@ class _$HospitalModelImpl implements _HospitalModel {
             (identical(other.fcmToken, fcmToken) ||
                 other.fcmToken == fcmToken) &&
             (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber) &&
-            const DeepCollectionEquality().equals(other._bedsList, _bedsList) &&
-            (identical(other.totalBeds, totalBeds) ||
-                other.totalBeds == totalBeds) &&
-            (identical(other.availableBeds, availableBeds) ||
-                other.availableBeds == availableBeds));
+                other.phoneNumber == phoneNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      email,
-      name,
-      address,
-      uid,
-      hospitalLat,
-      hospitalLon,
-      fcmToken,
-      phoneNumber,
-      const DeepCollectionEquality().hash(_bedsList),
-      totalBeds,
-      availableBeds);
+  int get hashCode => Object.hash(runtimeType, email, name, address, uid,
+      hospitalLat, hospitalLon, fcmToken, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -347,10 +272,7 @@ abstract class _HospitalModel implements HospitalModel {
       required final double hospitalLat,
       required final double hospitalLon,
       required final String fcmToken,
-      final String phoneNumber,
-      final List<bool> bedsList,
-      final int totalBeds,
-      final int availableBeds}) = _$HospitalModelImpl;
+      required final String phoneNumber}) = _$HospitalModelImpl;
 
   factory _HospitalModel.fromJson(Map<String, dynamic> json) =
       _$HospitalModelImpl.fromJson;
@@ -371,12 +293,6 @@ abstract class _HospitalModel implements HospitalModel {
   String get fcmToken;
   @override
   String get phoneNumber;
-  @override
-  List<bool> get bedsList;
-  @override
-  int get totalBeds;
-  @override
-  int get availableBeds;
   @override
   @JsonKey(ignore: true)
   _$$HospitalModelImplCopyWith<_$HospitalModelImpl> get copyWith =>

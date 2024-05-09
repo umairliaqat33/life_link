@@ -3,15 +3,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/beds_model/bed_model.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/exceptions.dart';
 
 class AddingBed extends StatefulWidget {
   const AddingBed({
     super.key,
-    required this.bedList,
+    required this.hopspitalId,
+    required this.totalBeds,
   });
-  final List<bool> bedList;
+  final String hopspitalId;
+  final int totalBeds;
   @override
   State<AddingBed> createState() => _AddingBedState();
 }
@@ -100,22 +103,26 @@ class _AddingBedState extends State<AddingBed> {
 
   void _addBedsButton(int beds) {
     try {
-      List<bool> list = [];
-      for (int i = 0; i < beds + widget.bedList.length; i++) {
-        if (i < widget.bedList.length) {
-          list.add(widget.bedList[i]);
-        } else {
-          list.add(false);
-        }
-      }
       FirestoreController firestoreController = FirestoreController();
-      firestoreController.changeBedAvailability(list);
+
+      for (int i = 0; i < beds + widget.totalBeds; i++) {
+        firestoreController.addBed(
+          BedModel(
+            bedId: int.parse("${widget.totalBeds + i}"),
+            hospitalId: widget.hopspitalId,
+          ),
+        );
+      }
+
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           builder: (context) => const BottomNavBar(),
         ),
         (route) => false,
+      );
+      Fluttertoast.showToast(
+        msg: "Beds added",
       );
     } on NoInternetException catch (e) {
       Fluttertoast.showToast(

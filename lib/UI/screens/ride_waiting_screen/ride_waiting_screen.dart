@@ -196,7 +196,7 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         hList: hList,
       );
       log(id);
-      bool isBedAvailable = _checkIsBedAvailable(hList, id);
+      bool isBedAvailable = await _checkIsBedAvailable(hList, id);
       if (!isBedAvailable) {
         hList.removeWhere((element) => element.uid == id);
         if (hList.isNotEmpty) {
@@ -265,18 +265,19 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
     return hospitalId;
   }
 
-  bool _checkIsBedAvailable(
+  Future<bool> _checkIsBedAvailable(
     List<HospitalModel> hList,
     String id,
-  ) {
+  ) async {
     HospitalModel? hospitalModel;
     for (int i = 0; i < hList.length; i++) {
       if (hList[i].uid == id) {
         hospitalModel = hList[i];
       }
     }
-    if ((hospitalModel!.totalBeds - hospitalModel.availableBeds) <
-        hospitalModel.totalBeds) {
+    bool isBedAvailable = await _firestoreController
+        .isBedAvailablInRequestedHospital(hospitalModel!.uid);
+    if (isBedAvailable) {
       return true;
     } else {
       return false;

@@ -13,10 +13,7 @@ class HospitalModel with _$HospitalModel {
     required double hospitalLat,
     required double hospitalLon,
     required String fcmToken,
-    @Default("") String phoneNumber,
-    @Default([]) List<bool> bedsList,
-    @Default(0) int totalBeds,
-    @Default(0) int availableBeds,
+    required String phoneNumber,
   }) = _HospitalModel;
 
   factory HospitalModel.fromJson(Map<String, dynamic> json) =>

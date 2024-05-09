@@ -290,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => BedsScreen(
-          bedsList: _hospitalModel!.bedsList,
+          hospitalId: _hospitalModel!.uid,
         ),
       ),
     );

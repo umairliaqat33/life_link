@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:life_link/models/beds_model/bed_model.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
@@ -607,15 +608,17 @@ class FirestoreRepository {
   }
 
   void changeBedAvailability(
-    List<bool> bedsList,
+    BedModel bed,
   ) {
     try {
       CollectionsNames.firestoreCollection
           .collection(CollectionsNames.hospitalCollection)
           .doc(FirestoreRepository.checkUser()!.uid)
+          .collection(CollectionsNames.bedsCollection)
+          .doc(bed.bedId.toString())
           .update(
-        {"bedsList": bedsList},
-      );
+            bed.toJson(),
+          );
     } on FirebaseAuthException catch (e) {
       if (e.code == AppStrings.noInternet) {
         throw SocketException("${e.code}${e.message}");
@@ -624,5 +627,58 @@ class FirestoreRepository {
             "${AppStrings.wentWrong} ${e.code} ${e.message}");
       }
     }
+  }
+
+  void addBed(BedModel bedModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(FirestoreRepository.checkUser()!.uid)
+          .collection(CollectionsNames.bedsCollection)
+          .doc(bedModel.bedId.toString())
+          .set(bedModel.toJson());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  Stream<List<BedModel>> getBedStreamList() {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(FirestoreRepository.checkUser()!.uid)
+        .collection(CollectionsNames.bedsCollection)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => BedModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .toList(),
+        );
+  }
+
+  Future<bool> isBedAvailableInSpecificHospital(String hospitalId) async {
+    return await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(hospitalId)
+        .collection(CollectionsNames.bedsCollection)
+        .where('isAvailable', isEqualTo: true)
+        .limit(1)
+        .get()
+        .then((QuerySnapshot snapshot) {
+      if (snapshot.size > 0) {
+        return true;
+      } else {
+        log('No available driver found.');
+        return false; // Return null when no driver is found
+      }
+    });
   }
 }

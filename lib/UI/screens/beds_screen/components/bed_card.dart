@@ -4,21 +4,18 @@ import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/widgets/switchs/custom_switch.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/beds_model/bed_model.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/exceptions.dart';
 
 class BedCard extends StatefulWidget {
   const BedCard({
     super.key,
-    required this.index,
-    required this.isAvailable,
-    required this.mainIndex,
-    required this.mainList,
+    required this.bedModel,
+    required this.secondaryIndex,
   });
-  final int index;
-  final bool isAvailable;
-  final int mainIndex;
-  final List<bool> mainList;
+  final BedModel bedModel;
+  final int secondaryIndex;
 
   @override
   State<BedCard> createState() => _BedCardState();
@@ -48,7 +45,7 @@ class _BedCardState extends State<BedCard> {
       child: Card(
         child: ListTile(
           title: Text(
-            "BD-00${widget.index + 1}",
+            "BD-00${widget.bedModel.bedId + 1}",
             style: TextStyle(fontSize: SizeConfig.font18(context)),
           ),
           leading: const Icon(Icons.bed_rounded),
@@ -69,22 +66,20 @@ class _BedCardState extends State<BedCard> {
   }
 
   void _setValue() {
-    _toggle = widget.isAvailable;
+    _toggle = widget.bedModel.isAvailable;
     setState(() {});
   }
 
   void _updateBedList() {
     try {
-      List<bool> list = [];
-      for (int i = 0; i < widget.mainList.length; i++) {
-        if (i == widget.mainIndex) {
-          list.add(_toggle);
-        } else {
-          list.add(widget.mainList[i]);
-        }
-      }
       FirestoreController firestoreController = FirestoreController();
-      firestoreController.changeBedAvailability(list);
+      firestoreController.changeBedAvailability(
+        BedModel(
+          isAvailable: _toggle,
+          bedId: widget.bedModel.bedId,
+          hospitalId: widget.bedModel.hospitalId,
+        ),
+      );
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
