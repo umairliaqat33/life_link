@@ -11,11 +11,12 @@ import 'package:life_link/UI/screens/home_screen/components/user_info_card.dart'
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
 import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
 import 'package:life_link/UI/screens/patient_screen/oldreports.dart';
-import 'package:life_link/UI/screens/patient_ride_history/patient_ride_history.dart';
+import 'package:life_link/UI/screens/ride_history/ride_history.dart';
 import 'package:life_link/UI/screens/ride_waiting_screen/ride_waiting_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/driver_model/driver_model.dart';
 // import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
@@ -39,7 +40,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserModel? _userModel;
-  // DriverModel? _driverModel;
+  DriverModel? _driverModel;
   PatientModel? _patientModel;
   HospitalModel? _hospitalModel;
   final FirestoreController _firestoreController = FirestoreController();
@@ -240,13 +241,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _getAndSetDriverData() async {
-    // _driverModel = await _firestoreController.getAvailableDriverDataAHospital();
-    // if (_driverModel != null) {
-    //   _email = _driverModel!.email;
-    //   _userName = _driverModel!.name;
-    //   _isLoading = false;
-    //   setState(() {});
-    // }
+    _driverModel = await _firestoreController.getCurrentDriverData();
+    if (_driverModel != null) {
+      _email = _driverModel!.email;
+      _userName = _driverModel!.name;
+      _isLoading = false;
+      setState(() {});
+    }
   }
 
   Future<void> _getAndSetHospitalData() async {
@@ -272,7 +273,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void onRideHistoryTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const RideHistory(),
+        builder: (context) => RideHistory(
+          userType: _userModel!.userType == UserType.driver.name
+              ? UserType.driver
+              : _userModel!.userType == UserType.patient.name
+                  ? UserType.patient
+                  : UserType.hospital,
+        ),
       ),
     );
   }

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/patient_ride_history/components/patient_ride_history_alert.dart';
+import 'package:life_link/UI/screens/ride_history/components/patient_ride_history_alert.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/utils/enums.dart';
 
 class PatientRideHistorCardWidget extends StatefulWidget {
   const PatientRideHistorCardWidget({
     super.key,
     required this.requestModel,
+    required this.userType,
   });
 
   final RequestModel requestModel;
+  final UserType userType;
 
   @override
   State<PatientRideHistorCardWidget> createState() =>
@@ -49,7 +52,11 @@ class _PatientRideHistorCardWidgetState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${_hospitalModel?.name}",
+                    widget.userType == UserType.patient
+                        ? "${_hospitalModel?.name}"
+                        : widget.userType == UserType.driver
+                            ? "${_patientModel?.name}"
+                            : "${_patientModel?.name}",
                     style: TextStyle(
                       fontSize: SizeConfig.font18(context),
                       fontWeight: FontWeight.bold,
@@ -59,7 +66,11 @@ class _PatientRideHistorCardWidgetState
                     height: SizeConfig.height10(context),
                   ),
                   Text(
-                    'Driver: ${_driverModel?.name}',
+                    widget.userType == UserType.patient
+                        ? 'Driver: ${_driverModel?.name}'
+                        : widget.userType == UserType.driver
+                            ? "Hospital: ${_hospitalModel?.name}"
+                            : "Driver: ${_driverModel?.name}",
                     style: TextStyle(
                       fontSize: SizeConfig.font12(context) + 1,
                     ),
@@ -115,15 +126,50 @@ class _PatientRideHistorCardWidgetState
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return RideDetailsAlert(
-          pickupTime: widget.requestModel.requestTime,
-          bedNumber: widget.requestModel.bedAssigned,
-          disease: _patientModel?.disease ?? '',
-          ambulanceNumber: _driverModel?.ambulanceRegistrationNo ?? '',
-          dropOffTime: widget.requestModel.requestCompletionTime,
-          hospitalName: _hospitalModel?.name ?? "",
-          hospitalAddress: _hospitalModel?.address ?? '',
-        );
+        return widget.userType == UserType.patient
+            ? RideDetailsAlert(
+                item1: widget.requestModel.requestTime,
+                item5: widget.requestModel.bedAssigned,
+                item3: _patientModel?.disease ?? '',
+                item4: _driverModel?.ambulanceRegistrationNo ?? '',
+                item2: widget.requestModel.requestCompletionTime,
+                title: _hospitalModel?.name ?? "",
+                subtitle: _hospitalModel?.address ?? '',
+                item1Title: 'Pickup Time:',
+                item2Title: 'Drop-off time',
+                item3Title: 'Disease',
+                item4Title: 'Ambulance No:',
+                item5Title: 'Bed Number:',
+              )
+            : widget.userType == UserType.driver
+                ? RideDetailsAlert(
+                    item1: widget.requestModel.requestTime,
+                    item5: _patientModel?.age.toString() ?? "",
+                    item3: _patientModel?.disease ?? '',
+                    item4: widget.requestModel.customerReview,
+                    item2: widget.requestModel.requestCompletionTime,
+                    title: _patientModel?.name ?? "",
+                    subtitle: _patientModel?.phoneNumber ?? '',
+                    item1Title: 'Pickup Time',
+                    item2Title: 'Drop-off time',
+                    item3Title: 'Disease',
+                    item4Title: 'Feedback',
+                    item5Title: 'Patient Age',
+                  )
+                : RideDetailsAlert(
+                    item1: widget.requestModel.requestCompletionTime,
+                    item5: _patientModel?.age.toString() ?? "",
+                    item3: _patientModel?.disease ?? '',
+                    item4: widget.requestModel.customerReview,
+                    item2: _driverModel?.name ?? "",
+                    title: _patientModel?.name ?? "",
+                    subtitle: _patientModel?.phoneNumber ?? '',
+                    item1Title: 'Patient coming time',
+                    item2Title: 'Driver name',
+                    item3Title: 'Disease',
+                    item4Title: 'Feedback',
+                    item5Title: 'Patient Age',
+                  );
       },
     );
   }

@@ -350,4 +350,8 @@ class FirestoreController {
   Stream<List<RequestModel>> getCompletedRequestStream() {
     return _firestoreRepository.getCompletedRequestsStream();
   }
+
+  Future<DriverModel?> getCurrentDriverData() async {
+    return await _firestoreRepository.getDriverData();
+  }
 }

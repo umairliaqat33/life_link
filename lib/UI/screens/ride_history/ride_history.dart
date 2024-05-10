@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/patient_ride_history/components/patient_ride_history_card_widget.dart';
+import 'package:life_link/UI/screens/ride_history/components/patient_ride_history_card_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/utils/enums.dart';
 
 class RideHistory extends StatefulWidget {
-  const RideHistory({super.key});
+  final UserType userType;
+  const RideHistory({
+    super.key,
+    required this.userType,
+  });
 
   @override
   State<RideHistory> createState() => _RideHistoryState();
@@ -58,6 +63,7 @@ class _RideHistoryState extends State<RideHistory> {
               itemBuilder: (context, index) {
                 return PatientRideHistorCardWidget(
                   requestModel: requestList[index],
+                  userType: widget.userType,
                 );
               },
             );

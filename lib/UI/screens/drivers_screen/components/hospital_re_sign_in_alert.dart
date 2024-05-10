@@ -12,7 +12,9 @@ import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
+import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 import 'package:life_link/utils/exceptions.dart';
 
 class HospitalReSignInAlert extends StatefulWidget {
@@ -146,7 +148,14 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
     required String driverPassword,
   }) async {
     FirestoreController firestoreController = FirestoreController();
-
+    firestoreController.uploadUserInformation(
+      UserModel(
+        email: driverEmail,
+        name: driverName,
+        uid: drvierUid,
+        userType: UserType.driver.name,
+      ),
+    );
     firestoreController.uploadDriverInformation(
       DriverModel(
         email: driverEmail,

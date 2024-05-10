@@ -484,8 +484,9 @@ class FirestoreRepository {
 
   Future<DriverModel?> getDriverData() async {
     DriverModel? driverModel;
-    QuerySnapshot hospitalSnapshot =
-        await FirebaseFirestore.instance.collection('hospitals').get();
+    QuerySnapshot hospitalSnapshot = await FirebaseFirestore.instance
+        .collection(CollectionsNames.hospitalCollection)
+        .get();
 
     for (QueryDocumentSnapshot hospitalDoc in hospitalSnapshot.docs) {
       QuerySnapshot driversSnapshot = await hospitalDoc.reference
