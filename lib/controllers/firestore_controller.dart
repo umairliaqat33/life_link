@@ -346,4 +346,8 @@ class FirestoreController {
       }
     }
   }
+
+  Stream<List<RequestModel>> getCompletedRequestStream() {
+    return _firestoreRepository.getCompletedRequestsStream();
+  }
 }

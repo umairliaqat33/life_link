@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/widgets/cards/info_card_widget.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/colors.dart';
 
 class RideDetailsAlert extends StatelessWidget {
   const RideDetailsAlert({
     super.key,
+    required this.pickupTime,
+    required this.bedNumber,
+    required this.disease,
+    required this.ambulanceNumber,
+    required this.dropOffTime,
+    required this.hospitalName,
+    required this.hospitalAddress,
   });
+  final String pickupTime;
+  final String bedNumber;
+  final String disease;
+  final String ambulanceNumber;
+  final String dropOffTime;
+  final String hospitalName;
+  final String hospitalAddress;
   @override
   Widget build(BuildContext context) {
-    return const AlertDialog(
+    return AlertDialog(
       backgroundColor: scaffoldColor,
       title: Row(
         children: [
@@ -18,17 +33,17 @@ class RideDetailsAlert extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Numan",
+                  hospitalName,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: SizeConfig.font14(context),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  "numan123@gmail.com",
+                  hospitalAddress,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: 13,
+                    fontSize: SizeConfig.font12(context),
                     color: greyColor,
                   ),
                 ),
@@ -40,16 +55,16 @@ class RideDetailsAlert extends StatelessWidget {
       content: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           InfoCardWidget(
-            item1: "5:00PM",
-            item2: "Mall Road",
-            item3: "Fever",
-            item4: "LE-444",
-            item5: "0312515158",
+            item1: pickupTime,
+            item2: dropOffTime,
+            item3: disease,
+            item4: ambulanceNumber,
+            item5: bedNumber,
             item1Title: 'Pickup Time:',
-            item2Title: 'Pickup Location:',
+            item2Title: 'Drop-off time',
             item3Title: 'Disease',
             item4Title: 'Ambulance No:',
-            item5Title: 'Rider Phone No:',
+            item5Title: 'Bed Number:',
           )
         ]),
       ),

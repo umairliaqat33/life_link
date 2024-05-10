@@ -11,7 +11,7 @@ import 'package:life_link/UI/screens/home_screen/components/user_info_card.dart'
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
 import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
 import 'package:life_link/UI/screens/patient_screen/oldreports.dart';
-import 'package:life_link/UI/screens/patient_screen/ride_history.dart';
+import 'package:life_link/UI/screens/patient_ride_history/patient_ride_history.dart';
 import 'package:life_link/UI/screens/ride_waiting_screen/ride_waiting_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';

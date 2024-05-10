@@ -726,4 +726,26 @@ class FirestoreRepository {
       }
     }
   }
+
+  Stream<List<RequestModel>> getCompletedRequestsStream() {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.completedRequestCollection)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => RequestModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .where((requestModel) =>
+                  requestModel.ambulanceDriverId ==
+                      FirestoreRepository.checkUser()!.uid ||
+                  requestModel.hospitalToBeTakeAtId ==
+                      FirestoreRepository.checkUser()!.uid ||
+                  requestModel.patientId ==
+                      FirestoreRepository.checkUser()!.uid)
+              .toList(),
+        );
+  }
 }

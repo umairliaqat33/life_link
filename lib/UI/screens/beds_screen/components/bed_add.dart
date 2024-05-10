@@ -108,7 +108,7 @@ class _AddingBedState extends State<AddingBed> {
       for (int i = 0; i < beds + widget.totalBeds; i++) {
         firestoreController.addBed(
           BedModel(
-            bedId: int.parse("${widget.totalBeds + i}"),
+            bedId: int.parse("${widget.totalBeds + i + 1}"),
             hospitalId: widget.hopspitalId,
           ),
         );
