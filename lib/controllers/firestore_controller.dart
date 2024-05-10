@@ -86,6 +86,10 @@ class FirestoreController {
     return _firestoreRepository.getPatientData();
   }
 
+  Future<PatientModel> getSpecificPatientData(String pID) {
+    return _firestoreRepository.getSpecificPatientData(pID);
+  }
+
   void updateUserData(
     UserModel userModel,
   ) async {

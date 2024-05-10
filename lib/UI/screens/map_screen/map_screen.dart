@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:life_link/config/size_config.dart';
-import 'package:life_link/models/driver_model/driver_model.dart';
-import 'package:life_link/models/hospital_model/hospital_model.dart';
-import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/services/image_to_marker.dart';
 import 'package:life_link/utils/assets.dart';
-import 'package:life_link/utils/colors.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({
     super.key,
-    required this.requestModel,
-    required this.hospitalModel,
-    required this.driverModel,
+    required this.marker1Longitude,
+    required this.marker1Latitude,
+    required this.marker2Longitude,
+    required this.marker2Latitude,
   });
-  final RequestModel requestModel;
-  final HospitalModel hospitalModel;
-  final DriverModel driverModel;
+  final double marker1Longitude;
+  final double marker1Latitude;
+  final double marker2Longitude;
+  final double marker2Latitude;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-  GoogleMapController? _mapController;
   final LatLng _center = const LatLng(31.5006602, 74.3295742);
+  GoogleMapController? _mapController;
   final Set<Marker> _marketList = {};
   String? _mapStyle;
   @override
@@ -36,16 +33,16 @@ class _MapScreenState extends State<MapScreen> {
       _mapStyle = string;
     });
     _setMarkers(
-      markerLongitude: widget.requestModel.patientLon,
-      markerLatitude: widget.requestModel.patientLat,
+      markerLongitude: widget.marker1Longitude,
+      markerLatitude: widget.marker1Latitude,
       image: Assets.patientOnGroundIcon,
       markerId: "Patient",
       infoWindowText: "I am here come pick me up",
       markerSize: 100,
     );
     _setMarkers(
-      markerLongitude: 74.2901811,
-      markerLatitude: 31.5817799,
+      markerLongitude: widget.marker2Longitude,
+      markerLatitude: widget.marker2Latitude,
       image: Assets.ambulanceIcon,
       markerId: "Driver",
       infoWindowText: "I am driver",
@@ -55,107 +52,22 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 16,
-              ),
-              myLocationButtonEnabled: true,
-              myLocationEnabled: true,
-              onMapCreated: _onMapCreated,
-              markers: _marketList,
-              zoomControlsEnabled: false,
-              // onCameraMove: (value) {
-              //   _customInfoWindowController.onCameraMove!();
-              // },
-            ),
-            Padding(
-              padding: EdgeInsets.all(SizeConfig.height15(context)),
-              child: BottomSheet(
-                onClosing: () {},
-                builder: (BuildContext context) {
-                  return Padding(
-                    padding: EdgeInsets.all(SizeConfig.height8(context)),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: SizeConfig.width10(context) * 8 / 2,
-                                child: widget.driverModel.profilePicture.isEmpty
-                                    ? Image.asset(
-                                        Assets.blankProfilePicture,
-                                        height:
-                                            SizeConfig.height10(context) * 10,
-                                        width: SizeConfig.width10(context) * 8,
-                                      )
-                                    : ClipOval(
-                                        child: Image.network(
-                                          widget.driverModel.profilePicture,
-                                          height:
-                                              SizeConfig.height10(context) * 10,
-                                          width:
-                                              SizeConfig.width10(context) * 8,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                              ),
-                              SizedBox(
-                                width: SizeConfig.width8(context),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    widget.driverModel.name.toUpperCase(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    "From : ${widget.hospitalModel.name}",
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: greyColor,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: SizeConfig.height8(context),
-                                  ),
-                                  const Text(
-                                    "Arriving in : 20 min",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: greyColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+    return Scaffold(
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 16,
         ),
+        myLocationButtonEnabled: true,
+        myLocationEnabled: true,
+        onMapCreated: _onMapCreated,
+        markers: _marketList,
+        zoomControlsEnabled: false,
+        // onCameraMove: (value) {
+        //   _customInfoWindowController.onCameraMove!();
+        // },
       ),
     );
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    _mapController = controller;
-    _mapController!.setMapStyle(_mapStyle);
   }
 
   Future<void> _setMarkers({
@@ -180,5 +92,10 @@ class _MapScreenState extends State<MapScreen> {
     _marketList.add(marker);
     if (!mounted) return;
     setState(() {});
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    _mapController = controller;
+    _mapController!.setMapStyle(_mapStyle);
   }
 }

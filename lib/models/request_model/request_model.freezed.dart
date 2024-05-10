@@ -28,6 +28,8 @@ mixin _$RequestModel {
   String get bedAssigned => throw _privateConstructorUsedError;
   String get ambulanceDriverId => throw _privateConstructorUsedError;
   String get hospitalToBeTakeAtId => throw _privateConstructorUsedError;
+  String get requestCompletionTime => throw _privateConstructorUsedError;
+  String get customerReview => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +51,9 @@ abstract class $RequestModelCopyWith<$Res> {
       double patientLon,
       String bedAssigned,
       String ambulanceDriverId,
-      String hospitalToBeTakeAtId});
+      String hospitalToBeTakeAtId,
+      String requestCompletionTime,
+      String customerReview});
 }
 
 /// @nodoc
@@ -73,6 +77,8 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
     Object? bedAssigned = null,
     Object? ambulanceDriverId = null,
     Object? hospitalToBeTakeAtId = null,
+    Object? requestCompletionTime = null,
+    Object? customerReview = null,
   }) {
     return _then(_value.copyWith(
       requestId: null == requestId
@@ -107,6 +113,14 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
           ? _value.hospitalToBeTakeAtId
           : hospitalToBeTakeAtId // ignore: cast_nullable_to_non_nullable
               as String,
+      requestCompletionTime: null == requestCompletionTime
+          ? _value.requestCompletionTime
+          : requestCompletionTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerReview: null == customerReview
+          ? _value.customerReview
+          : customerReview // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -127,7 +141,9 @@ abstract class _$$RequestModelImplCopyWith<$Res>
       double patientLon,
       String bedAssigned,
       String ambulanceDriverId,
-      String hospitalToBeTakeAtId});
+      String hospitalToBeTakeAtId,
+      String requestCompletionTime,
+      String customerReview});
 }
 
 /// @nodoc
@@ -149,6 +165,8 @@ class __$$RequestModelImplCopyWithImpl<$Res>
     Object? bedAssigned = null,
     Object? ambulanceDriverId = null,
     Object? hospitalToBeTakeAtId = null,
+    Object? requestCompletionTime = null,
+    Object? customerReview = null,
   }) {
     return _then(_$RequestModelImpl(
       requestId: null == requestId
@@ -183,6 +201,14 @@ class __$$RequestModelImplCopyWithImpl<$Res>
           ? _value.hospitalToBeTakeAtId
           : hospitalToBeTakeAtId // ignore: cast_nullable_to_non_nullable
               as String,
+      requestCompletionTime: null == requestCompletionTime
+          ? _value.requestCompletionTime
+          : requestCompletionTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      customerReview: null == customerReview
+          ? _value.customerReview
+          : customerReview // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -198,7 +224,9 @@ class _$RequestModelImpl implements _RequestModel {
       required this.patientLon,
       this.bedAssigned = "",
       this.ambulanceDriverId = "",
-      this.hospitalToBeTakeAtId = ""});
+      this.hospitalToBeTakeAtId = "",
+      this.requestCompletionTime = "",
+      this.customerReview = ""});
 
   factory _$RequestModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RequestModelImplFromJson(json);
@@ -222,10 +250,16 @@ class _$RequestModelImpl implements _RequestModel {
   @override
   @JsonKey()
   final String hospitalToBeTakeAtId;
+  @override
+  @JsonKey()
+  final String requestCompletionTime;
+  @override
+  @JsonKey()
+  final String customerReview;
 
   @override
   String toString() {
-    return 'RequestModel(requestId: $requestId, requestTime: $requestTime, patientId: $patientId, patientLat: $patientLat, patientLon: $patientLon, bedAssigned: $bedAssigned, ambulanceDriverId: $ambulanceDriverId, hospitalToBeTakeAtId: $hospitalToBeTakeAtId)';
+    return 'RequestModel(requestId: $requestId, requestTime: $requestTime, patientId: $patientId, patientLat: $patientLat, patientLon: $patientLon, bedAssigned: $bedAssigned, ambulanceDriverId: $ambulanceDriverId, hospitalToBeTakeAtId: $hospitalToBeTakeAtId, requestCompletionTime: $requestCompletionTime, customerReview: $customerReview)';
   }
 
   @override
@@ -248,7 +282,11 @@ class _$RequestModelImpl implements _RequestModel {
             (identical(other.ambulanceDriverId, ambulanceDriverId) ||
                 other.ambulanceDriverId == ambulanceDriverId) &&
             (identical(other.hospitalToBeTakeAtId, hospitalToBeTakeAtId) ||
-                other.hospitalToBeTakeAtId == hospitalToBeTakeAtId));
+                other.hospitalToBeTakeAtId == hospitalToBeTakeAtId) &&
+            (identical(other.requestCompletionTime, requestCompletionTime) ||
+                other.requestCompletionTime == requestCompletionTime) &&
+            (identical(other.customerReview, customerReview) ||
+                other.customerReview == customerReview));
   }
 
   @JsonKey(ignore: true)
@@ -262,7 +300,9 @@ class _$RequestModelImpl implements _RequestModel {
       patientLon,
       bedAssigned,
       ambulanceDriverId,
-      hospitalToBeTakeAtId);
+      hospitalToBeTakeAtId,
+      requestCompletionTime,
+      customerReview);
 
   @JsonKey(ignore: true)
   @override
@@ -287,7 +327,9 @@ abstract class _RequestModel implements RequestModel {
       required final double patientLon,
       final String bedAssigned,
       final String ambulanceDriverId,
-      final String hospitalToBeTakeAtId}) = _$RequestModelImpl;
+      final String hospitalToBeTakeAtId,
+      final String requestCompletionTime,
+      final String customerReview}) = _$RequestModelImpl;
 
   factory _RequestModel.fromJson(Map<String, dynamic> json) =
       _$RequestModelImpl.fromJson;
@@ -308,6 +350,10 @@ abstract class _RequestModel implements RequestModel {
   String get ambulanceDriverId;
   @override
   String get hospitalToBeTakeAtId;
+  @override
+  String get requestCompletionTime;
+  @override
+  String get customerReview;
   @override
   @JsonKey(ignore: true)
   _$$RequestModelImplCopyWith<_$RequestModelImpl> get copyWith =>

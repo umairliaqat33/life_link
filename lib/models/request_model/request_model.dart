@@ -14,6 +14,8 @@ class RequestModel with _$RequestModel {
     @Default("") String bedAssigned,
     @Default("") String ambulanceDriverId,
     @Default("") String hospitalToBeTakeAtId,
+    @Default("") String requestCompletionTime,
+    @Default("") String customerReview,
   }) = _RequestModel;
 
   factory RequestModel.fromJson(Map<String, dynamic> json) =>

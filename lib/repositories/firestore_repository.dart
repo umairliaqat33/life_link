@@ -146,6 +146,16 @@ class FirestoreRepository {
         );
   }
 
+  Future<PatientModel> getSpecificPatientData(String patientId) async {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.patientCollection)
+        .doc(patientId)
+        .get()
+        .then(
+          (value) => PatientModel.fromJson(value.data()!),
+        );
+  }
+
   static User? checkUser() {
     User? user = CollectionsNames.firebaseAuth.currentUser;
     return user;

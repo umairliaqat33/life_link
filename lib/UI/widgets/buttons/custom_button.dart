@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
       elevation: 5.0,
       child: MaterialButton(
         onPressed: () => onPressed(),
-        minWidth: SizeConfig.width20(context) * 10,
+        // minWidth: SizeConfig.width20(context) * 10,
         height: SizeConfig.height20(context) * 1.5,
         child: Text(
           title,

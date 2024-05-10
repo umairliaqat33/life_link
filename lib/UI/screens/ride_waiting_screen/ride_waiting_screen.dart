@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:life_link/UI/screens/map_screen/map_screen.dart';
+import 'package:life_link/UI/screens/ride_in_progress_screen/ride_in_progress_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
@@ -311,6 +311,8 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         hospitalToBeTakeAtId: hospitalId ?? "",
         ambulanceDriverId: driverId ?? "",
         bedAssigned: bedNumber ?? "",
+        requestCompletionTime: "",
+        customerReview: "",
       ),
     );
   }
@@ -360,7 +362,7 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         _requestModel!.hospitalToBeTakeAtId, _requestModel!.ambulanceDriverId);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (context) => MapScreen(
+        builder: (context) => RideInProgressScreen(
           requestModel: _requestModel!,
           hospitalModel: hospitalModel,
           driverModel: driverModel,

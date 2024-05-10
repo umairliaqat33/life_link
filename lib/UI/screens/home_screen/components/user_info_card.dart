@@ -3,11 +3,11 @@ import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 
-class InfoCard extends StatelessWidget {
+class UserInfoCard extends StatelessWidget {
   final String name;
   final String email;
   final String? imageLink;
-  const InfoCard({
+  const UserInfoCard({
     super.key,
     required this.name,
     required this.email,

@@ -34,6 +34,7 @@ class Assets {
   static const String backButtonBlackImage =
       "$_svgIconsDir/back_button_black.svg";
   static const String doctorIcon = "$_svgIconsDir/doctor_icon.svg";
+  static const String doneIcon = "$_svgIconsDir/done_icon.svg";
 //images
 
   static const String logo = "$_imagesDir/app_logo.png";
@@ -53,4 +54,5 @@ class Assets {
       "$_imagesDir/patient_on_ground_icon.png";
   static const String patientOnStecherIcon =
       "$_imagesDir/patient_on_stecher_icon.png";
+  static const String feedbackImage = "$_imagesDir/feedback_image.png";
 }
