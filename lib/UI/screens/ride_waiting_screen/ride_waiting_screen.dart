@@ -12,6 +12,7 @@ import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart
 import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/beds_model/bed_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
@@ -167,6 +168,8 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                                       "Hospital to be taken at: ${_requestModel!.hospitalToBeTakeAtId}"),
                                   Text(
                                       "Ambulance Driver Id: ${_requestModel!.ambulanceDriverId}"),
+                                  Text(
+                                      "Bed number: ${_requestModel!.bedAssigned}"),
                                 ],
                               ),
                             );
@@ -197,8 +200,16 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         hList: hList,
       );
       log(id);
-      bool isBedAvailable = await _checkIsBedAvailable(hList, id);
-      log(isBedAvailable.toString());
+      HospitalModel? hospitalModel;
+      for (int i = 0; i < hList.length; i++) {
+        if (hList[i].uid == id) {
+          hospitalModel = hList[i];
+        }
+      }
+      BedModel? bedModel = await _firestoreController
+          .isBedAvailablInRequestedHospital(hospitalModel!.uid);
+      bool isBedAvailable = bedModel?.isAvailable ?? false;
+
       if (!isBedAvailable) {
         _isHospitalWithBedAndDriverAvailable = false;
         _requestModel = null;
@@ -220,10 +231,15 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
       } else {
         _updateRequest(
           hospitalId: id,
+          bedNumber: bedModel?.bedId.toString(),
           driverId: "",
         );
         log("Bed & hospital are available");
-        bool isDriverPresent = await _isDriverAvailable(id, hList);
+        bool isDriverPresent = await _isDriverAvailable(
+          id,
+          hList,
+          bedModel!.bedId.toString(),
+        );
         if (!isDriverPresent && hList.length <= 1) {
           _isHospitalWithBedAndDriverAvailable = false;
           log("No Hospitals available with beds and drivers");
@@ -280,28 +296,10 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
     return hospitalId;
   }
 
-  Future<bool> _checkIsBedAvailable(
-    List<HospitalModel> hList,
-    String id,
-  ) async {
-    HospitalModel? hospitalModel;
-    for (int i = 0; i < hList.length; i++) {
-      if (hList[i].uid == id) {
-        hospitalModel = hList[i];
-      }
-    }
-    bool isBedAvailable = await _firestoreController
-        .isBedAvailablInRequestedHospital(hospitalModel!.uid);
-    if (isBedAvailable) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   void _updateRequest({
     String? hospitalId,
     String? driverId,
+    String? bedNumber,
   }) {
     _firestoreController.updateAmbulanceRequestFields(
       RequestModel(
@@ -312,6 +310,7 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         patientLon: _requestModel!.patientLon,
         hospitalToBeTakeAtId: hospitalId ?? "",
         ambulanceDriverId: driverId ?? "",
+        bedAssigned: bedNumber ?? "",
       ),
     );
   }
@@ -319,6 +318,7 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
   Future<bool> _isDriverAvailable(
     String id,
     List<HospitalModel> hList,
+    String bedNumber,
   ) async {
     DriverModel? driverModel =
         await _firestoreController.getAvailableDriverDataAHospital(id);
@@ -326,6 +326,7 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
       _updateRequest(
         hospitalId: id,
         driverId: driverModel.uid,
+        bedNumber: bedNumber,
       );
 
       return true;

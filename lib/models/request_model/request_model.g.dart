@@ -13,6 +13,7 @@ _$RequestModelImpl _$$RequestModelImplFromJson(Map<String, dynamic> json) =>
       patientId: json['patientId'] as String,
       patientLat: (json['patientLat'] as num).toDouble(),
       patientLon: (json['patientLon'] as num).toDouble(),
+      bedAssigned: json['bedAssigned'] as String? ?? "",
       ambulanceDriverId: json['ambulanceDriverId'] as String? ?? "",
       hospitalToBeTakeAtId: json['hospitalToBeTakeAtId'] as String? ?? "",
     );
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$RequestModelImplToJson(_$RequestModelImpl instance) =>
       'patientId': instance.patientId,
       'patientLat': instance.patientLat,
       'patientLon': instance.patientLon,
+      'bedAssigned': instance.bedAssigned,
       'ambulanceDriverId': instance.ambulanceDriverId,
       'hospitalToBeTakeAtId': instance.hospitalToBeTakeAtId,
     };

@@ -25,6 +25,7 @@ mixin _$RequestModel {
   String get patientId => throw _privateConstructorUsedError;
   double get patientLat => throw _privateConstructorUsedError;
   double get patientLon => throw _privateConstructorUsedError;
+  String get bedAssigned => throw _privateConstructorUsedError;
   String get ambulanceDriverId => throw _privateConstructorUsedError;
   String get hospitalToBeTakeAtId => throw _privateConstructorUsedError;
 
@@ -46,6 +47,7 @@ abstract class $RequestModelCopyWith<$Res> {
       String patientId,
       double patientLat,
       double patientLon,
+      String bedAssigned,
       String ambulanceDriverId,
       String hospitalToBeTakeAtId});
 }
@@ -68,6 +70,7 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
     Object? patientId = null,
     Object? patientLat = null,
     Object? patientLon = null,
+    Object? bedAssigned = null,
     Object? ambulanceDriverId = null,
     Object? hospitalToBeTakeAtId = null,
   }) {
@@ -92,6 +95,10 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
           ? _value.patientLon
           : patientLon // ignore: cast_nullable_to_non_nullable
               as double,
+      bedAssigned: null == bedAssigned
+          ? _value.bedAssigned
+          : bedAssigned // ignore: cast_nullable_to_non_nullable
+              as String,
       ambulanceDriverId: null == ambulanceDriverId
           ? _value.ambulanceDriverId
           : ambulanceDriverId // ignore: cast_nullable_to_non_nullable
@@ -118,6 +125,7 @@ abstract class _$$RequestModelImplCopyWith<$Res>
       String patientId,
       double patientLat,
       double patientLon,
+      String bedAssigned,
       String ambulanceDriverId,
       String hospitalToBeTakeAtId});
 }
@@ -138,6 +146,7 @@ class __$$RequestModelImplCopyWithImpl<$Res>
     Object? patientId = null,
     Object? patientLat = null,
     Object? patientLon = null,
+    Object? bedAssigned = null,
     Object? ambulanceDriverId = null,
     Object? hospitalToBeTakeAtId = null,
   }) {
@@ -162,6 +171,10 @@ class __$$RequestModelImplCopyWithImpl<$Res>
           ? _value.patientLon
           : patientLon // ignore: cast_nullable_to_non_nullable
               as double,
+      bedAssigned: null == bedAssigned
+          ? _value.bedAssigned
+          : bedAssigned // ignore: cast_nullable_to_non_nullable
+              as String,
       ambulanceDriverId: null == ambulanceDriverId
           ? _value.ambulanceDriverId
           : ambulanceDriverId // ignore: cast_nullable_to_non_nullable
@@ -183,6 +196,7 @@ class _$RequestModelImpl implements _RequestModel {
       required this.patientId,
       required this.patientLat,
       required this.patientLon,
+      this.bedAssigned = "",
       this.ambulanceDriverId = "",
       this.hospitalToBeTakeAtId = ""});
 
@@ -201,6 +215,9 @@ class _$RequestModelImpl implements _RequestModel {
   final double patientLon;
   @override
   @JsonKey()
+  final String bedAssigned;
+  @override
+  @JsonKey()
   final String ambulanceDriverId;
   @override
   @JsonKey()
@@ -208,7 +225,7 @@ class _$RequestModelImpl implements _RequestModel {
 
   @override
   String toString() {
-    return 'RequestModel(requestId: $requestId, requestTime: $requestTime, patientId: $patientId, patientLat: $patientLat, patientLon: $patientLon, ambulanceDriverId: $ambulanceDriverId, hospitalToBeTakeAtId: $hospitalToBeTakeAtId)';
+    return 'RequestModel(requestId: $requestId, requestTime: $requestTime, patientId: $patientId, patientLat: $patientLat, patientLon: $patientLon, bedAssigned: $bedAssigned, ambulanceDriverId: $ambulanceDriverId, hospitalToBeTakeAtId: $hospitalToBeTakeAtId)';
   }
 
   @override
@@ -226,6 +243,8 @@ class _$RequestModelImpl implements _RequestModel {
                 other.patientLat == patientLat) &&
             (identical(other.patientLon, patientLon) ||
                 other.patientLon == patientLon) &&
+            (identical(other.bedAssigned, bedAssigned) ||
+                other.bedAssigned == bedAssigned) &&
             (identical(other.ambulanceDriverId, ambulanceDriverId) ||
                 other.ambulanceDriverId == ambulanceDriverId) &&
             (identical(other.hospitalToBeTakeAtId, hospitalToBeTakeAtId) ||
@@ -241,6 +260,7 @@ class _$RequestModelImpl implements _RequestModel {
       patientId,
       patientLat,
       patientLon,
+      bedAssigned,
       ambulanceDriverId,
       hospitalToBeTakeAtId);
 
@@ -265,6 +285,7 @@ abstract class _RequestModel implements RequestModel {
       required final String patientId,
       required final double patientLat,
       required final double patientLon,
+      final String bedAssigned,
       final String ambulanceDriverId,
       final String hospitalToBeTakeAtId}) = _$RequestModelImpl;
 
@@ -281,6 +302,8 @@ abstract class _RequestModel implements RequestModel {
   double get patientLat;
   @override
   double get patientLon;
+  @override
+  String get bedAssigned;
   @override
   String get ambulanceDriverId;
   @override

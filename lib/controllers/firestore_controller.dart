@@ -313,7 +313,7 @@ class FirestoreController {
     return _firestoreRepository.getBedStreamList();
   }
 
-  Future<bool> isBedAvailablInRequestedHospital(String uid) async {
+  Future<BedModel?> isBedAvailablInRequestedHospital(String uid) async {
     return await _firestoreRepository.isBedAvailableInSpecificHospital(uid);
   }
 

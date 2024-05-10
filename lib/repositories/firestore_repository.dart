@@ -664,7 +664,7 @@ class FirestoreRepository {
         );
   }
 
-  Future<bool> isBedAvailableInSpecificHospital(String hospitalId) async {
+  Future<BedModel?> isBedAvailableInSpecificHospital(String hospitalId) async {
     return await CollectionsNames.firestoreCollection
         .collection(CollectionsNames.hospitalCollection)
         .doc(hospitalId)
@@ -674,10 +674,13 @@ class FirestoreRepository {
         .get()
         .then((QuerySnapshot snapshot) {
       if (snapshot.size > 0) {
-        return true;
+        Map<String, dynamic> data =
+            snapshot.docs.first.data() as Map<String, dynamic>;
+        BedModel bedModel = BedModel.fromJson(data);
+        return bedModel;
       } else {
         log('No available driver found.');
-        return false; // Return null when no driver is found
+        return null;
       }
     });
   }
