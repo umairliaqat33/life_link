@@ -7,6 +7,6 @@ String incrementSymbol = "+";
 String decrementSymbol = "-";
 String phoneNumberPattern = '^(?:[+0]9)?[0-9]{11}\$';
 String developerEmail = "umairliaqat552@gmail.com";
-String mapsAPIKey = 'AIzaSyAOEklFjRu8Li9vbyh8HTrvEAb3M2RpvLA';
+String mapsAPIKey = 'AIzaSyCaCSJ0BZItSyXqBv8vpD1N4WBffJeKhLQ';
 String cloudMessagingApi =
     "AAAA1uwK3Lw:APA91bGHJ-CSKAwSfn6-rTxegFhLw2BuZvo6_vsPxMN5b20oUd15B8HgUliOE--8sX5WG3AFeUnY-_-ZX_lUM5N3VZQH8tFmlGM4-zjZMvB9TEUcz9e_sZJ9V75kl9-1_7TIGbVqoTyU";

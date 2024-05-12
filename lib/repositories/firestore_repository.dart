@@ -749,4 +749,26 @@ class FirestoreRepository {
               .toList(),
         );
   }
+
+  Stream<List<RequestModel>> getInProgressRequestsStream() {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.requestInProgressCollection)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => RequestModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .where((requestModel) =>
+                  requestModel.ambulanceDriverId ==
+                      FirestoreRepository.checkUser()!.uid ||
+                  requestModel.hospitalToBeTakeAtId ==
+                      FirestoreRepository.checkUser()!.uid ||
+                  requestModel.patientId ==
+                      FirestoreRepository.checkUser()!.uid)
+              .toList(),
+        );
+  }
 }

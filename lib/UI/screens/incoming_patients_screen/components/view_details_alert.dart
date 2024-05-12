@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/widgets/cards/info_card_widget.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/colors.dart';
 
-class ViewDetailsAlert extends StatelessWidget {
-  const ViewDetailsAlert({
+class ViewIncomingPatientDetailsAlert extends StatelessWidget {
+  const ViewIncomingPatientDetailsAlert({
     super.key,
+    required this.name,
+    required this.email,
+    required this.age,
+    required this.gender,
+    required this.disease,
+    required this.bedAssigned,
+    required this.oldReportsLink,
   });
+  final String name;
+  final String email;
+  final String age;
+  final String gender;
+  final String disease;
+  final String bedAssigned;
+  final String oldReportsLink;
   @override
   Widget build(BuildContext context) {
-    return const AlertDialog(
+    return AlertDialog(
       backgroundColor: scaffoldColor,
       title: Row(
         children: [
@@ -18,17 +33,17 @@ class ViewDetailsAlert extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Numan",
+                  name,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: SizeConfig.font14(context),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  "numan123@gmail.com",
+                  email,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: 13,
+                    fontSize: SizeConfig.font14(context) - 1,
                     color: greyColor,
                   ),
                 ),
@@ -40,15 +55,15 @@ class ViewDetailsAlert extends StatelessWidget {
       content: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           InfoCardWidget(
-            item1: "Numan",
-            item2: "Fever",
-            item3: "Fever",
-            item4: "DR.Moasib",
-            item5: "Bacterial infections, Continuous fever, infections",
-            item1Title: 'Patient Name:',
-            item2Title: 'Hospital Name:',
+            item1: age,
+            item2: gender,
+            item3: disease,
+            item4: "BD-$bedAssigned",
+            item5: oldReportsLink,
+            item1Title: 'Patient Age:',
+            item2Title: 'Patient Gender:',
             item3Title: 'Disease',
-            item4Title: 'Checked By',
+            item4Title: 'Bed Assigned',
             item5Title: 'Old Reports',
           )
         ]),

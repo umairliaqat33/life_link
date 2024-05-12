@@ -129,7 +129,7 @@ class _PatientRideHistorCardWidgetState
         return widget.userType == UserType.patient
             ? RideDetailsAlert(
                 item1: widget.requestModel.requestTime,
-                item5: widget.requestModel.bedAssigned,
+                item5: "BD-${widget.requestModel.bedAssigned}",
                 item3: _patientModel?.disease ?? '',
                 item4: _driverModel?.ambulanceRegistrationNo ?? '',
                 item2: widget.requestModel.requestCompletionTime,

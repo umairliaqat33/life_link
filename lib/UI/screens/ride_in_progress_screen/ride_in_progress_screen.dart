@@ -39,8 +39,8 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
             MapScreen(
               marker1Longitude: widget.requestModel.patientLon,
               marker1Latitude: widget.requestModel.patientLat,
-              marker2Longitude: 74.2901811,
-              marker2Latitude: 31.5817799,
+              marker2Longitude: 74.3289704,
+              marker2Latitude: 31.5003713,
             ),
             Padding(
               padding: EdgeInsets.all(SizeConfig.height15(context)),

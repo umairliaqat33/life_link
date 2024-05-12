@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:life_link/services/directins_api_service.dart';
 import 'package:life_link/services/image_to_marker.dart';
 import 'package:life_link/utils/assets.dart';
+import 'package:life_link/utils/colors.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({
@@ -22,9 +24,12 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final LatLng _center = const LatLng(31.5006602, 74.3295742);
+  final LatLng _center = const LatLng(31.5003713, 74.3289704);
   GoogleMapController? _mapController;
   final Set<Marker> _marketList = {};
+  final Set<Polyline> _polylineList = {};
+  final List<LatLng> _positionsList = [];
+
   String? _mapStyle;
   @override
   void initState() {
@@ -32,6 +37,17 @@ class _MapScreenState extends State<MapScreen> {
     rootBundle.loadString('assets/map.txt').then((string) {
       _mapStyle = string;
     });
+    _positionsList.add(LatLng(widget.marker1Latitude, widget.marker1Longitude));
+    _positionsList.add(LatLng(widget.marker2Latitude, widget.marker2Longitude));
+    for (int i = 0; i < _positionsList.length; i++) {
+      _polylineList.add(
+        Polyline(
+          polylineId: PolylineId("polylineId $i"),
+          points: _positionsList,
+          width: 2,
+        ),
+      );
+    }
     _setMarkers(
       markerLongitude: widget.marker1Longitude,
       markerLatitude: widget.marker1Latitude,
@@ -63,6 +79,7 @@ class _MapScreenState extends State<MapScreen> {
         onMapCreated: _onMapCreated,
         markers: _marketList,
         zoomControlsEnabled: false,
+        polylines: _polylineList,
         // onCameraMove: (value) {
         //   _customInfoWindowController.onCameraMove!();
         // },
@@ -97,5 +114,27 @@ class _MapScreenState extends State<MapScreen> {
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
     _mapController!.setMapStyle(_mapStyle);
+  }
+
+  void _getDirections() async {
+    final DirectionsAPISerivce directionsAPISerivce = DirectionsAPISerivce();
+    final directions = await directionsAPISerivce.getDirections(
+      origin: LatLng(widget.marker1Latitude, widget.marker1Longitude),
+      destination: LatLng(widget.marker2Latitude, widget.marker2Longitude),
+    );
+    if (directions != null) {
+      _polylineList.add(
+        Polyline(
+          polylineId: const PolylineId("New PolyLine"),
+          color: orangeColor,
+          width: 5,
+          points: directions.polylintPoints
+              .map((e) => LatLng(e.latitude, e.longitude))
+              .toList(),
+        ),
+      );
+    }
+
+    setState(() {});
   }
 }

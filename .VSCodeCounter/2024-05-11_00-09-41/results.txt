@@ -1,0 +1,210 @@
+Date : 2024-05-11 00:09:41
+Directory : c:\Studio_Projects\life_link\lib
+Total : 114 files,  11555 codes, 372 comments, 881 blanks, all 12808 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |        114 |     11,555 |        372 |        881 |     12,808 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                  | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                     |        114 |     11,555 |        372 |        881 |     12,808 |
+| . (Files)                                                                                                             |          2 |        108 |         15 |         11 |        134 |
+| UI                                                                                                                    |         65 |      7,283 |        117 |        390 |      7,790 |
+| UI\screens                                                                                                            |         54 |      6,555 |        116 |        351 |      7,022 |
+| UI\screens\authentication                                                                                             |         11 |      1,217 |          7 |         67 |      1,291 |
+| UI\screens\authentication\components                                                                                  |          2 |         70 |          0 |          5 |         75 |
+| UI\screens\authentication\design_layers                                                                               |          2 |         40 |          0 |          6 |         46 |
+| UI\screens\authentication\forgot_password_screen.dart                                                                 |          1 |        125 |          1 |          7 |        133 |
+| UI\screens\authentication\login                                                                                       |          1 |        232 |          1 |         12 |        245 |
+| UI\screens\authentication\registration                                                                                |          3 |        572 |          5 |         27 |        604 |
+| UI\screens\authentication\user_type_selection_screen                                                                  |          2 |        178 |          0 |         10 |        188 |
+| UI\screens\authentication\user_type_selection_screen (Files)                                                          |          1 |        116 |          0 |          6 |        122 |
+| UI\screens\authentication\user_type_selection_screen\components                                                       |          1 |         62 |          0 |          4 |         66 |
+| UI\screens\beds_screen                                                                                                |          3 |        447 |          0 |         23 |        470 |
+| UI\screens\beds_screen (Files)                                                                                        |          1 |        215 |          0 |          8 |        223 |
+| UI\screens\beds_screen\components                                                                                     |          2 |        232 |          0 |         15 |        247 |
+| UI\screens\bottom_nav_bar                                                                                             |          1 |         89 |          0 |          6 |         95 |
+| UI\screens\doctor_screen                                                                                              |          4 |        751 |          1 |         37 |        789 |
+| UI\screens\doctor_screen (Files)                                                                                      |          2 |        445 |          1 |         25 |        471 |
+| UI\screens\doctor_screen\components                                                                                   |          2 |        306 |          0 |         12 |        318 |
+| UI\screens\drivers_screen                                                                                             |          5 |        897 |         31 |         49 |        977 |
+| UI\screens\drivers_screen (Files)                                                                                     |          2 |        442 |         11 |         29 |        482 |
+| UI\screens\drivers_screen\components                                                                                  |          3 |        455 |         20 |         20 |        495 |
+| UI\screens\history_screen                                                                                             |          3 |        167 |          0 |         10 |        177 |
+| UI\screens\history_screen (Files)                                                                                     |          1 |         73 |          0 |          4 |         77 |
+| UI\screens\history_screen\component                                                                                   |          2 |         94 |          0 |          6 |        100 |
+| UI\screens\home_screen                                                                                                |          3 |        498 |          5 |         25 |        528 |
+| UI\screens\home_screen (Files)                                                                                        |          1 |        364 |          5 |         18 |        387 |
+| UI\screens\home_screen\components                                                                                     |          2 |        134 |          0 |          7 |        141 |
+| UI\screens\incoming_patients_screen                                                                                   |          2 |        156 |          0 |          5 |        161 |
+| UI\screens\map_screen                                                                                                 |          1 |         92 |          3 |          7 |        102 |
+| UI\screens\notification_screen                                                                                        |          1 |        101 |          0 |          3 |        104 |
+| UI\screens\onboarding_screen                                                                                          |          3 |        138 |          2 |         12 |        152 |
+| UI\screens\patient_screen                                                                                             |          4 |        259 |          0 |         14 |        273 |
+| UI\screens\patient_screen (Files)                                                                                     |          1 |         68 |          0 |          4 |         72 |
+| UI\screens\patient_screen\component                                                                                   |          3 |        191 |          0 |         10 |        201 |
+| UI\screens\profile_screen                                                                                             |          3 |        406 |         25 |         23 |        454 |
+| UI\screens\profile_screen (Files)                                                                                     |          1 |        323 |         24 |         15 |        362 |
+| UI\screens\profile_screen\components                                                                                  |          2 |         83 |          1 |          8 |         92 |
+| UI\screens\review_screen                                                                                              |          1 |         58 |          0 |          2 |         60 |
+| UI\screens\ride_completetion_screen                                                                                   |          1 |        163 |          0 |          9 |        172 |
+| UI\screens\ride_history                                                                                               |          3 |        322 |          0 |         18 |        340 |
+| UI\screens\ride_history (Files)                                                                                       |          1 |         71 |          0 |          5 |         76 |
+| UI\screens\ride_history\components                                                                                    |          2 |        251 |          0 |         13 |        264 |
+| UI\screens\ride_in_progress_screen                                                                                    |          1 |        152 |          0 |          6 |        158 |
+| UI\screens\ride_waiting_screen                                                                                        |          1 |        354 |          2 |         18 |        374 |
+| UI\screens\rules_and_terms_screen                                                                                     |          1 |        104 |          0 |          3 |        107 |
+| UI\screens\settings_screen                                                                                            |          1 |         87 |         40 |          5 |        132 |
+| UI\screens\splash_screen                                                                                              |          1 |         97 |          0 |          9 |        106 |
+| UI\widgets                                                                                                            |         11 |        728 |          1 |         39 |        768 |
+| UI\widgets\alerts                                                                                                     |          1 |        100 |          0 |          4 |        104 |
+| UI\widgets\buttons                                                                                                    |          1 |         34 |          1 |          3 |         38 |
+| UI\widgets\cards                                                                                                      |          2 |         85 |          0 |          7 |         92 |
+| UI\widgets\general_widgets                                                                                            |          3 |         98 |          0 |          7 |        105 |
+| UI\widgets\image_pickers                                                                                              |          1 |        150 |          0 |          6 |        156 |
+| UI\widgets\switchs                                                                                                    |          1 |         37 |          0 |          3 |         40 |
+| UI\widgets\text_fields                                                                                                |          2 |        224 |          0 |          9 |        233 |
+| config                                                                                                                |          1 |         33 |          0 |          6 |         39 |
+| constants                                                                                                             |          2 |         74 |          0 |          3 |         77 |
+| controllers                                                                                                           |          3 |        359 |         51 |         49 |        459 |
+| models                                                                                                                |         25 |      2,288 |        162 |        280 |      2,730 |
+| models\beds_model                                                                                                     |          3 |        177 |         19 |         34 |        230 |
+| models\doctor_model                                                                                                   |          3 |        364 |         19 |         34 |        417 |
+| models\driver_model                                                                                                   |          3 |        390 |         19 |         35 |        444 |
+| models\hospital_model                                                                                                 |          3 |        301 |         19 |         35 |        355 |
+| models\patient_model                                                                                                  |          3 |        327 |         19 |         35 |        381 |
+| models\request_model                                                                                                  |          3 |        368 |         19 |         35 |        422 |
+| models\timestamp_converter                                                                                            |          1 |          0 |         10 |          4 |         14 |
+| models\uid_model                                                                                                      |          3 |        130 |         19 |         34 |        183 |
+| models\user_model                                                                                                     |          3 |        231 |         19 |         34 |        284 |
+| repositories                                                                                                          |          2 |        795 |          9 |         56 |        860 |
+| services                                                                                                              |          7 |        322 |         16 |         39 |        377 |
+| utils                                                                                                                 |          7 |        293 |          2 |         47 |        342 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                              | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\components\auth_label_widget.dart                          | Dart     |         26 |          0 |          3 |         29 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\components\other_auth_option.dart                          | Dart     |         44 |          0 |          2 |         46 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\design_layers\layer_one.dart                               | Dart     |         20 |          0 |          3 |         23 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\design_layers\layer_two.dart                               | Dart     |         20 |          0 |          3 |         23 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\forgot_password_screen.dart\forgot_password_screen.dart    | Dart     |        125 |          1 |          7 |        133 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\login\login_screen.dart                                    | Dart     |        232 |          1 |         12 |        245 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\registration\hospital_registration.dart                    | Dart     |        240 |          2 |         11 |        253 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\registration\patient_registration.dart                     | Dart     |        311 |          2 |         13 |        326 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\registration\registration_screen.dart                      | Dart     |         21 |          1 |          3 |         25 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\user_type_selection_screen\components\user_options.dart    | Dart     |         62 |          0 |          4 |         66 |
+| c:\Studio_Projects\life_link\lib\UI\screens\authentication\user_type_selection_screen\user_type_selection_screen.dart | Dart     |        116 |          0 |          6 |        122 |
+| c:\Studio_Projects\life_link\lib\UI\screens\beds_screen\beds_screen.dart                                              | Dart     |        215 |          0 |          8 |        223 |
+| c:\Studio_Projects\life_link\lib\UI\screens\beds_screen\components\bed_add.dart                                       | Dart     |        135 |          0 |          7 |        142 |
+| c:\Studio_Projects\life_link\lib\UI\screens\beds_screen\components\bed_card.dart                                      | Dart     |         97 |          0 |          8 |        105 |
+| c:\Studio_Projects\life_link\lib\UI\screens\bottom_nav_bar\bottom_nav_bar.dart                                        | Dart     |         89 |          0 |          6 |         95 |
+| c:\Studio_Projects\life_link\lib\UI\screens\doctor_screen\components\doctor_card_widget.dart                          | Dart     |        213 |          0 |          9 |        222 |
+| c:\Studio_Projects\life_link\lib\UI\screens\doctor_screen\components\doctor_viewing_alert.dart                        | Dart     |         93 |          0 |          3 |         96 |
+| c:\Studio_Projects\life_link\lib\UI\screens\doctor_screen\doctor_adding_screen.dart                                   | Dart     |        319 |          1 |         14 |        334 |
+| c:\Studio_Projects\life_link\lib\UI\screens\doctor_screen\doctor_screen.dart                                          | Dart     |        126 |          0 |         11 |        137 |
+| c:\Studio_Projects\life_link\lib\UI\screens\drivers_screen\components\driver_card_widget.dart                         | Dart     |        207 |          7 |          9 |        223 |
+| c:\Studio_Projects\life_link\lib\UI\screens\drivers_screen\components\driver_viewing_alert.dart                       | Dart     |         80 |         12 |          3 |         95 |
+| c:\Studio_Projects\life_link\lib\UI\screens\drivers_screen\components\hospital_re_sign_in_alert.dart                  | Dart     |        168 |          1 |          8 |        177 |
+| c:\Studio_Projects\life_link\lib\UI\screens\drivers_screen\driver_adding_screen.dart                                  | Dart     |        316 |         11 |         18 |        345 |
+| c:\Studio_Projects\life_link\lib\UI\screens\drivers_screen\driver_screen.dart                                         | Dart     |        126 |          0 |         11 |        137 |
+| c:\Studio_Projects\life_link\lib\UI\screens\history_screen\component\history_card.dart                                | Dart     |         37 |          0 |          4 |         41 |
+| c:\Studio_Projects\life_link\lib\UI\screens\history_screen\component\history_view_alert.dart                          | Dart     |         57 |          0 |          2 |         59 |
+| c:\Studio_Projects\life_link\lib\UI\screens\history_screen\history_screen.dart                                        | Dart     |         73 |          0 |          4 |         77 |
+| c:\Studio_Projects\life_link\lib\UI\screens\home_screen\components\option_widget.dart                                 | Dart     |         64 |          0 |          4 |         68 |
+| c:\Studio_Projects\life_link\lib\UI\screens\home_screen\components\user_info_card.dart                                | Dart     |         70 |          0 |          3 |         73 |
+| c:\Studio_Projects\life_link\lib\UI\screens\home_screen\home_screen.dart                                              | Dart     |        364 |          5 |         18 |        387 |
+| c:\Studio_Projects\life_link\lib\UI\screens\incoming_patients_screen\incoming_patients_screen.dart                    | Dart     |         99 |          0 |          3 |        102 |
+| c:\Studio_Projects\life_link\lib\UI\screens\incoming_patients_screen\view_details_alert.dart                          | Dart     |         57 |          0 |          2 |         59 |
+| c:\Studio_Projects\life_link\lib\UI\screens\map_screen\map_screen.dart                                                | Dart     |         92 |          3 |          7 |        102 |
+| c:\Studio_Projects\life_link\lib\UI\screens\notification_screen\notification_screen.dart                              | Dart     |        101 |          0 |          3 |        104 |
+| c:\Studio_Projects\life_link\lib\UI\screens\onboarding_screen\onboarding_info.dart                                    | Dart     |          7 |          0 |          2 |          9 |
+| c:\Studio_Projects\life_link\lib\UI\screens\onboarding_screen\onboarding_items.dart                                   | Dart     |         20 |          0 |          2 |         22 |
+| c:\Studio_Projects\life_link\lib\UI\screens\onboarding_screen\onboarding_view.dart                                    | Dart     |        111 |          2 |          8 |        121 |
+| c:\Studio_Projects\life_link\lib\UI\screens\patient_screen\component\oldreports_card.dart                             | Dart     |         78 |          0 |          4 |         82 |
+| c:\Studio_Projects\life_link\lib\UI\screens\patient_screen\component\report_info_widget.dart                          | Dart     |         56 |          0 |          4 |         60 |
+| c:\Studio_Projects\life_link\lib\UI\screens\patient_screen\component\report_view_alert.dart                           | Dart     |         57 |          0 |          2 |         59 |
+| c:\Studio_Projects\life_link\lib\UI\screens\patient_screen\oldreports.dart                                            | Dart     |         68 |          0 |          4 |         72 |
+| c:\Studio_Projects\life_link\lib\UI\screens\profile_screen\components\profile_text.dart                               | Dart     |         31 |          1 |          3 |         35 |
+| c:\Studio_Projects\life_link\lib\UI\screens\profile_screen\components\tile_widget.dart                                | Dart     |         52 |          0 |          5 |         57 |
+| c:\Studio_Projects\life_link\lib\UI\screens\profile_screen\profile_screen.dart                                        | Dart     |        323 |         24 |         15 |        362 |
+| c:\Studio_Projects\life_link\lib\UI\screens\review_screen\review_screen.dart                                          | Dart     |         58 |          0 |          2 |         60 |
+| c:\Studio_Projects\life_link\lib\UI\screens\ride_completetion_screen\ride_completetion_screen.dart                    | Dart     |        163 |          0 |          9 |        172 |
+| c:\Studio_Projects\life_link\lib\UI\screens\ride_history\components\patient_ride_history_alert.dart                   | Dart     |         85 |          0 |          2 |         87 |
+| c:\Studio_Projects\life_link\lib\UI\screens\ride_history\components\patient_ride_history_card_widget.dart             | Dart     |        166 |          0 |         11 |        177 |
+| c:\Studio_Projects\life_link\lib\UI\screens\ride_history\ride_history.dart                                            | Dart     |         71 |          0 |          5 |         76 |
+| c:\Studio_Projects\life_link\lib\UI\screens\ride_in_progress_screen\ride_in_progress_screen.dart                      | Dart     |        152 |          0 |          6 |        158 |
+| c:\Studio_Projects\life_link\lib\UI\screens\ride_waiting_screen\ride_waiting_screen.dart                              | Dart     |        354 |          2 |         18 |        374 |
+| c:\Studio_Projects\life_link\lib\UI\screens\rules_and_terms_screen\rules_and_terms_screen.dart                        | Dart     |        104 |          0 |          3 |        107 |
+| c:\Studio_Projects\life_link\lib\UI\screens\settings_screen\settings_screen.dart                                      | Dart     |         87 |         40 |          5 |        132 |
+| c:\Studio_Projects\life_link\lib\UI\screens\splash_screen\splash_screen.dart                                          | Dart     |         97 |          0 |          9 |        106 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\alerts\deletion_alert.dart                                                | Dart     |        100 |          0 |          4 |        104 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\buttons\custom_button.dart                                                | Dart     |         34 |          1 |          3 |         38 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\cards\info_card_tile.dart                                                 | Dart     |         29 |          0 |          3 |         32 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\cards\info_card_widget.dart                                               | Dart     |         56 |          0 |          4 |         60 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\general_widgets\app_bar_widget.dart                                       | Dart     |         50 |          0 |          2 |         52 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\general_widgets\circular_loader_widget.dart                               | Dart     |         17 |          0 |          3 |         20 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\general_widgets\no_data_widget.dart                                       | Dart     |         31 |          0 |          2 |         33 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\image_pickers\big_image_picker.dart                                       | Dart     |        150 |          0 |          6 |        156 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\switchs\custom_switch.dart                                                | Dart     |         37 |          0 |          3 |         40 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\text_fields\password_text_field.dart                                      | Dart     |         78 |          0 |          6 |         84 |
+| c:\Studio_Projects\life_link\lib\UI\widgets\text_fields\text_form_field_widget.dart                                   | Dart     |        146 |          0 |          3 |        149 |
+| c:\Studio_Projects\life_link\lib\config\size_config.dart                                                              | Dart     |         33 |          0 |          6 |         39 |
+| c:\Studio_Projects\life_link\lib\constants\constants.dart                                                             | Dart     |         12 |          0 |          1 |         13 |
+| c:\Studio_Projects\life_link\lib\constants\text_field_decoration.dart                                                 | Dart     |         62 |          0 |          2 |         64 |
+| c:\Studio_Projects\life_link\lib\controllers\auth_controller.dart                                                     | Dart     |         38 |          0 |          7 |         45 |
+| c:\Studio_Projects\life_link\lib\controllers\firestore_controller.dart                                                | Dart     |        321 |          0 |         37 |        358 |
+| c:\Studio_Projects\life_link\lib\controllers\network_connectivity_controller.dart                                     | Dart     |          0 |         51 |          5 |         56 |
+| c:\Studio_Projects\life_link\lib\firebase_options.dart                                                                | Dart     |         64 |         12 |          6 |         82 |
+| c:\Studio_Projects\life_link\lib\main.dart                                                                            | Dart     |         44 |          3 |          5 |         52 |
+| c:\Studio_Projects\life_link\lib\models\beds_model\bed_model.dart                                                     | Dart     |         13 |          0 |          3 |         16 |
+| c:\Studio_Projects\life_link\lib\models\beds_model\bed_model.freezed.dart                                             | Dart     |        151 |         15 |         26 |        192 |
+| c:\Studio_Projects\life_link\lib\models\beds_model\bed_model.g.dart                                                   | Dart     |         13 |          4 |          5 |         22 |
+| c:\Studio_Projects\life_link\lib\models\doctor_model\doctor_model.dart                                                | Dart     |         20 |          0 |          3 |         23 |
+| c:\Studio_Projects\life_link\lib\models\doctor_model\doctor_model.freezed.dart                                        | Dart     |        317 |         15 |         26 |        358 |
+| c:\Studio_Projects\life_link\lib\models\doctor_model\doctor_model.g.dart                                              | Dart     |         27 |          4 |          5 |         36 |
+| c:\Studio_Projects\life_link\lib\models\driver_model\driver_model.dart                                                | Dart     |         21 |          0 |          4 |         25 |
+| c:\Studio_Projects\life_link\lib\models\driver_model\driver_model.freezed.dart                                        | Dart     |        340 |         15 |         26 |        381 |
+| c:\Studio_Projects\life_link\lib\models\driver_model\driver_model.g.dart                                              | Dart     |         29 |          4 |          5 |         38 |
+| c:\Studio_Projects\life_link\lib\models\hospital_model\hospital_model.dart                                            | Dart     |         18 |          0 |          4 |         22 |
+| c:\Studio_Projects\life_link\lib\models\hospital_model\hospital_model.freezed.dart                                    | Dart     |        260 |         15 |         26 |        301 |
+| c:\Studio_Projects\life_link\lib\models\hospital_model\hospital_model.g.dart                                          | Dart     |         23 |          4 |          5 |         32 |
+| c:\Studio_Projects\life_link\lib\models\patient_model\patient_model.dart                                              | Dart     |         19 |          0 |          4 |         23 |
+| c:\Studio_Projects\life_link\lib\models\patient_model\patient_model.freezed.dart                                      | Dart     |        283 |         15 |         26 |        324 |
+| c:\Studio_Projects\life_link\lib\models\patient_model\patient_model.g.dart                                            | Dart     |         25 |          4 |          5 |         34 |
+| c:\Studio_Projects\life_link\lib\models\request_model\request_model.dart                                              | Dart     |         20 |          0 |          4 |         24 |
+| c:\Studio_Projects\life_link\lib\models\request_model\request_model.freezed.dart                                      | Dart     |        321 |         15 |         26 |        362 |
+| c:\Studio_Projects\life_link\lib\models\request_model\request_model.g.dart                                            | Dart     |         27 |          4 |          5 |         36 |
+| c:\Studio_Projects\life_link\lib\models\timestamp_converter\timestamp_converter.dart                                  | Dart     |          0 |         10 |          4 |         14 |
+| c:\Studio_Projects\life_link\lib\models\uid_model\uid_model.dart                                                      | Dart     |         11 |          0 |          3 |         14 |
+| c:\Studio_Projects\life_link\lib\models\uid_model\uid_model.freezed.dart                                              | Dart     |        110 |         15 |         26 |        151 |
+| c:\Studio_Projects\life_link\lib\models\uid_model\uid_model.g.dart                                                    | Dart     |          9 |          4 |          5 |         18 |
+| c:\Studio_Projects\life_link\lib\models\user_model\user_model.dart                                                    | Dart     |         15 |          0 |          3 |         18 |
+| c:\Studio_Projects\life_link\lib\models\user_model\user_model.freezed.dart                                            | Dart     |        199 |         15 |         26 |        240 |
+| c:\Studio_Projects\life_link\lib\models\user_model\user_model.g.dart                                                  | Dart     |         17 |          4 |          5 |         26 |
+| c:\Studio_Projects\life_link\lib\repositories\auth_repository.dart                                                    | Dart     |         98 |          0 |          9 |        107 |
+| c:\Studio_Projects\life_link\lib\repositories\firestore_repository.dart                                               | Dart     |        697 |          9 |         47 |        753 |
+| c:\Studio_Projects\life_link\lib\services\date_and_time_service.dart                                                  | Dart     |         52 |          0 |          5 |         57 |
+| c:\Studio_Projects\life_link\lib\services\dependency_injection.dart                                                   | Dart     |          0 |         10 |          2 |         12 |
+| c:\Studio_Projects\life_link\lib\services\id_service.dart                                                             | Dart     |         34 |          0 |          3 |         37 |
+| c:\Studio_Projects\life_link\lib\services\image_to_marker.dart                                                        | Dart     |         17 |          0 |          3 |         20 |
+| c:\Studio_Projects\life_link\lib\services\location_service.dart                                                       | Dart     |         27 |          0 |          4 |         31 |
+| c:\Studio_Projects\life_link\lib\services\media_service.dart                                                          | Dart     |         59 |          1 |          7 |         67 |
+| c:\Studio_Projects\life_link\lib\services\notification_service.dart                                                   | Dart     |        133 |          5 |         15 |        153 |
+| c:\Studio_Projects\life_link\lib\utils\assets.dart                                                                    | Dart     |         53 |          2 |          4 |         59 |
+| c:\Studio_Projects\life_link\lib\utils\collection_names.dart                                                          | Dart     |         15 |          0 |          2 |         17 |
+| c:\Studio_Projects\life_link\lib\utils\colors.dart                                                                    | Dart     |         30 |          0 |          2 |         32 |
+| c:\Studio_Projects\life_link\lib\utils\enums.dart                                                                     | Dart     |          3 |          0 |          3 |          6 |
+| c:\Studio_Projects\life_link\lib\utils\exceptions.dart                                                                | Dart     |         32 |          0 |         16 |         48 |
+| c:\Studio_Projects\life_link\lib\utils\strings.dart                                                                   | Dart     |         15 |          0 |          1 |         16 |
+| c:\Studio_Projects\life_link\lib\utils\utils.dart                                                                     | Dart     |        145 |          0 |         19 |        164 |
+| Total                                                                                                                 |          |     11,555 |        372 |        881 |     12,808 |
++-----------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

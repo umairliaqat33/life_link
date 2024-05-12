@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/UI/screens/incoming_patients_screen/components/incoming_patients_card_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
-import 'package:life_link/UI/screens/incoming_patients_screen/view_details_alert.dart';
+import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
+import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/request_model/request_model.dart';
 
 class IncomingPatientsScreen extends StatelessWidget {
-  const IncomingPatientsScreen({super.key});
+  IncomingPatientsScreen({super.key});
+  final FirestoreController _firestoreController = FirestoreController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,79 +24,40 @@ class IncomingPatientsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Expanded(
-                            flex: 2,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Patient Name: Numan Ijaz',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Hospital Name: XYZ Hospital',
-                                  style: TextStyle(fontSize: 13),
-                                ),
-                              ],
-                            ),
+              StreamBuilder<List<RequestModel>>(
+                  stream: _firestoreController.getInProgressRequestStream(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularLoaderWidget();
+                    }
+                    if (snapshot.data == null) {
+                      return const Center(
+                        child: Text(
+                          "Something went wrong please try again",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                const Text(
-                                  'Incoming Time: 10:00 AM',
-                                  style: TextStyle(fontSize: 13),
-                                ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.03,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return const ViewDetailsAlert();
-                                      },
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                  ),
-                                  child: const Text(
-                                    'View',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+                        ),
+                      );
+                    }
+                    if (snapshot.data != null && snapshot.data!.isEmpty) {
+                      return const Center(
+                        child: NoDataWidget(alertText: "No requests yet"),
+                      );
+                    }
+                    List<RequestModel> requestList = snapshot.data!;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: requestList.length,
+                      itemBuilder: (context, index) {
+                        return IncomingPatientsCardWidget(
+                          requestModel: requestList[index],
+                        );
+                      },
+                    );
+                  }),
             ],
           ),
         ),

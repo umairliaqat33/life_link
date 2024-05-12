@@ -1,0 +1,129 @@
+# Details
+
+Date : 2024-05-11 00:09:41
+
+Directory c:\\Studio_Projects\\life_link\\lib
+
+Total : 114 files,  11555 codes, 372 comments, 881 blanks, all 12808 lines
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
+
+## Files
+| filename | language | code | comment | blank | total |
+| :--- | :--- | ---: | ---: | ---: | ---: |
+| [lib/UI/screens/authentication/components/auth_label_widget.dart](/lib/UI/screens/authentication/components/auth_label_widget.dart) | Dart | 26 | 0 | 3 | 29 |
+| [lib/UI/screens/authentication/components/other_auth_option.dart](/lib/UI/screens/authentication/components/other_auth_option.dart) | Dart | 44 | 0 | 2 | 46 |
+| [lib/UI/screens/authentication/design_layers/layer_one.dart](/lib/UI/screens/authentication/design_layers/layer_one.dart) | Dart | 20 | 0 | 3 | 23 |
+| [lib/UI/screens/authentication/design_layers/layer_two.dart](/lib/UI/screens/authentication/design_layers/layer_two.dart) | Dart | 20 | 0 | 3 | 23 |
+| [lib/UI/screens/authentication/forgot_password_screen.dart/forgot_password_screen.dart](/lib/UI/screens/authentication/forgot_password_screen.dart/forgot_password_screen.dart) | Dart | 125 | 1 | 7 | 133 |
+| [lib/UI/screens/authentication/login/login_screen.dart](/lib/UI/screens/authentication/login/login_screen.dart) | Dart | 232 | 1 | 12 | 245 |
+| [lib/UI/screens/authentication/registration/hospital_registration.dart](/lib/UI/screens/authentication/registration/hospital_registration.dart) | Dart | 240 | 2 | 11 | 253 |
+| [lib/UI/screens/authentication/registration/patient_registration.dart](/lib/UI/screens/authentication/registration/patient_registration.dart) | Dart | 311 | 2 | 13 | 326 |
+| [lib/UI/screens/authentication/registration/registration_screen.dart](/lib/UI/screens/authentication/registration/registration_screen.dart) | Dart | 21 | 1 | 3 | 25 |
+| [lib/UI/screens/authentication/user_type_selection_screen/components/user_options.dart](/lib/UI/screens/authentication/user_type_selection_screen/components/user_options.dart) | Dart | 62 | 0 | 4 | 66 |
+| [lib/UI/screens/authentication/user_type_selection_screen/user_type_selection_screen.dart](/lib/UI/screens/authentication/user_type_selection_screen/user_type_selection_screen.dart) | Dart | 116 | 0 | 6 | 122 |
+| [lib/UI/screens/beds_screen/beds_screen.dart](/lib/UI/screens/beds_screen/beds_screen.dart) | Dart | 215 | 0 | 8 | 223 |
+| [lib/UI/screens/beds_screen/components/bed_add.dart](/lib/UI/screens/beds_screen/components/bed_add.dart) | Dart | 135 | 0 | 7 | 142 |
+| [lib/UI/screens/beds_screen/components/bed_card.dart](/lib/UI/screens/beds_screen/components/bed_card.dart) | Dart | 97 | 0 | 8 | 105 |
+| [lib/UI/screens/bottom_nav_bar/bottom_nav_bar.dart](/lib/UI/screens/bottom_nav_bar/bottom_nav_bar.dart) | Dart | 89 | 0 | 6 | 95 |
+| [lib/UI/screens/doctor_screen/components/doctor_card_widget.dart](/lib/UI/screens/doctor_screen/components/doctor_card_widget.dart) | Dart | 213 | 0 | 9 | 222 |
+| [lib/UI/screens/doctor_screen/components/doctor_viewing_alert.dart](/lib/UI/screens/doctor_screen/components/doctor_viewing_alert.dart) | Dart | 93 | 0 | 3 | 96 |
+| [lib/UI/screens/doctor_screen/doctor_adding_screen.dart](/lib/UI/screens/doctor_screen/doctor_adding_screen.dart) | Dart | 319 | 1 | 14 | 334 |
+| [lib/UI/screens/doctor_screen/doctor_screen.dart](/lib/UI/screens/doctor_screen/doctor_screen.dart) | Dart | 126 | 0 | 11 | 137 |
+| [lib/UI/screens/drivers_screen/components/driver_card_widget.dart](/lib/UI/screens/drivers_screen/components/driver_card_widget.dart) | Dart | 207 | 7 | 9 | 223 |
+| [lib/UI/screens/drivers_screen/components/driver_viewing_alert.dart](/lib/UI/screens/drivers_screen/components/driver_viewing_alert.dart) | Dart | 80 | 12 | 3 | 95 |
+| [lib/UI/screens/drivers_screen/components/hospital_re_sign_in_alert.dart](/lib/UI/screens/drivers_screen/components/hospital_re_sign_in_alert.dart) | Dart | 168 | 1 | 8 | 177 |
+| [lib/UI/screens/drivers_screen/driver_adding_screen.dart](/lib/UI/screens/drivers_screen/driver_adding_screen.dart) | Dart | 316 | 11 | 18 | 345 |
+| [lib/UI/screens/drivers_screen/driver_screen.dart](/lib/UI/screens/drivers_screen/driver_screen.dart) | Dart | 126 | 0 | 11 | 137 |
+| [lib/UI/screens/history_screen/component/history_card.dart](/lib/UI/screens/history_screen/component/history_card.dart) | Dart | 37 | 0 | 4 | 41 |
+| [lib/UI/screens/history_screen/component/history_view_alert.dart](/lib/UI/screens/history_screen/component/history_view_alert.dart) | Dart | 57 | 0 | 2 | 59 |
+| [lib/UI/screens/history_screen/history_screen.dart](/lib/UI/screens/history_screen/history_screen.dart) | Dart | 73 | 0 | 4 | 77 |
+| [lib/UI/screens/home_screen/components/option_widget.dart](/lib/UI/screens/home_screen/components/option_widget.dart) | Dart | 64 | 0 | 4 | 68 |
+| [lib/UI/screens/home_screen/components/user_info_card.dart](/lib/UI/screens/home_screen/components/user_info_card.dart) | Dart | 70 | 0 | 3 | 73 |
+| [lib/UI/screens/home_screen/home_screen.dart](/lib/UI/screens/home_screen/home_screen.dart) | Dart | 364 | 5 | 18 | 387 |
+| [lib/UI/screens/incoming_patients_screen/incoming_patients_screen.dart](/lib/UI/screens/incoming_patients_screen/incoming_patients_screen.dart) | Dart | 99 | 0 | 3 | 102 |
+| [lib/UI/screens/incoming_patients_screen/view_details_alert.dart](/lib/UI/screens/incoming_patients_screen/view_details_alert.dart) | Dart | 57 | 0 | 2 | 59 |
+| [lib/UI/screens/map_screen/map_screen.dart](/lib/UI/screens/map_screen/map_screen.dart) | Dart | 92 | 3 | 7 | 102 |
+| [lib/UI/screens/notification_screen/notification_screen.dart](/lib/UI/screens/notification_screen/notification_screen.dart) | Dart | 101 | 0 | 3 | 104 |
+| [lib/UI/screens/onboarding_screen/onboarding_info.dart](/lib/UI/screens/onboarding_screen/onboarding_info.dart) | Dart | 7 | 0 | 2 | 9 |
+| [lib/UI/screens/onboarding_screen/onboarding_items.dart](/lib/UI/screens/onboarding_screen/onboarding_items.dart) | Dart | 20 | 0 | 2 | 22 |
+| [lib/UI/screens/onboarding_screen/onboarding_view.dart](/lib/UI/screens/onboarding_screen/onboarding_view.dart) | Dart | 111 | 2 | 8 | 121 |
+| [lib/UI/screens/patient_screen/component/oldreports_card.dart](/lib/UI/screens/patient_screen/component/oldreports_card.dart) | Dart | 78 | 0 | 4 | 82 |
+| [lib/UI/screens/patient_screen/component/report_info_widget.dart](/lib/UI/screens/patient_screen/component/report_info_widget.dart) | Dart | 56 | 0 | 4 | 60 |
+| [lib/UI/screens/patient_screen/component/report_view_alert.dart](/lib/UI/screens/patient_screen/component/report_view_alert.dart) | Dart | 57 | 0 | 2 | 59 |
+| [lib/UI/screens/patient_screen/oldreports.dart](/lib/UI/screens/patient_screen/oldreports.dart) | Dart | 68 | 0 | 4 | 72 |
+| [lib/UI/screens/profile_screen/components/profile_text.dart](/lib/UI/screens/profile_screen/components/profile_text.dart) | Dart | 31 | 1 | 3 | 35 |
+| [lib/UI/screens/profile_screen/components/tile_widget.dart](/lib/UI/screens/profile_screen/components/tile_widget.dart) | Dart | 52 | 0 | 5 | 57 |
+| [lib/UI/screens/profile_screen/profile_screen.dart](/lib/UI/screens/profile_screen/profile_screen.dart) | Dart | 323 | 24 | 15 | 362 |
+| [lib/UI/screens/review_screen/review_screen.dart](/lib/UI/screens/review_screen/review_screen.dart) | Dart | 58 | 0 | 2 | 60 |
+| [lib/UI/screens/ride_completetion_screen/ride_completetion_screen.dart](/lib/UI/screens/ride_completetion_screen/ride_completetion_screen.dart) | Dart | 163 | 0 | 9 | 172 |
+| [lib/UI/screens/ride_history/components/patient_ride_history_alert.dart](/lib/UI/screens/ride_history/components/patient_ride_history_alert.dart) | Dart | 85 | 0 | 2 | 87 |
+| [lib/UI/screens/ride_history/components/patient_ride_history_card_widget.dart](/lib/UI/screens/ride_history/components/patient_ride_history_card_widget.dart) | Dart | 166 | 0 | 11 | 177 |
+| [lib/UI/screens/ride_history/ride_history.dart](/lib/UI/screens/ride_history/ride_history.dart) | Dart | 71 | 0 | 5 | 76 |
+| [lib/UI/screens/ride_in_progress_screen/ride_in_progress_screen.dart](/lib/UI/screens/ride_in_progress_screen/ride_in_progress_screen.dart) | Dart | 152 | 0 | 6 | 158 |
+| [lib/UI/screens/ride_waiting_screen/ride_waiting_screen.dart](/lib/UI/screens/ride_waiting_screen/ride_waiting_screen.dart) | Dart | 354 | 2 | 18 | 374 |
+| [lib/UI/screens/rules_and_terms_screen/rules_and_terms_screen.dart](/lib/UI/screens/rules_and_terms_screen/rules_and_terms_screen.dart) | Dart | 104 | 0 | 3 | 107 |
+| [lib/UI/screens/settings_screen/settings_screen.dart](/lib/UI/screens/settings_screen/settings_screen.dart) | Dart | 87 | 40 | 5 | 132 |
+| [lib/UI/screens/splash_screen/splash_screen.dart](/lib/UI/screens/splash_screen/splash_screen.dart) | Dart | 97 | 0 | 9 | 106 |
+| [lib/UI/widgets/alerts/deletion_alert.dart](/lib/UI/widgets/alerts/deletion_alert.dart) | Dart | 100 | 0 | 4 | 104 |
+| [lib/UI/widgets/buttons/custom_button.dart](/lib/UI/widgets/buttons/custom_button.dart) | Dart | 34 | 1 | 3 | 38 |
+| [lib/UI/widgets/cards/info_card_tile.dart](/lib/UI/widgets/cards/info_card_tile.dart) | Dart | 29 | 0 | 3 | 32 |
+| [lib/UI/widgets/cards/info_card_widget.dart](/lib/UI/widgets/cards/info_card_widget.dart) | Dart | 56 | 0 | 4 | 60 |
+| [lib/UI/widgets/general_widgets/app_bar_widget.dart](/lib/UI/widgets/general_widgets/app_bar_widget.dart) | Dart | 50 | 0 | 2 | 52 |
+| [lib/UI/widgets/general_widgets/circular_loader_widget.dart](/lib/UI/widgets/general_widgets/circular_loader_widget.dart) | Dart | 17 | 0 | 3 | 20 |
+| [lib/UI/widgets/general_widgets/no_data_widget.dart](/lib/UI/widgets/general_widgets/no_data_widget.dart) | Dart | 31 | 0 | 2 | 33 |
+| [lib/UI/widgets/image_pickers/big_image_picker.dart](/lib/UI/widgets/image_pickers/big_image_picker.dart) | Dart | 150 | 0 | 6 | 156 |
+| [lib/UI/widgets/switchs/custom_switch.dart](/lib/UI/widgets/switchs/custom_switch.dart) | Dart | 37 | 0 | 3 | 40 |
+| [lib/UI/widgets/text_fields/password_text_field.dart](/lib/UI/widgets/text_fields/password_text_field.dart) | Dart | 78 | 0 | 6 | 84 |
+| [lib/UI/widgets/text_fields/text_form_field_widget.dart](/lib/UI/widgets/text_fields/text_form_field_widget.dart) | Dart | 146 | 0 | 3 | 149 |
+| [lib/config/size_config.dart](/lib/config/size_config.dart) | Dart | 33 | 0 | 6 | 39 |
+| [lib/constants/constants.dart](/lib/constants/constants.dart) | Dart | 12 | 0 | 1 | 13 |
+| [lib/constants/text_field_decoration.dart](/lib/constants/text_field_decoration.dart) | Dart | 62 | 0 | 2 | 64 |
+| [lib/controllers/auth_controller.dart](/lib/controllers/auth_controller.dart) | Dart | 38 | 0 | 7 | 45 |
+| [lib/controllers/firestore_controller.dart](/lib/controllers/firestore_controller.dart) | Dart | 321 | 0 | 37 | 358 |
+| [lib/controllers/network_connectivity_controller.dart](/lib/controllers/network_connectivity_controller.dart) | Dart | 0 | 51 | 5 | 56 |
+| [lib/firebase_options.dart](/lib/firebase_options.dart) | Dart | 64 | 12 | 6 | 82 |
+| [lib/main.dart](/lib/main.dart) | Dart | 44 | 3 | 5 | 52 |
+| [lib/models/beds_model/bed_model.dart](/lib/models/beds_model/bed_model.dart) | Dart | 13 | 0 | 3 | 16 |
+| [lib/models/beds_model/bed_model.freezed.dart](/lib/models/beds_model/bed_model.freezed.dart) | Dart | 151 | 15 | 26 | 192 |
+| [lib/models/beds_model/bed_model.g.dart](/lib/models/beds_model/bed_model.g.dart) | Dart | 13 | 4 | 5 | 22 |
+| [lib/models/doctor_model/doctor_model.dart](/lib/models/doctor_model/doctor_model.dart) | Dart | 20 | 0 | 3 | 23 |
+| [lib/models/doctor_model/doctor_model.freezed.dart](/lib/models/doctor_model/doctor_model.freezed.dart) | Dart | 317 | 15 | 26 | 358 |
+| [lib/models/doctor_model/doctor_model.g.dart](/lib/models/doctor_model/doctor_model.g.dart) | Dart | 27 | 4 | 5 | 36 |
+| [lib/models/driver_model/driver_model.dart](/lib/models/driver_model/driver_model.dart) | Dart | 21 | 0 | 4 | 25 |
+| [lib/models/driver_model/driver_model.freezed.dart](/lib/models/driver_model/driver_model.freezed.dart) | Dart | 340 | 15 | 26 | 381 |
+| [lib/models/driver_model/driver_model.g.dart](/lib/models/driver_model/driver_model.g.dart) | Dart | 29 | 4 | 5 | 38 |
+| [lib/models/hospital_model/hospital_model.dart](/lib/models/hospital_model/hospital_model.dart) | Dart | 18 | 0 | 4 | 22 |
+| [lib/models/hospital_model/hospital_model.freezed.dart](/lib/models/hospital_model/hospital_model.freezed.dart) | Dart | 260 | 15 | 26 | 301 |
+| [lib/models/hospital_model/hospital_model.g.dart](/lib/models/hospital_model/hospital_model.g.dart) | Dart | 23 | 4 | 5 | 32 |
+| [lib/models/patient_model/patient_model.dart](/lib/models/patient_model/patient_model.dart) | Dart | 19 | 0 | 4 | 23 |
+| [lib/models/patient_model/patient_model.freezed.dart](/lib/models/patient_model/patient_model.freezed.dart) | Dart | 283 | 15 | 26 | 324 |
+| [lib/models/patient_model/patient_model.g.dart](/lib/models/patient_model/patient_model.g.dart) | Dart | 25 | 4 | 5 | 34 |
+| [lib/models/request_model/request_model.dart](/lib/models/request_model/request_model.dart) | Dart | 20 | 0 | 4 | 24 |
+| [lib/models/request_model/request_model.freezed.dart](/lib/models/request_model/request_model.freezed.dart) | Dart | 321 | 15 | 26 | 362 |
+| [lib/models/request_model/request_model.g.dart](/lib/models/request_model/request_model.g.dart) | Dart | 27 | 4 | 5 | 36 |
+| [lib/models/timestamp_converter/timestamp_converter.dart](/lib/models/timestamp_converter/timestamp_converter.dart) | Dart | 0 | 10 | 4 | 14 |
+| [lib/models/uid_model/uid_model.dart](/lib/models/uid_model/uid_model.dart) | Dart | 11 | 0 | 3 | 14 |
+| [lib/models/uid_model/uid_model.freezed.dart](/lib/models/uid_model/uid_model.freezed.dart) | Dart | 110 | 15 | 26 | 151 |
+| [lib/models/uid_model/uid_model.g.dart](/lib/models/uid_model/uid_model.g.dart) | Dart | 9 | 4 | 5 | 18 |
+| [lib/models/user_model/user_model.dart](/lib/models/user_model/user_model.dart) | Dart | 15 | 0 | 3 | 18 |
+| [lib/models/user_model/user_model.freezed.dart](/lib/models/user_model/user_model.freezed.dart) | Dart | 199 | 15 | 26 | 240 |
+| [lib/models/user_model/user_model.g.dart](/lib/models/user_model/user_model.g.dart) | Dart | 17 | 4 | 5 | 26 |
+| [lib/repositories/auth_repository.dart](/lib/repositories/auth_repository.dart) | Dart | 98 | 0 | 9 | 107 |
+| [lib/repositories/firestore_repository.dart](/lib/repositories/firestore_repository.dart) | Dart | 697 | 9 | 47 | 753 |
+| [lib/services/date_and_time_service.dart](/lib/services/date_and_time_service.dart) | Dart | 52 | 0 | 5 | 57 |
+| [lib/services/dependency_injection.dart](/lib/services/dependency_injection.dart) | Dart | 0 | 10 | 2 | 12 |
+| [lib/services/id_service.dart](/lib/services/id_service.dart) | Dart | 34 | 0 | 3 | 37 |
+| [lib/services/image_to_marker.dart](/lib/services/image_to_marker.dart) | Dart | 17 | 0 | 3 | 20 |
+| [lib/services/location_service.dart](/lib/services/location_service.dart) | Dart | 27 | 0 | 4 | 31 |
+| [lib/services/media_service.dart](/lib/services/media_service.dart) | Dart | 59 | 1 | 7 | 67 |
+| [lib/services/notification_service.dart](/lib/services/notification_service.dart) | Dart | 133 | 5 | 15 | 153 |
+| [lib/utils/assets.dart](/lib/utils/assets.dart) | Dart | 53 | 2 | 4 | 59 |
+| [lib/utils/collection_names.dart](/lib/utils/collection_names.dart) | Dart | 15 | 0 | 2 | 17 |
+| [lib/utils/colors.dart](/lib/utils/colors.dart) | Dart | 30 | 0 | 2 | 32 |
+| [lib/utils/enums.dart](/lib/utils/enums.dart) | Dart | 3 | 0 | 3 | 6 |
+| [lib/utils/exceptions.dart](/lib/utils/exceptions.dart) | Dart | 32 | 0 | 16 | 48 |
+| [lib/utils/strings.dart](/lib/utils/strings.dart) | Dart | 15 | 0 | 1 | 16 |
+| [lib/utils/utils.dart](/lib/utils/utils.dart) | Dart | 145 | 0 | 19 | 164 |
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)

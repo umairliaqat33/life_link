@@ -53,4 +53,18 @@ class DateAndTimeService {
       },
     );
   }
+
+  static String extractDateFromStringDateTime(String dateTimeString) {
+    DateTime dateTime = DateFormat('yyyy-MM-dd hh:mm a').parse(dateTimeString);
+
+    String formattedDate = DateFormat('yyyy-MM-dd').format(dateTime);
+
+    DateTime extractedDate = DateFormat('yyyy-MM-dd').parse(formattedDate);
+
+    String newFormated = DateFormat('MMM dd, yyyy').format(extractedDate);
+
+    log(newFormated);
+
+    return newFormated;
+  }
 }

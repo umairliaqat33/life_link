@@ -4,8 +4,10 @@ import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:http/http.dart' as http;
-import 'package:life_link/UI/screens/profile_screen/profile_screen.dart';
+import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
 import 'package:life_link/constants/constants.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/utils/enums.dart';
@@ -140,9 +142,7 @@ class NotificationService {
     initLocalNotification();
     //background notification
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: ((context) => const ProfileScreen()),
-      ));
+      Get.to(IncomingPatientsScreen());
     });
     //foreground notification
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
