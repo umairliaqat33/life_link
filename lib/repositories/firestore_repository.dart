@@ -614,12 +614,39 @@ class FirestoreRepository {
       HospitalModel hospitalModel = await getSpecificHospitalData(receiverUid);
       fcmToken = hospitalModel.fcmToken;
     }
-    //  else if (userType == UserType.driver) {
-    //   DriverModel? driverModel = await getDriverData();
-    //   if (driverModel != null) {
-    //     fcmToken = driverModel.fcmToken;
-    //   }
-    // }
+    return fcmToken;
+  }
+
+  Future<String> getDriverFCM(
+    String driverId,
+  ) async {
+    DriverModel? driverModel;
+    String fcmToken = '';
+
+    QuerySnapshot hospitalSnapshot = await FirebaseFirestore.instance
+        .collection(CollectionsNames.hospitalCollection)
+        .get();
+
+    for (QueryDocumentSnapshot hospitalDoc in hospitalSnapshot.docs) {
+      QuerySnapshot driversSnapshot = await hospitalDoc.reference
+          .collection(CollectionsNames.driverCollection)
+          .where(
+            'uid',
+            isEqualTo: driverId,
+          )
+          .get();
+
+      if (driversSnapshot.docs.isNotEmpty) {
+        QueryDocumentSnapshot driverDoc = driversSnapshot.docs.first;
+        Map<String, dynamic> driverData =
+            driverDoc.data() as Map<String, dynamic>;
+        driverModel = DriverModel.fromJson(driverData);
+        break;
+      }
+    }
+    if (driverModel != null) {
+      fcmToken = driverModel.fcmToken;
+    }
     return fcmToken;
   }
 
@@ -903,5 +930,16 @@ class FirestoreRepository {
         .doc(requestId)
         .get();
     return RequestModel.fromJson(snapshot.data()!);
+  }
+
+  Future<UserType> getUserType() async {
+    UserModel userModel = await getUserData();
+    if (userModel.userType == UserType.driver.name) {
+      return UserType.driver;
+    } else if (userModel.userType == UserType.patient.name) {
+      return UserType.patient;
+    } else {
+      return UserType.hospital;
+    }
   }
 }

@@ -354,6 +354,10 @@ class FirestoreController {
     return await _firestoreRepository.getDriverData();
   }
 
+  Future<String> getDriverFCMViaDriverID(String driverId) {
+    return _firestoreRepository.getDriverFCM(driverId);
+  }
+
   Stream<List<RequestModel>> getInProgressRequestStream() {
     return _firestoreRepository.getInProgressRequestsStream();
   }

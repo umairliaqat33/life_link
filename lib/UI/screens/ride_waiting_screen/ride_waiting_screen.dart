@@ -98,6 +98,11 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                             receiverUid: _requestModel!.hospitalToBeTakeAtId,
                             userType: UserType.hospital,
                           );
+                          notificationService.sendNotification(
+                            body: AppStrings.incomingPatientText,
+                            receiverUid: _requestModel!.ambulanceDriverId,
+                            userType: UserType.driver,
+                          );
                           _goToMapScreen();
                         });
                       }

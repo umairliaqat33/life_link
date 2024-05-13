@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -8,8 +10,10 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:http/http.dart' as http;
 import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
+import 'package:life_link/UI/screens/patient_pick_up_screen/patient_pick_up_screen.dart';
 import 'package:life_link/constants/constants.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/repositories/firestore_repository.dart';
 import 'package:life_link/utils/enums.dart';
 
 void backgroundMessageHandler(NotificationResponse response) {
@@ -107,10 +111,12 @@ class NotificationService {
     required UserType userType,
   }) async {
     FirestoreController firestoreController = FirestoreController();
-    String fcmToken = await firestoreController.getReceiverFCMTokenViaUid(
-      receiverUid,
-      userType,
-    );
+    String fcmToken = userType == UserType.driver
+        ? await firestoreController.getDriverFCMViaDriverID(receiverUid)
+        : await firestoreController.getReceiverFCMTokenViaUid(
+            receiverUid,
+            userType,
+          );
     try {
       http.post(
         Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -141,8 +147,12 @@ class NotificationService {
   void firebaseNotification(context) {
     initLocalNotification();
     //background notification
+    FirestoreRepository firestoreRepository = FirestoreRepository();
+    Future<UserType> userType = firestoreRepository.getUserType();
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      Get.to(IncomingPatientsScreen());
+      userType == UserType.hospital
+          ? Get.to(IncomingPatientsScreen())
+          : Get.to(PatientPickUpScreen());
     });
     //foreground notification
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
