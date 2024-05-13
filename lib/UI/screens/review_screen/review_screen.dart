@@ -29,7 +29,7 @@ class ReviewScreen extends StatelessWidget {
               hintText:
                   "How was the behaviour of driver or how hospital treated you?",
               maxLength: 800,
-              maxlines: 5,
+              maxLines: 5,
             ),
           ],
         ),

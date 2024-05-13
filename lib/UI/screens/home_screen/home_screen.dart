@@ -14,6 +14,7 @@ import 'package:life_link/UI/screens/patient_pick_up_screen/patient_pick_up_scre
 import 'package:life_link/UI/screens/patient_screen/oldreports.dart';
 import 'package:life_link/UI/screens/ride_history/ride_history.dart';
 import 'package:life_link/UI/screens/ride_waiting_screen/ride_waiting_screen.dart';
+import 'package:life_link/UI/screens/treatment_ni_process_screen/treatment_ni_process_screen.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
@@ -70,18 +71,16 @@ class _HomeScreenState extends State<HomeScreen> {
               : SingleChildScrollView(
                   child: Column(
                     children: [
-                      _userModel?.userType != UserType.hospital.name
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                top: SizeConfig.height20(context) * 3,
-                              ),
-                              child: UserInfoCard(
-                                name: _userName,
-                                email: _email,
-                                imageLink: _imageLink,
-                              ),
-                            )
-                          : const SizedBox(),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: SizeConfig.height20(context) * 3,
+                        ),
+                        child: UserInfoCard(
+                          name: _userName,
+                          email: _email,
+                          imageLink: _imageLink,
+                        ),
+                      ),
                       SizedBox(
                         height: SizeConfig.height20(context) * 2,
                       ),
@@ -147,10 +146,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                     SizedBox(
                                       height: SizeConfig.height20(context),
                                     ),
-                                    OptionWidget(
-                                      title: "Manage Drivers",
-                                      icon: Assets.driverIcon,
-                                      onTap: () => _onManageDriver(),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        OptionWidget(
+                                          title: "In Treatment",
+                                          icon: Assets.treatmentIcon,
+                                          onTap: () =>
+                                              _onTreatmentInProcessTap(),
+                                        ),
+                                        OptionWidget(
+                                          title: "Manage Drivers",
+                                          icon: Assets.driverIcon,
+                                          onTap: () => _onManageDriver(),
+                                        ),
+                                      ],
                                     )
                                   ],
                                 )
@@ -341,8 +352,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onOldReports() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const OldReports()));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => OldReports(),
+      ),
+    );
   }
 
   Future<void> _createAmbulanceRequest() async {
@@ -395,5 +409,13 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _requestLoading = false;
     });
+  }
+
+  void _onTreatmentInProcessTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => TreatmentInProcessScreen(),
+      ),
+    );
   }
 }

@@ -18,6 +18,7 @@ _$RequestModelImpl _$$RequestModelImplFromJson(Map<String, dynamic> json) =>
       hospitalToBeTakeAtId: json['hospitalToBeTakeAtId'] as String? ?? "",
       patientArrivingTime: json['patientArrivingTime'] as String? ?? "",
       customerReview: json['customerReview'] as String? ?? "",
+      reportId: json['reportId'] as String? ?? "",
     );
 
 Map<String, dynamic> _$$RequestModelImplToJson(_$RequestModelImpl instance) =>
@@ -32,4 +33,5 @@ Map<String, dynamic> _$$RequestModelImplToJson(_$RequestModelImpl instance) =>
       'hospitalToBeTakeAtId': instance.hospitalToBeTakeAtId,
       'patientArrivingTime': instance.patientArrivingTime,
       'customerReview': instance.customerReview,
+      'reportId': instance.reportId,
     };

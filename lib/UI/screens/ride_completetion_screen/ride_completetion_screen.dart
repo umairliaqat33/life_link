@@ -84,7 +84,7 @@ class _RideCompletetionScreenState extends State<RideCompletetionScreen> {
                             item5Title: "Bed Number",
                             item1: _patientName,
                             item2: widget.requestModel.requestTime,
-                            item3: widget.requestModel.requestCompletionTime,
+                            item3: "",
                             item4: widget.hospitalName,
                             item5: widget.requestModel.bedAssigned,
                           ),
@@ -159,15 +159,13 @@ class _RideCompletetionScreenState extends State<RideCompletetionScreen> {
       hospitalToBeTakeAtId: widget.requestModel.hospitalToBeTakeAtId,
       ambulanceDriverId: widget.requestModel.ambulanceDriverId,
       bedAssigned: widget.requestModel.bedAssigned,
-      patientArrivingTime: widget.requestModel.requestCompletionTime,
+      patientArrivingTime: widget.requestModel.patientArrivingTime,
       customerReview: _reviewController.text,
     );
     _firestoreController.updateAmbulanceRequestFields(
       updatedWithReviewRequest,
     );
-    _firestoreController.addCompleteRequest(updatedWithReviewRequest);
-    _firestoreController
-        .deleteCompletedRequest(updatedWithReviewRequest.requestId);
+
     _cancelButton();
   }
 }

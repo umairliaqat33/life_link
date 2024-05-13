@@ -28,13 +28,13 @@ class Assets {
   static const String logoutIcon = "$_svgIconsDir/logout_icon.svg";
   static const String patientCuredIcon = "$_svgIconsDir/patient_cured_icon.svg";
   static const String driverIcon = "$_svgIconsDir/driver_icon.svg";
-
   static const String backButtonWhiteImage =
       "$_svgIconsDir/back_button_white.svg";
   static const String backButtonBlackImage =
       "$_svgIconsDir/back_button_black.svg";
   static const String doctorIcon = "$_svgIconsDir/doctor_icon.svg";
   static const String doneIcon = "$_svgIconsDir/done_icon.svg";
+  static const String treatmentIcon = "$_svgIconsDir/treatment_icon.svg";
 //images
 
   static const String logo = "$_imagesDir/app_logo.png";

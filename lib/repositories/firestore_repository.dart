@@ -8,6 +8,7 @@ import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
+import 'package:life_link/models/report_model/report_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/uid_model/uid_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
@@ -495,15 +496,11 @@ class FirestoreRepository {
           .get();
 
       if (driversSnapshot.docs.isNotEmpty) {
-        // Driver found in this hospital
         QueryDocumentSnapshot driverDoc = driversSnapshot.docs.first;
         Map<String, dynamic> driverData =
             driverDoc.data() as Map<String, dynamic>;
         driverModel = DriverModel.fromJson(driverData);
-        log('Driver found in hospital: ${hospitalDoc.id}');
-        log('Driver data: $driverData');
-        // You can use the driver data here
-        break; // Exit the loop once the driver is found
+        break;
       }
     }
     return driverModel;
@@ -776,7 +773,135 @@ class FirestoreRepository {
                       FirestoreRepository.checkUser()!.uid ||
                   requestModel.patientId ==
                       FirestoreRepository.checkUser()!.uid)
+              .where((requestModel) => requestModel.patientArrivingTime.isEmpty)
               .toList(),
         );
+  }
+
+  Stream<List<RequestModel>> getInTreatmentRequestsStream() {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.requestInProgressCollection)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => RequestModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .where((requestModel) =>
+                  requestModel.hospitalToBeTakeAtId ==
+                  FirestoreRepository.checkUser()!.uid)
+              .where(
+                  (requestModel) => requestModel.patientArrivingTime.isNotEmpty)
+              .toList(),
+        );
+  }
+
+  Future<List<DoctorModel>> getDoctorlist() async {
+    List<DoctorModel> doctorList = [];
+    final snapshot = CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(FirestoreRepository.checkUser()!.uid)
+        .collection(CollectionsNames.doctorCollection)
+        .get();
+    doctorList = await snapshot.then(
+      (snapshot) => snapshot.docs
+          .map(
+            (doc) => DoctorModel.fromJson(
+              doc.data(),
+            ),
+          )
+          .toList(),
+    );
+    return doctorList;
+  }
+
+  void uploadReport(ReportModel reportModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.reportsCollection)
+          .doc(reportModel.reportId)
+          .set(
+            reportModel.toJson(),
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  Future<ReportModel> getSpecificReport(String requestId) async {
+    final snapshot = await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.reportsCollection)
+        .where(
+          'requestId',
+          isEqualTo: requestId,
+        )
+        .limit(1)
+        .get();
+
+    final data = snapshot.docs.first.data();
+    return ReportModel.fromJson(data);
+  }
+
+  Stream<List<ReportModel>> getReportStreamList() {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.reportsCollection)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => ReportModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .where(
+                (reportModel) =>
+                    reportModel.patientID ==
+                    FirestoreRepository.checkUser()!.uid,
+              )
+              .toList(),
+        );
+  }
+
+  Future<DoctorModel?> getSpecificDoctor(String doctorId) async {
+    DoctorModel? doctorModel;
+    QuerySnapshot hospitalSnapshot = await FirebaseFirestore.instance
+        .collection(CollectionsNames.hospitalCollection)
+        .get();
+
+    for (QueryDocumentSnapshot hospitalDoc in hospitalSnapshot.docs) {
+      QuerySnapshot doctor = await hospitalDoc.reference
+          .collection(CollectionsNames.doctorCollection)
+          .where(
+            'doctorId',
+            isEqualTo: doctorId,
+          )
+          .get();
+
+      if (doctor.docs.isNotEmpty) {
+        QueryDocumentSnapshot driverDoc = doctor.docs.first;
+        Map<String, dynamic> doctorData =
+            driverDoc.data() as Map<String, dynamic>;
+        doctorModel = DoctorModel.fromJson(doctorData);
+        log('Driver found in hospital: ${hospitalDoc.id}');
+        log('Driver data: $doctorData');
+        break;
+      }
+    }
+    return doctorModel;
+  }
+
+  Future<RequestModel> getSpecificCompletedRequest(String requestId) async {
+    final snapshot = await CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.completedRequestCollection)
+        .doc(requestId)
+        .get();
+    return RequestModel.fromJson(snapshot.data()!);
   }
 }

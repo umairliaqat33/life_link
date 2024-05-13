@@ -132,7 +132,7 @@ class _PatientRideHistorCardWidgetState
                 item5: "BD-${widget.requestModel.bedAssigned}",
                 item3: _patientModel?.disease ?? '',
                 item4: _driverModel?.ambulanceRegistrationNo ?? '',
-                item2: widget.requestModel.requestCompletionTime,
+                item2: "",
                 title: _hospitalModel?.name ?? "",
                 subtitle: _hospitalModel?.address ?? '',
                 item1Title: 'Pickup Time:',
@@ -147,7 +147,7 @@ class _PatientRideHistorCardWidgetState
                     item5: _patientModel?.age.toString() ?? "",
                     item3: _patientModel?.disease ?? '',
                     item4: widget.requestModel.customerReview,
-                    item2: widget.requestModel.requestCompletionTime,
+                    item2: "",
                     title: _patientModel?.name ?? "",
                     subtitle: _patientModel?.phoneNumber ?? '',
                     item1Title: 'Pickup Time',
@@ -157,7 +157,7 @@ class _PatientRideHistorCardWidgetState
                     item5Title: 'Patient Age',
                   )
                 : RideDetailsAlert(
-                    item1: widget.requestModel.requestCompletionTime,
+                    item1: widget.requestModel.patientArrivingTime,
                     item5: _patientModel?.age.toString() ?? "",
                     item3: _patientModel?.disease ?? '',
                     item4: widget.requestModel.customerReview,

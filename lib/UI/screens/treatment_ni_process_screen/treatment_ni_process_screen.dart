@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/patient_screen/component/oldreports_card.dart';
+import 'package:life_link/UI/screens/treatment_ni_process_screen/component/treatment_in_process_card.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
-import 'package:life_link/models/report_model/report_model.dart';
+import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/utils/colors.dart';
 
-class OldReports extends StatelessWidget {
-  OldReports({super.key});
-
+class TreatmentInProcessScreen extends StatelessWidget {
+  TreatmentInProcessScreen({super.key});
   final FirestoreController _firestoreController = FirestoreController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarWidget(
-          title: "Old Reports", context: context, backButton: true),
-      body: StreamBuilder<List<ReportModel>>(
-        stream: _firestoreController.getReportStreamList(),
+        title: "Treatment In Process",
+        context: context,
+        backButton: true,
+      ),
+      body: StreamBuilder<List<RequestModel>>(
+        stream: _firestoreController.getInTreatmentRequestStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularLoaderWidget();
@@ -37,18 +39,18 @@ class OldReports extends StatelessWidget {
           }
           if (snapshot.data != null && snapshot.data!.isEmpty) {
             return const Center(
-              child: NoDataWidget(alertText: "No requests yet"),
+              child: NoDataWidget(alertText: "No history yet"),
             );
           }
-
-          List<ReportModel> reportModelList = snapshot.data!;
+          List<RequestModel> requestList = snapshot.data!;
           return Stack(
             children: [
               Container(
-                  color: appBarColor,
-                  width: SizeConfig.width(context),
-                  height: SizeConfig.height(context) / 4,
-                  child: null),
+                color: appBarColor,
+                width: SizeConfig.width(context),
+                height: SizeConfig.height(context) / 5,
+                child: null,
+              ),
               Center(
                 child: Padding(
                   padding:
@@ -56,14 +58,14 @@ class OldReports extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        reportModelList.length.toString(),
+                        requestList.length.toString(),
                         style: TextStyle(
                             fontSize: SizeConfig.font28(context),
                             fontWeight: FontWeight.bold,
                             color: whiteColor),
                       ),
                       Text(
-                        "Total Reports",
+                        "Total Records",
                         style: TextStyle(
                             fontSize: SizeConfig.font14(context),
                             fontWeight: FontWeight.bold,
@@ -73,23 +75,18 @@ class OldReports extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: SizeConfig.height(context) / 15,
-              ),
               Padding(
-                padding: EdgeInsets.only(
-                  top: SizeConfig.height(context) / 6,
-                ),
-                child: ListView.builder(
-                  itemCount: reportModelList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return OldReportsCard(
-                      reportModel: reportModelList[index],
-                      reportIndex: index,
-                    );
-                  },
-                ),
-              )
+                  padding: EdgeInsets.only(
+                    top: SizeConfig.height(context) / 6,
+                  ),
+                  child: ListView.builder(
+                    itemCount: requestList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return TreatmentInProcessCard(
+                        requestModel: requestList[index],
+                      );
+                    },
+                  )),
             ],
           );
         },

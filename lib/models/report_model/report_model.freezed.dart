@@ -22,13 +22,12 @@ ReportModel _$ReportModelFromJson(Map<String, dynamic> json) {
 mixin _$ReportModel {
   String get reportId => throw _privateConstructorUsedError;
   String get patientID => throw _privateConstructorUsedError;
-  String get patientName => throw _privateConstructorUsedError;
   String get hospitalId => throw _privateConstructorUsedError;
-  String get hospitalName => throw _privateConstructorUsedError;
+  String get doctorID => throw _privateConstructorUsedError;
   String get prevention => throw _privateConstructorUsedError;
-  String get reportPdfLink => throw _privateConstructorUsedError;
-  String get profileImage => throw _privateConstructorUsedError;
   String get dischargeTime => throw _privateConstructorUsedError;
+  String get diseaseTreated => throw _privateConstructorUsedError;
+  String get requestId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,13 +44,12 @@ abstract class $ReportModelCopyWith<$Res> {
   $Res call(
       {String reportId,
       String patientID,
-      String patientName,
       String hospitalId,
-      String hospitalName,
+      String doctorID,
       String prevention,
-      String reportPdfLink,
-      String profileImage,
-      String dischargeTime});
+      String dischargeTime,
+      String diseaseTreated,
+      String requestId});
 }
 
 /// @nodoc
@@ -69,13 +67,12 @@ class _$ReportModelCopyWithImpl<$Res, $Val extends ReportModel>
   $Res call({
     Object? reportId = null,
     Object? patientID = null,
-    Object? patientName = null,
     Object? hospitalId = null,
-    Object? hospitalName = null,
+    Object? doctorID = null,
     Object? prevention = null,
-    Object? reportPdfLink = null,
-    Object? profileImage = null,
     Object? dischargeTime = null,
+    Object? diseaseTreated = null,
+    Object? requestId = null,
   }) {
     return _then(_value.copyWith(
       reportId: null == reportId
@@ -86,33 +83,29 @@ class _$ReportModelCopyWithImpl<$Res, $Val extends ReportModel>
           ? _value.patientID
           : patientID // ignore: cast_nullable_to_non_nullable
               as String,
-      patientName: null == patientName
-          ? _value.patientName
-          : patientName // ignore: cast_nullable_to_non_nullable
-              as String,
       hospitalId: null == hospitalId
           ? _value.hospitalId
           : hospitalId // ignore: cast_nullable_to_non_nullable
               as String,
-      hospitalName: null == hospitalName
-          ? _value.hospitalName
-          : hospitalName // ignore: cast_nullable_to_non_nullable
+      doctorID: null == doctorID
+          ? _value.doctorID
+          : doctorID // ignore: cast_nullable_to_non_nullable
               as String,
       prevention: null == prevention
           ? _value.prevention
           : prevention // ignore: cast_nullable_to_non_nullable
               as String,
-      reportPdfLink: null == reportPdfLink
-          ? _value.reportPdfLink
-          : reportPdfLink // ignore: cast_nullable_to_non_nullable
-              as String,
-      profileImage: null == profileImage
-          ? _value.profileImage
-          : profileImage // ignore: cast_nullable_to_non_nullable
-              as String,
       dischargeTime: null == dischargeTime
           ? _value.dischargeTime
           : dischargeTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      diseaseTreated: null == diseaseTreated
+          ? _value.diseaseTreated
+          : diseaseTreated // ignore: cast_nullable_to_non_nullable
+              as String,
+      requestId: null == requestId
+          ? _value.requestId
+          : requestId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -129,13 +122,12 @@ abstract class _$$ReportModelImplCopyWith<$Res>
   $Res call(
       {String reportId,
       String patientID,
-      String patientName,
       String hospitalId,
-      String hospitalName,
+      String doctorID,
       String prevention,
-      String reportPdfLink,
-      String profileImage,
-      String dischargeTime});
+      String dischargeTime,
+      String diseaseTreated,
+      String requestId});
 }
 
 /// @nodoc
@@ -151,13 +143,12 @@ class __$$ReportModelImplCopyWithImpl<$Res>
   $Res call({
     Object? reportId = null,
     Object? patientID = null,
-    Object? patientName = null,
     Object? hospitalId = null,
-    Object? hospitalName = null,
+    Object? doctorID = null,
     Object? prevention = null,
-    Object? reportPdfLink = null,
-    Object? profileImage = null,
     Object? dischargeTime = null,
+    Object? diseaseTreated = null,
+    Object? requestId = null,
   }) {
     return _then(_$ReportModelImpl(
       reportId: null == reportId
@@ -168,33 +159,29 @@ class __$$ReportModelImplCopyWithImpl<$Res>
           ? _value.patientID
           : patientID // ignore: cast_nullable_to_non_nullable
               as String,
-      patientName: null == patientName
-          ? _value.patientName
-          : patientName // ignore: cast_nullable_to_non_nullable
-              as String,
       hospitalId: null == hospitalId
           ? _value.hospitalId
           : hospitalId // ignore: cast_nullable_to_non_nullable
               as String,
-      hospitalName: null == hospitalName
-          ? _value.hospitalName
-          : hospitalName // ignore: cast_nullable_to_non_nullable
+      doctorID: null == doctorID
+          ? _value.doctorID
+          : doctorID // ignore: cast_nullable_to_non_nullable
               as String,
       prevention: null == prevention
           ? _value.prevention
           : prevention // ignore: cast_nullable_to_non_nullable
               as String,
-      reportPdfLink: null == reportPdfLink
-          ? _value.reportPdfLink
-          : reportPdfLink // ignore: cast_nullable_to_non_nullable
-              as String,
-      profileImage: null == profileImage
-          ? _value.profileImage
-          : profileImage // ignore: cast_nullable_to_non_nullable
-              as String,
       dischargeTime: null == dischargeTime
           ? _value.dischargeTime
           : dischargeTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      diseaseTreated: null == diseaseTreated
+          ? _value.diseaseTreated
+          : diseaseTreated // ignore: cast_nullable_to_non_nullable
+              as String,
+      requestId: null == requestId
+          ? _value.requestId
+          : requestId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -206,13 +193,12 @@ class _$ReportModelImpl implements _ReportModel {
   const _$ReportModelImpl(
       {required this.reportId,
       required this.patientID,
-      required this.patientName,
       required this.hospitalId,
-      required this.hospitalName,
+      required this.doctorID,
       required this.prevention,
-      required this.reportPdfLink,
-      required this.profileImage,
-      required this.dischargeTime});
+      required this.dischargeTime,
+      required this.diseaseTreated,
+      required this.requestId});
 
   factory _$ReportModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReportModelImplFromJson(json);
@@ -222,23 +208,21 @@ class _$ReportModelImpl implements _ReportModel {
   @override
   final String patientID;
   @override
-  final String patientName;
-  @override
   final String hospitalId;
   @override
-  final String hospitalName;
+  final String doctorID;
   @override
   final String prevention;
   @override
-  final String reportPdfLink;
-  @override
-  final String profileImage;
-  @override
   final String dischargeTime;
+  @override
+  final String diseaseTreated;
+  @override
+  final String requestId;
 
   @override
   String toString() {
-    return 'ReportModel(reportId: $reportId, patientID: $patientID, patientName: $patientName, hospitalId: $hospitalId, hospitalName: $hospitalName, prevention: $prevention, reportPdfLink: $reportPdfLink, profileImage: $profileImage, dischargeTime: $dischargeTime)';
+    return 'ReportModel(reportId: $reportId, patientID: $patientID, hospitalId: $hospitalId, doctorID: $doctorID, prevention: $prevention, dischargeTime: $dischargeTime, diseaseTreated: $diseaseTreated, requestId: $requestId)';
   }
 
   @override
@@ -250,35 +234,24 @@ class _$ReportModelImpl implements _ReportModel {
                 other.reportId == reportId) &&
             (identical(other.patientID, patientID) ||
                 other.patientID == patientID) &&
-            (identical(other.patientName, patientName) ||
-                other.patientName == patientName) &&
             (identical(other.hospitalId, hospitalId) ||
                 other.hospitalId == hospitalId) &&
-            (identical(other.hospitalName, hospitalName) ||
-                other.hospitalName == hospitalName) &&
+            (identical(other.doctorID, doctorID) ||
+                other.doctorID == doctorID) &&
             (identical(other.prevention, prevention) ||
                 other.prevention == prevention) &&
-            (identical(other.reportPdfLink, reportPdfLink) ||
-                other.reportPdfLink == reportPdfLink) &&
-            (identical(other.profileImage, profileImage) ||
-                other.profileImage == profileImage) &&
             (identical(other.dischargeTime, dischargeTime) ||
-                other.dischargeTime == dischargeTime));
+                other.dischargeTime == dischargeTime) &&
+            (identical(other.diseaseTreated, diseaseTreated) ||
+                other.diseaseTreated == diseaseTreated) &&
+            (identical(other.requestId, requestId) ||
+                other.requestId == requestId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      reportId,
-      patientID,
-      patientName,
-      hospitalId,
-      hospitalName,
-      prevention,
-      reportPdfLink,
-      profileImage,
-      dischargeTime);
+  int get hashCode => Object.hash(runtimeType, reportId, patientID, hospitalId,
+      doctorID, prevention, dischargeTime, diseaseTreated, requestId);
 
   @JsonKey(ignore: true)
   @override
@@ -298,13 +271,12 @@ abstract class _ReportModel implements ReportModel {
   const factory _ReportModel(
       {required final String reportId,
       required final String patientID,
-      required final String patientName,
       required final String hospitalId,
-      required final String hospitalName,
+      required final String doctorID,
       required final String prevention,
-      required final String reportPdfLink,
-      required final String profileImage,
-      required final String dischargeTime}) = _$ReportModelImpl;
+      required final String dischargeTime,
+      required final String diseaseTreated,
+      required final String requestId}) = _$ReportModelImpl;
 
   factory _ReportModel.fromJson(Map<String, dynamic> json) =
       _$ReportModelImpl.fromJson;
@@ -314,19 +286,17 @@ abstract class _ReportModel implements ReportModel {
   @override
   String get patientID;
   @override
-  String get patientName;
-  @override
   String get hospitalId;
   @override
-  String get hospitalName;
+  String get doctorID;
   @override
   String get prevention;
   @override
-  String get reportPdfLink;
-  @override
-  String get profileImage;
-  @override
   String get dischargeTime;
+  @override
+  String get diseaseTreated;
+  @override
+  String get requestId;
   @override
   @JsonKey(ignore: true)
   _$$ReportModelImplCopyWith<_$ReportModelImpl> get copyWith =>

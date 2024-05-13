@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:life_link/UI/widgets/cards/info_card_tile.dart';
 
 class ReportInfo extends StatelessWidget {
-  const ReportInfo(
-      {super.key,
-      required this.bedno,
-      required this.admitDate,
-      required this.dischargeDate,
-      required this.checkby,
-      required this.disease,
-      required this.driver,
-      required this.hospital});
+  const ReportInfo({
+    super.key,
+    required this.bedno,
+    required this.admitDate,
+    required this.dischargeDate,
+    required this.checkby,
+    required this.disease,
+    required this.driver,
+    required this.hospital,
+    required this.prescription,
+  });
 
   final String bedno;
   final String admitDate;
@@ -19,6 +21,7 @@ class ReportInfo extends StatelessWidget {
   final String disease;
   final String hospital;
   final String driver;
+  final String prescription;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,11 @@ class ReportInfo extends StatelessWidget {
         InfoCardTile(
           title: "Ambulance Driver",
           valueText: driver,
-        )
+        ),
+        InfoCardTile(
+          title: "Prescription",
+          valueText: prescription,
+        ),
       ],
     ));
   }

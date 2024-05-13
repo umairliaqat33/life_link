@@ -6,6 +6,7 @@ import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
+import 'package:life_link/models/report_model/report_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/repositories/firestore_repository.dart';
@@ -355,5 +356,42 @@ class FirestoreController {
 
   Stream<List<RequestModel>> getInProgressRequestStream() {
     return _firestoreRepository.getInProgressRequestsStream();
+  }
+
+  Stream<List<RequestModel>> getInTreatmentRequestStream() {
+    return _firestoreRepository.getInTreatmentRequestsStream();
+  }
+
+  Future<List<DoctorModel>> getDoctorList() {
+    return _firestoreRepository.getDoctorlist();
+  }
+
+  void uploadReportOnDischarge(ReportModel reportModel) {
+    try {
+      _firestoreRepository.uploadReport(reportModel);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  Future<ReportModel> getSpecificRequestReport(String requestId) {
+    return _firestoreRepository.getSpecificReport(requestId);
+  }
+
+  Stream<List<ReportModel>> getReportStreamList() {
+    return _firestoreRepository.getReportStreamList();
+  }
+
+  Future<DoctorModel?> getSpecificDoctor(String doctorId) {
+    return _firestoreRepository.getSpecificDoctor(doctorId);
+  }
+
+  Future<RequestModel> getSpecificRequestById(String requestId) {
+    return _firestoreRepository.getSpecificCompletedRequest(requestId);
   }
 }

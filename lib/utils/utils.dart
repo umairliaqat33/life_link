@@ -73,6 +73,14 @@ class Utils {
     }
   }
 
+  static String? prescriptionValidator(String? value) {
+    if (value!.isEmpty) {
+      return "Prescription is required";
+    } else {
+      return null;
+    }
+  }
+
   static String? quantityValidator(String? value) {
     if (value!.isEmpty) {
       return "i.e. 1 or 2";

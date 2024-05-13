@@ -14,14 +14,15 @@ class TextFormFieldWidget extends StatelessWidget {
     this.inputAction = TextInputAction.next,
     this.textAlign = TextAlign.left,
     this.fieldEnabled = true,
-    this.maxlines = 1,
+    this.maxLines = 1,
     this.maxLength,
     this.isLabelGrey = false,
-    this.autofocus = false,
+    this.autoFocus = false,
     this.suffixIconFunction,
     this.suffixIcon,
     this.onChanged,
     this.textFieldFilled = true,
+    this.minLines = 1,
   });
   final TextEditingController controller;
   final String hintText;
@@ -31,14 +32,16 @@ class TextFormFieldWidget extends StatelessWidget {
   final FormFieldValidator validator;
   final TextAlign textAlign;
   final bool fieldEnabled;
-  final int maxlines;
+  final int maxLines;
+  final int minLines;
   final int? maxLength;
   final bool isLabelGrey;
-  final bool autofocus;
+  final bool autoFocus;
   final Function? suffixIconFunction;
   final IconData? suffixIcon;
   final Function? onChanged;
   final bool? textFieldFilled;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,9 +73,10 @@ class TextFormFieldWidget extends StatelessWidget {
           keyboardType: inputType,
           textAlign: textAlign,
           validator: validator,
-          maxLines: maxlines,
+          maxLines: maxLines,
+          minLines: minLines,
           maxLength: maxLength,
-          autofocus: autofocus,
+          autofocus: autoFocus,
           onChanged: (value) => onChanged == null ? null : onChanged!(value),
           decoration: InputDecoration(
             hintText: hintText,

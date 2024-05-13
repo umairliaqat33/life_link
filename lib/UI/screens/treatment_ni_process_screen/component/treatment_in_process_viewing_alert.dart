@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/patient_screen/component/report_info_widget.dart';
+import 'package:life_link/UI/widgets/cards/info_card_widget.dart';
 import 'package:life_link/config/size_config.dart';
-import 'package:life_link/models/report_model/report_model.dart';
 import 'package:life_link/utils/colors.dart';
 
-class ReportViewingAlert extends StatelessWidget {
-  const ReportViewingAlert({
+class TreatmentInProcessViewingAlert extends StatelessWidget {
+  const TreatmentInProcessViewingAlert({
     super.key,
-    required this.reportModel,
     required this.name,
     required this.email,
     required this.arrivingDateTime,
-    required this.dischargeDateTime,
+    required this.age,
     required this.bedNumber,
     required this.driverName,
     required this.disease,
-    required this.doctorName,
-    required this.hospitalName,
   });
-  final ReportModel reportModel;
   final String name;
   final String email;
   final String arrivingDateTime;
-  final String dischargeDateTime;
+  final String age;
   final String bedNumber;
   final String driverName;
   final String disease;
-  final String doctorName;
-  final String hospitalName;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -50,7 +44,7 @@ class ReportViewingAlert extends StatelessWidget {
                   email,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: SizeConfig.font12(context) + 1,
+                    fontSize: SizeConfig.font14(context) - 1,
                     color: greyColor,
                   ),
                 ),
@@ -60,21 +54,20 @@ class ReportViewingAlert extends StatelessWidget {
         ],
       ),
       content: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ReportInfo(
-              bedno: bedNumber,
-              admitDate: arrivingDateTime,
-              dischargeDate: dischargeDateTime,
-              checkby: doctorName,
-              disease: disease,
-              driver: driverName,
-              hospital: hospitalName,
-              prescription: reportModel.prevention,
-            )
-          ],
-        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          InfoCardWidget(
+            item1: "BD-$bedNumber",
+            item2: arrivingDateTime,
+            item3: age,
+            item4: driverName,
+            item5: disease,
+            item1Title: 'Bed No',
+            item2Title: 'Arriving Date',
+            item3Title: 'Age',
+            item4Title: 'Driver',
+            item5Title: 'Disease',
+          )
+        ]),
       ),
     );
   }
