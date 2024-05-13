@@ -12,6 +12,7 @@ import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/services/date_and_time_service.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 
 class RideInProgressScreen extends StatefulWidget {
   const RideInProgressScreen({
@@ -41,6 +42,7 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
               marker1Latitude: widget.requestModel.patientLat,
               marker2Longitude: 74.3289704,
               marker2Latitude: 31.5003713,
+              userType: UserType.patient,
             ),
             Padding(
               padding: EdgeInsets.all(SizeConfig.height15(context)),
@@ -141,7 +143,7 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
       hospitalToBeTakeAtId: widget.requestModel.hospitalToBeTakeAtId,
       ambulanceDriverId: widget.requestModel.ambulanceDriverId,
       bedAssigned: widget.requestModel.bedAssigned,
-      requestCompletionTime: completionTime,
+      patientArrivingTime: completionTime,
       customerReview: "",
     );
     firestoreController.updateAmbulanceRequestFields(completedRequest);

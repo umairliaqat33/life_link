@@ -260,14 +260,12 @@ class FirestoreController {
   void changeHospitalOrDriverFCM({
     required UserType userType,
     required String hospitalUid,
-    required String driverId,
     required String token,
   }) {
     try {
       _firestoreRepository.updateHospitalOrDriverFCMToken(
         userType: userType,
         hId: hospitalUid,
-        dId: driverId,
         fcmToken: token,
       );
     } on FirebaseAuthException catch (e) {

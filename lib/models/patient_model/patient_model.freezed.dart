@@ -24,6 +24,7 @@ mixin _$PatientModel {
   String get name => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
   String get fcmToken => throw _privateConstructorUsedError;
+  String get profilePicture => throw _privateConstructorUsedError;
   int get age => throw _privateConstructorUsedError;
   String get cnic => throw _privateConstructorUsedError;
   String get disease => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $PatientModelCopyWith<$Res> {
       String name,
       String uid,
       String fcmToken,
+      String profilePicture,
       int age,
       String cnic,
       String disease,
@@ -71,6 +73,7 @@ class _$PatientModelCopyWithImpl<$Res, $Val extends PatientModel>
     Object? name = null,
     Object? uid = null,
     Object? fcmToken = null,
+    Object? profilePicture = null,
     Object? age = null,
     Object? cnic = null,
     Object? disease = null,
@@ -93,6 +96,10 @@ class _$PatientModelCopyWithImpl<$Res, $Val extends PatientModel>
       fcmToken: null == fcmToken
           ? _value.fcmToken
           : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      profilePicture: null == profilePicture
+          ? _value.profilePicture
+          : profilePicture // ignore: cast_nullable_to_non_nullable
               as String,
       age: null == age
           ? _value.age
@@ -131,6 +138,7 @@ abstract class _$$PatientModelImplCopyWith<$Res>
       String name,
       String uid,
       String fcmToken,
+      String profilePicture,
       int age,
       String cnic,
       String disease,
@@ -153,6 +161,7 @@ class __$$PatientModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? uid = null,
     Object? fcmToken = null,
+    Object? profilePicture = null,
     Object? age = null,
     Object? cnic = null,
     Object? disease = null,
@@ -175,6 +184,10 @@ class __$$PatientModelImplCopyWithImpl<$Res>
       fcmToken: null == fcmToken
           ? _value.fcmToken
           : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      profilePicture: null == profilePicture
+          ? _value.profilePicture
+          : profilePicture // ignore: cast_nullable_to_non_nullable
               as String,
       age: null == age
           ? _value.age
@@ -208,6 +221,7 @@ class _$PatientModelImpl implements _PatientModel {
       required this.name,
       required this.uid,
       required this.fcmToken,
+      required this.profilePicture,
       this.age = 0,
       this.cnic = "",
       this.disease = "",
@@ -226,6 +240,8 @@ class _$PatientModelImpl implements _PatientModel {
   @override
   final String fcmToken;
   @override
+  final String profilePicture;
+  @override
   @JsonKey()
   final int age;
   @override
@@ -243,7 +259,7 @@ class _$PatientModelImpl implements _PatientModel {
 
   @override
   String toString() {
-    return 'PatientModel(email: $email, name: $name, uid: $uid, fcmToken: $fcmToken, age: $age, cnic: $cnic, disease: $disease, gender: $gender, phoneNumber: $phoneNumber)';
+    return 'PatientModel(email: $email, name: $name, uid: $uid, fcmToken: $fcmToken, profilePicture: $profilePicture, age: $age, cnic: $cnic, disease: $disease, gender: $gender, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -256,6 +272,8 @@ class _$PatientModelImpl implements _PatientModel {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.fcmToken, fcmToken) ||
                 other.fcmToken == fcmToken) &&
+            (identical(other.profilePicture, profilePicture) ||
+                other.profilePicture == profilePicture) &&
             (identical(other.age, age) || other.age == age) &&
             (identical(other.cnic, cnic) || other.cnic == cnic) &&
             (identical(other.disease, disease) || other.disease == disease) &&
@@ -266,8 +284,8 @@ class _$PatientModelImpl implements _PatientModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, name, uid, fcmToken, age,
-      cnic, disease, gender, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, email, name, uid, fcmToken,
+      profilePicture, age, cnic, disease, gender, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -289,6 +307,7 @@ abstract class _PatientModel implements PatientModel {
       required final String name,
       required final String uid,
       required final String fcmToken,
+      required final String profilePicture,
       final int age,
       final String cnic,
       final String disease,
@@ -306,6 +325,8 @@ abstract class _PatientModel implements PatientModel {
   String get uid;
   @override
   String get fcmToken;
+  @override
+  String get profilePicture;
   @override
   int get age;
   @override

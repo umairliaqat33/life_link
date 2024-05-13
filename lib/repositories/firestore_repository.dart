@@ -536,7 +536,6 @@ class FirestoreRepository {
   void updateHospitalOrDriverFCMToken({
     required UserType userType,
     required String hId,
-    required String dId,
     required String fcmToken,
   }) {
     try {
@@ -550,17 +549,7 @@ class FirestoreRepository {
                 merge: true,
               ),
             )
-          : CollectionsNames.firestoreCollection
-              .collection(CollectionsNames.hospitalCollection)
-              .doc(hId)
-              .collection(CollectionsNames.driverCollection)
-              .doc(dId)
-              .set(
-              {"fcmToken": fcmToken},
-              SetOptions(
-                merge: true,
-              ),
-            );
+          : _updateDriverFCM(fcmToken);
     } on FirebaseAuthException catch (e) {
       if (e.code == AppStrings.noInternet) {
         throw SocketException("${e.code}${e.message}");
@@ -568,6 +557,25 @@ class FirestoreRepository {
         throw UnknownException(
             "${AppStrings.wentWrong} ${e.code} ${e.message}");
       }
+    }
+  }
+
+  Future<void> _updateDriverFCM(String fcmToken) async {
+    try {
+      DriverModel? driverModel = await getDriverData();
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.hospitalCollection)
+          .doc(driverModel!.hospitalId)
+          .collection(CollectionsNames.driverCollection)
+          .doc(driverModel.uid)
+          .set(
+        {"fcmToken": fcmToken},
+        SetOptions(
+          merge: true,
+        ),
+      );
+    } catch (e) {
+      log("Error in setting driver fcm: ${e.toString()}");
     }
   }
 

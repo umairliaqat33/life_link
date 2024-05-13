@@ -10,6 +10,7 @@ import 'package:life_link/UI/screens/history_screen/history_screen.dart';
 import 'package:life_link/UI/screens/home_screen/components/user_info_card.dart';
 import 'package:life_link/UI/screens/home_screen/components/option_widget.dart';
 import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_screen.dart';
+import 'package:life_link/UI/screens/patient_pick_up_screen/patient_pick_up_screen.dart';
 import 'package:life_link/UI/screens/patient_screen/oldreports.dart';
 import 'package:life_link/UI/screens/ride_history/ride_history.dart';
 import 'package:life_link/UI/screens/ride_waiting_screen/ride_waiting_screen.dart';
@@ -48,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _requestLoading = false;
   String _userName = '';
   String _email = '';
+  String _imageLink = "";
   @override
   void initState() {
     super.initState();
@@ -68,16 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
               : SingleChildScrollView(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: SizeConfig.height20(context) * 3,
-                        ),
-                        child: UserInfoCard(
-                          name: _userName,
-                          email: _email,
-                          imageLink: "",
-                        ),
-                      ),
+                      _userModel?.userType != UserType.hospital.name
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                top: SizeConfig.height20(context) * 3,
+                              ),
+                              child: UserInfoCard(
+                                name: _userName,
+                                email: _email,
+                                imageLink: _imageLink,
+                              ),
+                            )
+                          : const SizedBox(),
                       SizedBox(
                         height: SizeConfig.height20(context) * 2,
                       ),
@@ -91,12 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     OptionWidget(
                                       title: "Ride History",
                                       icon: Assets.historyIcon,
-                                      onTap: () => onRideHistoryTap(),
+                                      onTap: () => _onRideHistoryTap(),
                                     ),
                                     OptionWidget(
-                                      title: "Available hospitals",
-                                      icon: Assets.hospitalBedIcon,
-                                      onTap: () => onAvailableHospitalsTap(),
+                                      title: "Patient to pickup",
+                                      icon: Assets.patientBedIcon,
+                                      onTap: () => _onPatientPickupButtonTap(),
                                     ),
                                   ],
                                 ),
@@ -112,12 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         OptionWidget(
                                           title: "Incoming Patients",
                                           icon: Assets.hospitalBedIcon,
-                                          onTap: () => onIncomingPatientsTap(),
+                                          onTap: () => _onIncomingPatientsTap(),
                                         ),
                                         OptionWidget(
                                           title: "Available Beds",
                                           icon: Assets.patientBedIcon,
-                                          onTap: () => onAvailableBeds(),
+                                          onTap: () => _onAvailableBeds(),
                                         ),
                                       ],
                                     ),
@@ -131,12 +135,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         OptionWidget(
                                           title: "History",
                                           icon: Assets.historyIcon,
-                                          onTap: () => onHistoryTap(),
+                                          onTap: () => _onHistoryTap(),
                                         ),
                                         OptionWidget(
                                           title: "Manage Doctors",
                                           icon: Assets.patientCuredIcon,
-                                          onTap: () => onManageDoctors(),
+                                          onTap: () => _onManageDoctors(),
                                         ),
                                       ],
                                     ),
@@ -146,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     OptionWidget(
                                       title: "Manage Drivers",
                                       icon: Assets.driverIcon,
-                                      onTap: () => onManageDriver(),
+                                      onTap: () => _onManageDriver(),
                                     )
                                   ],
                                 )
@@ -207,12 +211,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         OptionWidget(
                                           title: "Ride History",
                                           icon: Assets.historyIcon,
-                                          onTap: () => onRideHistoryTap(),
+                                          onTap: () => _onRideHistoryTap(),
                                         ),
                                         OptionWidget(
                                           title: "Old Reports",
                                           icon: Assets.listIcon,
-                                          onTap: () => onOldReports(),
+                                          onTap: () => _onOldReports(),
                                         ),
                                       ],
                                     ),
@@ -245,6 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_driverModel != null) {
       _email = _driverModel!.email;
       _userName = _driverModel!.name;
+      _imageLink = _driverModel?.profilePicture ?? "";
       _isLoading = false;
       setState(() {});
     }
@@ -265,12 +270,13 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_patientModel != null) {
       _email = _patientModel!.email;
       _userName = _patientModel!.name;
+      _imageLink = _patientModel?.profilePicture ?? "";
       _isLoading = false;
       setState(() {});
     }
   }
 
-  void onRideHistoryTap() {
+  void _onRideHistoryTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => RideHistory(
@@ -284,8 +290,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onAvailableHospitalsTap() {}
-  void onIncomingPatientsTap() {
+  void _onPatientPickupButtonTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => PatientPickUpScreen(),
+      ),
+    );
+  }
+
+  void _onIncomingPatientsTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => IncomingPatientsScreen(),
@@ -293,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onAvailableBeds() {
+  void _onAvailableBeds() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => BedsScreen(
@@ -303,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onHistoryTap() {
+  void _onHistoryTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const HistoryScreen(),
@@ -311,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onManageDoctors() {
+  void _onManageDoctors() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const DoctorScreen(),
@@ -319,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onManageDriver() {
+  void _onManageDriver() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const DriverScreen(),
@@ -327,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onOldReports() {
+  void _onOldReports() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const OldReports()));
   }
@@ -354,7 +367,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ambulanceDriverId: "",
         customerReview: "",
         bedAssigned: "",
-        requestCompletionTime: "",
+        patientArrivingTime: "",
       );
       // _firestoreController.createAmbulanceRequest(
       //   requestModel,

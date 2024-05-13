@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/incoming_patients_screen/components/incoming_patients_card_widget.dart';
+import 'package:life_link/UI/screens/patient_pick_up_screen/components/patient_to_pick_up_card_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 
-class IncomingPatientsScreen extends StatelessWidget {
-  IncomingPatientsScreen({super.key});
+class PatientPickUpScreen extends StatelessWidget {
+  PatientPickUpScreen({super.key});
   final FirestoreController _firestoreController = FirestoreController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarWidget(
-        title: "Incoming Patients",
+        title: "Patients to pickup",
         context: context,
         backButton: true,
       ),
@@ -51,7 +51,7 @@ class IncomingPatientsScreen extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: requestList.length,
                       itemBuilder: (context, index) {
-                        return IncomingPatientsCardWidget(
+                        return PatientToPickUpCardWidget(
                           requestModel: requestList[index],
                         );
                       },

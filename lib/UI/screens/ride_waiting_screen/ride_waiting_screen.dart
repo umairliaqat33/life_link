@@ -311,7 +311,7 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         hospitalToBeTakeAtId: hospitalId ?? "",
         ambulanceDriverId: driverId ?? "",
         bedAssigned: bedNumber ?? "",
-        requestCompletionTime: "",
+        patientArrivingTime: "",
         customerReview: "",
       ),
     );

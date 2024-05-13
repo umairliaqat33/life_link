@@ -28,7 +28,7 @@ mixin _$RequestModel {
   String get bedAssigned => throw _privateConstructorUsedError;
   String get ambulanceDriverId => throw _privateConstructorUsedError;
   String get hospitalToBeTakeAtId => throw _privateConstructorUsedError;
-  String get requestCompletionTime => throw _privateConstructorUsedError;
+  String get patientArrivingTime => throw _privateConstructorUsedError;
   String get customerReview => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $RequestModelCopyWith<$Res> {
       String bedAssigned,
       String ambulanceDriverId,
       String hospitalToBeTakeAtId,
-      String requestCompletionTime,
+      String patientArrivingTime,
       String customerReview});
 }
 
@@ -77,7 +77,7 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
     Object? bedAssigned = null,
     Object? ambulanceDriverId = null,
     Object? hospitalToBeTakeAtId = null,
-    Object? requestCompletionTime = null,
+    Object? patientArrivingTime = null,
     Object? customerReview = null,
   }) {
     return _then(_value.copyWith(
@@ -113,9 +113,9 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
           ? _value.hospitalToBeTakeAtId
           : hospitalToBeTakeAtId // ignore: cast_nullable_to_non_nullable
               as String,
-      requestCompletionTime: null == requestCompletionTime
-          ? _value.requestCompletionTime
-          : requestCompletionTime // ignore: cast_nullable_to_non_nullable
+      patientArrivingTime: null == patientArrivingTime
+          ? _value.patientArrivingTime
+          : patientArrivingTime // ignore: cast_nullable_to_non_nullable
               as String,
       customerReview: null == customerReview
           ? _value.customerReview
@@ -142,7 +142,7 @@ abstract class _$$RequestModelImplCopyWith<$Res>
       String bedAssigned,
       String ambulanceDriverId,
       String hospitalToBeTakeAtId,
-      String requestCompletionTime,
+      String patientArrivingTime,
       String customerReview});
 }
 
@@ -165,7 +165,7 @@ class __$$RequestModelImplCopyWithImpl<$Res>
     Object? bedAssigned = null,
     Object? ambulanceDriverId = null,
     Object? hospitalToBeTakeAtId = null,
-    Object? requestCompletionTime = null,
+    Object? patientArrivingTime = null,
     Object? customerReview = null,
   }) {
     return _then(_$RequestModelImpl(
@@ -201,9 +201,9 @@ class __$$RequestModelImplCopyWithImpl<$Res>
           ? _value.hospitalToBeTakeAtId
           : hospitalToBeTakeAtId // ignore: cast_nullable_to_non_nullable
               as String,
-      requestCompletionTime: null == requestCompletionTime
-          ? _value.requestCompletionTime
-          : requestCompletionTime // ignore: cast_nullable_to_non_nullable
+      patientArrivingTime: null == patientArrivingTime
+          ? _value.patientArrivingTime
+          : patientArrivingTime // ignore: cast_nullable_to_non_nullable
               as String,
       customerReview: null == customerReview
           ? _value.customerReview
@@ -225,7 +225,7 @@ class _$RequestModelImpl implements _RequestModel {
       this.bedAssigned = "",
       this.ambulanceDriverId = "",
       this.hospitalToBeTakeAtId = "",
-      this.requestCompletionTime = "",
+      this.patientArrivingTime = "",
       this.customerReview = ""});
 
   factory _$RequestModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -252,14 +252,14 @@ class _$RequestModelImpl implements _RequestModel {
   final String hospitalToBeTakeAtId;
   @override
   @JsonKey()
-  final String requestCompletionTime;
+  final String patientArrivingTime;
   @override
   @JsonKey()
   final String customerReview;
 
   @override
   String toString() {
-    return 'RequestModel(requestId: $requestId, requestTime: $requestTime, patientId: $patientId, patientLat: $patientLat, patientLon: $patientLon, bedAssigned: $bedAssigned, ambulanceDriverId: $ambulanceDriverId, hospitalToBeTakeAtId: $hospitalToBeTakeAtId, requestCompletionTime: $requestCompletionTime, customerReview: $customerReview)';
+    return 'RequestModel(requestId: $requestId, requestTime: $requestTime, patientId: $patientId, patientLat: $patientLat, patientLon: $patientLon, bedAssigned: $bedAssigned, ambulanceDriverId: $ambulanceDriverId, hospitalToBeTakeAtId: $hospitalToBeTakeAtId, patientArrivingTime: $patientArrivingTime, customerReview: $customerReview)';
   }
 
   @override
@@ -283,8 +283,8 @@ class _$RequestModelImpl implements _RequestModel {
                 other.ambulanceDriverId == ambulanceDriverId) &&
             (identical(other.hospitalToBeTakeAtId, hospitalToBeTakeAtId) ||
                 other.hospitalToBeTakeAtId == hospitalToBeTakeAtId) &&
-            (identical(other.requestCompletionTime, requestCompletionTime) ||
-                other.requestCompletionTime == requestCompletionTime) &&
+            (identical(other.patientArrivingTime, patientArrivingTime) ||
+                other.patientArrivingTime == patientArrivingTime) &&
             (identical(other.customerReview, customerReview) ||
                 other.customerReview == customerReview));
   }
@@ -301,7 +301,7 @@ class _$RequestModelImpl implements _RequestModel {
       bedAssigned,
       ambulanceDriverId,
       hospitalToBeTakeAtId,
-      requestCompletionTime,
+      patientArrivingTime,
       customerReview);
 
   @JsonKey(ignore: true)
@@ -328,7 +328,7 @@ abstract class _RequestModel implements RequestModel {
       final String bedAssigned,
       final String ambulanceDriverId,
       final String hospitalToBeTakeAtId,
-      final String requestCompletionTime,
+      final String patientArrivingTime,
       final String customerReview}) = _$RequestModelImpl;
 
   factory _RequestModel.fromJson(Map<String, dynamic> json) =
@@ -351,7 +351,7 @@ abstract class _RequestModel implements RequestModel {
   @override
   String get hospitalToBeTakeAtId;
   @override
-  String get requestCompletionTime;
+  String get patientArrivingTime;
   @override
   String get customerReview;
   @override

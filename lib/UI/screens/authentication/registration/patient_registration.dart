@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,11 +10,13 @@ import 'package:life_link/UI/screens/authentication/components/auth_label_widget
 import 'package:life_link/UI/screens/authentication/components/other_auth_option.dart';
 import 'package:life_link/UI/screens/authentication/design_layers/layer_two.dart';
 import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:life_link/UI/widgets/image_pickers/big_image_picker.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
+import 'package:life_link/services/media_service.dart';
 import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
@@ -41,7 +44,9 @@ class _PatientRegistrationState extends State<PatientRegistration> {
   final _diseaseController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   static final notificationSerivce = NotificationService();
-
+  PlatformFile? _profilePlatformFile;
+  bool _noImage = false;
+  String _imageLink = '';
   bool _showSpinner = false;
   Gender _gender = Gender.male;
 
@@ -99,6 +104,28 @@ class _PatientRegistrationState extends State<PatientRegistration> {
                       children: <Widget>[
                         SizedBox(
                           height: SizeConfig.height20(context) * 3,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: _noImage
+                                  ? Border.all(
+                                      color: redColor,
+                                      width: 1,
+                                    )
+                                  : null,
+                              borderRadius: _noImage
+                                  ? const BorderRadius.all(
+                                      Radius.circular(10),
+                                    )
+                                  : null),
+                          child: ImagePickerBigWidget(
+                            heading: 'Profile Photo',
+                            description:
+                                'add a close-up image of yourself max size is 2 MB',
+                            onPressed: () async => _selectProfileImage(),
+                            platformFile: _profilePlatformFile,
+                            imgUrl: _imageLink,
+                          ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,6 +296,24 @@ class _PatientRegistrationState extends State<PatientRegistration> {
           _passController.text,
         );
         if (userCredential != null) {
+          if (_profilePlatformFile == null && _imageLink.isEmpty) {
+            Fluttertoast.showToast(msg: "Please select an image as well");
+            setState(() {
+              _noImage = true;
+              _showSpinner = false;
+            });
+            return;
+          } else {
+            setState(() {
+              _noImage = false;
+            });
+          }
+          _imageLink = _imageLink.isEmpty
+              ? (await MediaService.uploadFile(
+                  userType: UserType.hospital.name,
+                  platformFile: _profilePlatformFile,
+                ))!
+              : _imageLink;
           await notificationSerivce.requestPermission();
           String? token = await notificationSerivce.getToken();
           firestoreController.uploadUserInformation(
@@ -290,6 +335,7 @@ class _PatientRegistrationState extends State<PatientRegistration> {
               gender: _gender.name,
               phoneNumber: _phoneController.text,
               fcmToken: token!,
+              profilePicture: '',
             ),
           );
           log("Signup Successful");
@@ -314,6 +360,24 @@ class _PatientRegistrationState extends State<PatientRegistration> {
     setState(() {
       _showSpinner = false;
     });
+  }
+
+  Future<void> _selectProfileImage() async {
+    try {
+      _profilePlatformFile = await MediaService.selectFile();
+      if (_profilePlatformFile != null) {
+        log("Big Image Clicked");
+        log(_profilePlatformFile!.name);
+      } else {
+        log("no file selected");
+        return;
+      }
+      setState(() {});
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: e.toString(),
+      );
+    }
   }
 
   void _selectGender(Gender value) {

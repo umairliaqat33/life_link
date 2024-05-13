@@ -14,7 +14,7 @@ class RequestModel with _$RequestModel {
     @Default("") String bedAssigned,
     @Default("") String ambulanceDriverId,
     @Default("") String hospitalToBeTakeAtId,
-    @Default("") String requestCompletionTime,
+    @Default("") String patientArrivingTime,
     @Default("") String customerReview,
   }) = _RequestModel;
 

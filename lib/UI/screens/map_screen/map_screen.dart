@@ -5,6 +5,7 @@ import 'package:life_link/services/directins_api_service.dart';
 import 'package:life_link/services/image_to_marker.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/enums.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({
@@ -13,18 +14,20 @@ class MapScreen extends StatefulWidget {
     required this.marker1Latitude,
     required this.marker2Longitude,
     required this.marker2Latitude,
+    required this.userType,
   });
   final double marker1Longitude;
   final double marker1Latitude;
   final double marker2Longitude;
   final double marker2Latitude;
+  final UserType userType;
 
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final LatLng _center = const LatLng(31.5003713, 74.3289704);
+  LatLng _center = const LatLng(31.5003713, 74.3289704);
   GoogleMapController? _mapController;
   final Set<Marker> _marketList = {};
   final Set<Polyline> _polylineList = {};
@@ -34,36 +37,10 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-    rootBundle.loadString('assets/map.txt').then((string) {
-      _mapStyle = string;
-    });
-    _positionsList.add(LatLng(widget.marker1Latitude, widget.marker1Longitude));
-    _positionsList.add(LatLng(widget.marker2Latitude, widget.marker2Longitude));
-    for (int i = 0; i < _positionsList.length; i++) {
-      _polylineList.add(
-        Polyline(
-          polylineId: PolylineId("polylineId $i"),
-          points: _positionsList,
-          width: 2,
-        ),
-      );
-    }
-    _setMarkers(
-      markerLongitude: widget.marker1Longitude,
-      markerLatitude: widget.marker1Latitude,
-      image: Assets.patientOnGroundIcon,
-      markerId: "Patient",
-      infoWindowText: "I am here come pick me up",
-      markerSize: 100,
-    );
-    _setMarkers(
-      markerLongitude: widget.marker2Longitude,
-      markerLatitude: widget.marker2Latitude,
-      image: Assets.ambulanceIcon,
-      markerId: "Driver",
-      infoWindowText: "I am driver",
-      markerSize: 100,
-    );
+    _setCenter();
+    _addMarkers();
+    _addPolyline();
+    _setMapStyle();
   }
 
   @override
@@ -135,6 +112,52 @@ class _MapScreenState extends State<MapScreen> {
       );
     }
 
+    setState(() {});
+  }
+
+  void _addPolyline() {
+    _positionsList.add(LatLng(widget.marker1Latitude, widget.marker1Longitude));
+    _positionsList.add(LatLng(widget.marker2Latitude, widget.marker2Longitude));
+    for (int i = 0; i < _positionsList.length; i++) {
+      _polylineList.add(
+        Polyline(
+          polylineId: PolylineId("polylineId $i"),
+          points: _positionsList,
+          width: 2,
+        ),
+      );
+    }
+  }
+
+  void _addMarkers() {
+    _setMarkers(
+      markerLongitude: widget.marker1Longitude,
+      markerLatitude: widget.marker1Latitude,
+      image: Assets.patientOnGroundIcon,
+      markerId: "Patient",
+      infoWindowText: "I am here come pick me up",
+      markerSize: 100,
+    );
+    _setMarkers(
+      markerLongitude: widget.marker2Longitude,
+      markerLatitude: widget.marker2Latitude,
+      image: Assets.ambulanceIcon,
+      markerId: "Driver",
+      infoWindowText: "I am driver",
+      markerSize: 100,
+    );
+  }
+
+  void _setMapStyle() {
+    rootBundle.loadString('assets/map.txt').then((string) {
+      _mapStyle = string;
+    });
+  }
+
+  void _setCenter() {
+    _center = widget.userType == UserType.driver
+        ? LatLng(widget.marker1Latitude, widget.marker1Longitude)
+        : LatLng(widget.marker2Latitude, widget.marker2Longitude);
     setState(() {});
   }
 }
