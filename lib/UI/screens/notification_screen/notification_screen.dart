@@ -1,102 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:life_link/UI/screens/notification_screen/components/notification_tile.dart';
+import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
+import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
+import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
+import 'package:life_link/config/size_config.dart';
+import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/notification_model/notification_model.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
-
+  NotificationScreen({super.key});
+  final FirestoreController _firestoreController = FirestoreController();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notifications'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {},
-          ),
-        ],
+      appBar: appBarWidget(
+        title: 'Notifications',
+        context: context,
+        backButton: false,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: 'Search Notification',
-                contentPadding: const EdgeInsets.all(16.0),
-                fillColor: Colors.black12,
-                filled: true,
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return Slidable(
-                      endActionPane: ActionPane(
-                        extentRatio: 0.4,
-                        motion: const ScrollMotion(),
-                        children: [
-                          SlidableAction(
-                            onPressed: (context) {},
-                            icon: Icons.reply,
-                            backgroundColor: Colors.grey[300]!,
-                          ),
-                          SlidableAction(
-                            onPressed: (context) {},
-                            icon: Icons.delete,
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.red[800]!,
-                          )
-                        ],
-                      ),
-                      child: ListTile(
-                        isThreeLine: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                        leading: const CircleAvatar(
-                          radius: 25,
-                          backgroundImage:
-                              AssetImage('assets/images/app_logo.png'),
-                        ),
-                        title: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Ali Nouman Ijaz',
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              '5h Ago',
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        subtitle: const Text(
-                          'How are you? My name is Ali Nouman Ijaz. This is new notification for you iaksjdfiojasdo;fijsdoifjsdiofjsdiofjisdjfisadofjosidfj',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => Divider(
-                        color: Colors.grey[400],
-                        indent: size.width * .00,
-                        endIndent: size.width * .00,
-                      ),
-                  itemCount: 10))
-        ],
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: SizeConfig.width15(context) + 1,
+          right: SizeConfig.width15(context) + 1,
+        ),
+        child: StreamBuilder<List<NotificationModel>>(
+            stream: _firestoreController.getNotificationModelStreamList(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularLoaderWidget();
+              }
+              if (snapshot.data == null) {
+                return const Center(
+                  child: Text(
+                    "Something went wrong please try again",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                );
+              }
+              if (snapshot.data != null && snapshot.data!.isEmpty) {
+                return const Center(
+                  child: NoDataWidget(alertText: "No notifications yet"),
+                );
+              }
+              List<NotificationModel> notificationModelList = snapshot.data!;
+              return Column(
+                children: [
+                  // Padding(
+                  //   padding: const EdgeInsets.all(16.0),
+                  //   child: TextField(
+                  //     decoration: InputDecoration(
+                  //       prefixIcon: const Icon(Icons.search),
+                  //       hintText: 'Search Notification',
+                  //       contentPadding: const EdgeInsets.all(16.0),
+                  //       fillColor: Colors.black12,
+                  //       filled: true,
+                  //       border: OutlineInputBorder(
+                  //         borderSide: BorderSide.none,
+                  //         borderRadius: BorderRadius.circular(20.0),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return NotificationTile(
+                          notificationModel: notificationModelList[index],
+                        );
+                      },
+                      itemCount: notificationModelList.length,
+                    ),
+                  )
+                ],
+              );
+            }),
       ),
     );
   }

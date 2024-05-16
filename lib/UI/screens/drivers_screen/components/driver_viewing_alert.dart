@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/screens/drivers_screen/driver_adding_screen.dart';
+import 'package:life_link/UI/widgets/cards/info_card_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/utils/assets.dart';
@@ -64,18 +65,18 @@ class DriverViewingAlert extends StatelessWidget {
                     height: SizeConfig.height10(context) * 10,
                     width: SizeConfig.width10(context) * 8,
                   ),
-            // InfoCardWidget(
-            //   item1: driverModel.education,
-            //   item2: driverModel.comingTime,
-            //   item3: driverModel.leavingTime,
-            //   item4: driverModel.speciality,
-            //   item5: driverModel.otherExperiences,
-            //   item1Title: 'Education',
-            //   item2Title: 'Arriving time',
-            //   item3Title: 'Leaving time',
-            //   item4Title: 'Speciality',
-            //   item5Title: 'Other Experience',
-            // ),
+            InfoCardWidget(
+              item1: driverModel.licenseNumber,
+              item2: driverModel.ambulanceRegistrationNo,
+              item3: driverModel.isApproved.toString(),
+              item4: driverModel.isAvailable.toString(),
+              item5: driverModel.driverPassword,
+              item1Title: 'License number',
+              item2Title: 'Ambulance number',
+              item3Title: 'Approval status',
+              item4Title: 'Availability',
+              item5Title: 'Password',
+            ),
           ],
         ),
       ),

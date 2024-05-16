@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
@@ -7,10 +9,12 @@ import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/cards/info_card_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/notification_model/notification_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/services/date_and_time_service.dart';
+import 'package:life_link/services/id_service.dart';
 import 'package:life_link/utils/assets.dart';
-import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
 
 class RideCompletetionScreen extends StatefulWidget {
@@ -84,29 +88,16 @@ class _RideCompletetionScreenState extends State<RideCompletetionScreen> {
                             item5Title: "Bed Number",
                             item1: _patientName,
                             item2: widget.requestModel.requestTime,
-                            item3: "",
+                            item3: widget.requestModel.patientArrivingTime,
                             item4: widget.hospitalName,
                             item5: widget.requestModel.bedAssigned,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              SizedBox(
-                                width: SizeConfig.width15(context) * 10,
-                                child: CustomButton(
-                                  title: "Give Review",
-                                  onPressed: () => _giveReview(),
-                                ),
-                              ),
-                              SizedBox(
-                                width: SizeConfig.width15(context) * 10,
-                                child: CustomButton(
-                                  buttonColor: greyColor,
-                                  title: "Later",
-                                  onPressed: () => _cancelButton(),
-                                ),
-                              ),
-                            ],
+                          SizedBox(
+                            width: double.infinity,
+                            child: CustomButton(
+                              title: "Give Review",
+                              onPressed: () => _giveReview(),
+                            ),
                           ),
                         ],
                       ),
@@ -162,10 +153,41 @@ class _RideCompletetionScreenState extends State<RideCompletetionScreen> {
       patientArrivingTime: widget.requestModel.patientArrivingTime,
       customerReview: _reviewController.text,
     );
+    _uploadNotification(
+      updatedWithReviewRequest,
+      "Your feedback was: ${_reviewController.text}",
+      "Feedback",
+    );
     _firestoreController.updateAmbulanceRequestFields(
       updatedWithReviewRequest,
     );
 
     _cancelButton();
+  }
+
+  Future<void> _uploadNotification(
+    RequestModel requestModel,
+    String message,
+    String title,
+  ) async {
+    try {
+      String notificationtId = await IdService.createID();
+      String time = DateAndTimeService.timeToString(
+        timeOfDay: TimeOfDay.now(),
+        isDateRequired: true,
+      );
+      _firestoreController.uploadNotification(
+        NotificationModel(
+          notificationId: notificationtId,
+          fromId: requestModel.patientId,
+          toId: requestModel.ambulanceDriverId,
+          message: message,
+          title: title,
+          notificationTime: time,
+        ),
+      );
+    } catch (e) {
+      log("Exception at uploadNotification in discharge screen: ${e.toString()}");
+    }
   }
 }

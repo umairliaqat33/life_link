@@ -92,6 +92,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (user == null) {
           log('No user logged in');
         }
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) =>

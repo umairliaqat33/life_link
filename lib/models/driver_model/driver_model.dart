@@ -17,6 +17,7 @@ class DriverModel with _$DriverModel {
     @Default("") String licenseNumber,
     @Default("") String profilePicture,
     @Default(true) bool isAvailable,
+    @Default(false) bool isApproved,
   }) = _DriverModel;
 
   factory DriverModel.fromJson(Map<String, dynamic> json) =>

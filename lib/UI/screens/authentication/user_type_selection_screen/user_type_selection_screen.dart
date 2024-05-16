@@ -43,11 +43,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
               right: (SizeConfig.width8(context) * 2),
             ),
             child: SingleChildScrollView(
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: (SizeConfig.height8(context) * 8),
-                  ),
                   UserOptions(
                     border: _boxNumb == 1 ? _border : null,
                     description:
@@ -67,42 +65,21 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                   SizedBox(
                     height: (SizeConfig.height8(context)),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      UserOptions(
-                        border: _boxNumb == 2 ? _border : null,
-                        description:
-                            'By continuing as hospital you can register a hospital and keep facilitating patients',
-                        heading: 'I’m a Hospital',
-                        image: Assets.arrowForwardHead,
-                        function: () {
-                          _setBrder(2);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const RegistrationScreen(
-                                  userType: UserType.hospital),
-                            ),
-                          );
-                        },
-                      ),
-                      UserOptions(
-                        border: _boxNumb == 3 ? _border : null,
-                        description:
-                            'By continuing as driver you can register a driver and keep facilitating patients',
-                        heading: 'I’m a Driver',
-                        image: Assets.arrowForwardHead,
-                        function: () async {
-                          _setBrder(3);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const RegistrationScreen(
-                                  userType: UserType.driver),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                  UserOptions(
+                    border: _boxNumb == 2 ? _border : null,
+                    description:
+                        'By continuing as hospital you can register a hospital and keep facilitating patients',
+                    heading: 'I’m a Hospital',
+                    image: Assets.arrowForwardHead,
+                    function: () {
+                      _setBrder(2);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const RegistrationScreen(
+                              userType: UserType.hospital),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),

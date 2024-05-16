@@ -44,7 +44,7 @@ class TileWidget extends StatelessWidget {
         leading: leadingImg == null
             ? null
             : Padding(
-                padding: const EdgeInsets.only(top: 5),
+                padding: EdgeInsets.only(right: SizeConfig.width8(context)),
                 child: SvgPicture.asset(
                   leadingImg!,
                 ),

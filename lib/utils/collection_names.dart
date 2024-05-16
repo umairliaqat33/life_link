@@ -14,4 +14,5 @@ class CollectionsNames {
   static String completedRequestCollection = 'completedRequest';
   static String bedsCollection = 'beds';
   static String reportsCollection = 'reports';
+  static String notificationCollection = 'notifications';
 }

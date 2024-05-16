@@ -28,6 +28,8 @@ mixin _$HospitalModel {
   double get hospitalLon => throw _privateConstructorUsedError;
   String get fcmToken => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
+  String get profilePicture => throw _privateConstructorUsedError;
+  bool get isApproved => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +51,9 @@ abstract class $HospitalModelCopyWith<$Res> {
       double hospitalLat,
       double hospitalLon,
       String fcmToken,
-      String phoneNumber});
+      String phoneNumber,
+      String profilePicture,
+      bool isApproved});
 }
 
 /// @nodoc
@@ -73,6 +77,8 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
     Object? hospitalLon = null,
     Object? fcmToken = null,
     Object? phoneNumber = null,
+    Object? profilePicture = null,
+    Object? isApproved = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -107,6 +113,14 @@ class _$HospitalModelCopyWithImpl<$Res, $Val extends HospitalModel>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      profilePicture: null == profilePicture
+          ? _value.profilePicture
+          : profilePicture // ignore: cast_nullable_to_non_nullable
+              as String,
+      isApproved: null == isApproved
+          ? _value.isApproved
+          : isApproved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -127,7 +141,9 @@ abstract class _$$HospitalModelImplCopyWith<$Res>
       double hospitalLat,
       double hospitalLon,
       String fcmToken,
-      String phoneNumber});
+      String phoneNumber,
+      String profilePicture,
+      bool isApproved});
 }
 
 /// @nodoc
@@ -149,6 +165,8 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
     Object? hospitalLon = null,
     Object? fcmToken = null,
     Object? phoneNumber = null,
+    Object? profilePicture = null,
+    Object? isApproved = null,
   }) {
     return _then(_$HospitalModelImpl(
       email: null == email
@@ -183,6 +201,14 @@ class __$$HospitalModelImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      profilePicture: null == profilePicture
+          ? _value.profilePicture
+          : profilePicture // ignore: cast_nullable_to_non_nullable
+              as String,
+      isApproved: null == isApproved
+          ? _value.isApproved
+          : isApproved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -198,7 +224,9 @@ class _$HospitalModelImpl implements _HospitalModel {
       required this.hospitalLat,
       required this.hospitalLon,
       required this.fcmToken,
-      required this.phoneNumber});
+      required this.phoneNumber,
+      required this.profilePicture,
+      this.isApproved = false});
 
   factory _$HospitalModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$HospitalModelImplFromJson(json);
@@ -219,10 +247,15 @@ class _$HospitalModelImpl implements _HospitalModel {
   final String fcmToken;
   @override
   final String phoneNumber;
+  @override
+  final String profilePicture;
+  @override
+  @JsonKey()
+  final bool isApproved;
 
   @override
   String toString() {
-    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, hospitalLat: $hospitalLat, hospitalLon: $hospitalLon, fcmToken: $fcmToken, phoneNumber: $phoneNumber)';
+    return 'HospitalModel(email: $email, name: $name, address: $address, uid: $uid, hospitalLat: $hospitalLat, hospitalLon: $hospitalLon, fcmToken: $fcmToken, phoneNumber: $phoneNumber, profilePicture: $profilePicture, isApproved: $isApproved)';
   }
 
   @override
@@ -241,13 +274,27 @@ class _$HospitalModelImpl implements _HospitalModel {
             (identical(other.fcmToken, fcmToken) ||
                 other.fcmToken == fcmToken) &&
             (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber));
+                other.phoneNumber == phoneNumber) &&
+            (identical(other.profilePicture, profilePicture) ||
+                other.profilePicture == profilePicture) &&
+            (identical(other.isApproved, isApproved) ||
+                other.isApproved == isApproved));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, name, address, uid,
-      hospitalLat, hospitalLon, fcmToken, phoneNumber);
+  int get hashCode => Object.hash(
+      runtimeType,
+      email,
+      name,
+      address,
+      uid,
+      hospitalLat,
+      hospitalLon,
+      fcmToken,
+      phoneNumber,
+      profilePicture,
+      isApproved);
 
   @JsonKey(ignore: true)
   @override
@@ -272,7 +319,9 @@ abstract class _HospitalModel implements HospitalModel {
       required final double hospitalLat,
       required final double hospitalLon,
       required final String fcmToken,
-      required final String phoneNumber}) = _$HospitalModelImpl;
+      required final String phoneNumber,
+      required final String profilePicture,
+      final bool isApproved}) = _$HospitalModelImpl;
 
   factory _HospitalModel.fromJson(Map<String, dynamic> json) =
       _$HospitalModelImpl.fromJson;
@@ -293,6 +342,10 @@ abstract class _HospitalModel implements HospitalModel {
   String get fcmToken;
   @override
   String get phoneNumber;
+  @override
+  String get profilePicture;
+  @override
+  bool get isApproved;
   @override
   @JsonKey(ignore: true)
   _$$HospitalModelImplCopyWith<_$HospitalModelImpl> get copyWith =>

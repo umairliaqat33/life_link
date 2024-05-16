@@ -11,12 +11,14 @@ import 'package:life_link/UI/widgets/text_fields/text_form_field_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
+import 'package:life_link/models/notification_model/notification_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/report_model/report_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/services/date_and_time_service.dart';
 import 'package:life_link/services/id_service.dart';
 import 'package:life_link/utils/colors.dart';
+import 'package:life_link/utils/strings.dart';
 import 'package:life_link/utils/utils.dart';
 
 class DischargeSreen extends StatefulWidget {
@@ -251,6 +253,7 @@ class _DischargeSreenState extends State<DischargeSreen> {
           patientArrivingTime: widget.requestModel.patientArrivingTime,
           reportId: reportId,
         );
+        _uploadNotification();
         _firestoreController.uploadReportOnDischarge(
           ReportModel(
             reportId: reportId,
@@ -278,5 +281,27 @@ class _DischargeSreenState extends State<DischargeSreen> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  Future<void> _uploadNotification() async {
+    try {
+      String notificationtId = await IdService.createID();
+      String time = DateAndTimeService.timeToString(
+        timeOfDay: TimeOfDay.now(),
+        isDateRequired: true,
+      );
+      _firestoreController.uploadNotification(
+        NotificationModel(
+          notificationId: notificationtId,
+          fromId: widget.requestModel.hospitalToBeTakeAtId,
+          toId: widget.requestModel.patientId,
+          message: AppStrings.patientDischargedText,
+          title: 'Discharged !!!',
+          notificationTime: time,
+        ),
+      );
+    } catch (e) {
+      log("Exception at uploadNotification in discharge screen: ${e.toString()}");
+    }
   }
 }

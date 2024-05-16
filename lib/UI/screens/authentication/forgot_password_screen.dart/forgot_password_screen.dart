@@ -44,39 +44,42 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   left: (SizeConfig.width8(context) * 2),
                   right: (SizeConfig.width8(context) * 2),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    TextFormFieldWidget(
-                      hintText: "johndoe@gmail.com",
-                      controller: _emailController,
-                      validator: (value) => Utils.emailValidator(value),
-                      label: "Email",
-                    ),
-                    Text(
-                      "Sending link to email above. Click on the button below to reset your password",
-                      style: TextStyle(
-                        fontSize: SizeConfig.font12(context),
-                        fontWeight: FontWeight.w400,
-                        color: greyColor,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: <Widget>[
+                      TextFormFieldWidget(
+                        hintText: "johndoe@gmail.com",
+                        controller: _emailController,
+                        validator: (value) => Utils.emailValidator(value),
+                        label: "Email",
                       ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: (SizeConfig.height15(context) * 2),
+                      Text(
+                        "Sending link to email above. Click on the button below to reset your password",
+                        style: TextStyle(
+                          fontSize: SizeConfig.font12(context),
+                          fontWeight: FontWeight.w400,
+                          color: greyColor,
+                        ),
                       ),
-                      child: _isLoading
-                          ? const CircularLoaderWidget()
-                          : SizedBox(
-                              width: double.infinity,
-                              child: CustomButton(
-                                buttonColor: primaryColor,
-                                title: "RESET PASSWORD",
-                                onPressed: () => _forgotPassword(),
+                      const Spacer(),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: (SizeConfig.height15(context) * 2),
+                        ),
+                        child: _isLoading
+                            ? const CircularLoaderWidget()
+                            : SizedBox(
+                                width: double.infinity,
+                                child: CustomButton(
+                                  buttonColor: primaryColor,
+                                  title: "RESET PASSWORD",
+                                  onPressed: () => _forgotPassword(),
+                                ),
                               ),
-                            ),
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

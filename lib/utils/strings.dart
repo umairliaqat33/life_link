@@ -12,4 +12,5 @@ class AppStrings {
       "Storage Permission denied Permanently";
   static String storagePermissionDeniedText = "Storage Permission denied once";
   static String incomingPatientText = "A patient is coming";
+  static String patientDischargedText = "You are dischared from today";
 }

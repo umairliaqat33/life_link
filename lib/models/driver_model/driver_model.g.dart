@@ -19,6 +19,7 @@ _$DriverModelImpl _$$DriverModelImplFromJson(Map<String, dynamic> json) =>
       licenseNumber: json['licenseNumber'] as String? ?? "",
       profilePicture: json['profilePicture'] as String? ?? "",
       isAvailable: json['isAvailable'] as bool? ?? true,
+      isApproved: json['isApproved'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$DriverModelImplToJson(_$DriverModelImpl instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$DriverModelImplToJson(_$DriverModelImpl instance) =>
       'licenseNumber': instance.licenseNumber,
       'profilePicture': instance.profilePicture,
       'isAvailable': instance.isAvailable,
+      'isApproved': instance.isApproved,
     };

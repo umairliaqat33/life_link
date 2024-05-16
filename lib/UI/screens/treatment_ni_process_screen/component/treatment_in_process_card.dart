@@ -64,8 +64,9 @@ class _TreatmentInProcessCardState extends State<TreatmentInProcessCard> {
 
   Future<void> _getRequiredModels() async {
     _driverModel = await _firestoreController.getSpecificDriver(
-        widget.requestModel.hospitalToBeTakeAtId,
-        widget.requestModel.ambulanceDriverId);
+      widget.requestModel.hospitalToBeTakeAtId,
+      widget.requestModel.ambulanceDriverId,
+    );
     _patientModel ??= await _firestoreController
         .getSpecificPatientData(widget.requestModel.patientId);
     setState(() {});

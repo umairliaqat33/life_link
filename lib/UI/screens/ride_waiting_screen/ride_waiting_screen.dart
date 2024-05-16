@@ -15,7 +15,10 @@ import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/beds_model/bed_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
+import 'package:life_link/models/notification_model/notification_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/services/date_and_time_service.dart';
+import 'package:life_link/services/id_service.dart';
 import 'package:life_link/services/notification_service.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
@@ -102,6 +105,12 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                             body: AppStrings.incomingPatientText,
                             receiverUid: _requestModel!.ambulanceDriverId,
                             userType: UserType.driver,
+                          );
+                          _uploadNotification(
+                            _requestModel!,
+                            UserType.patient,
+                            "Ambulance request was created at ${_requestModel!.requestTime}",
+                            "Request Created",
                           );
                           _goToMapScreen();
                         });
@@ -211,51 +220,71 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
           hospitalModel = hList[i];
         }
       }
-      BedModel? bedModel = await _firestoreController
-          .isBedAvailablInRequestedHospital(hospitalModel!.uid);
-      bool isBedAvailable = bedModel?.isAvailable ?? false;
+      if (hospitalModel!.isApproved) {
+        BedModel? bedModel = await _firestoreController
+            .isBedAvailablInRequestedHospital(hospitalModel.uid);
+        bool isBedAvailable = bedModel?.isAvailable ?? false;
 
-      if (!isBedAvailable) {
-        _isHospitalWithBedAndDriverAvailable = false;
-        _requestModel = null;
-        log("Made _isHospitalWithBedAndDriverAvailable==false;");
-        Fluttertoast.showToast(
-            msg: "No Hospitals with beds and driver are available");
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const BottomNavBar(),
-          ),
-          (route) => false,
-        );
-      }
-      if (!isBedAvailable) {
+        if (!isBedAvailable) {
+          _isHospitalWithBedAndDriverAvailable = false;
+          _requestModel = null;
+          log("Made _isHospitalWithBedAndDriverAvailable==false;");
+          Fluttertoast.showToast(
+              msg: "No Hospitals with beds and driver are available");
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const BottomNavBar(),
+            ),
+            (route) => false,
+          );
+        }
+        if (!isBedAvailable) {
+          hList.removeWhere((element) => element.uid == id);
+          if (hList.isNotEmpty) {
+            _processAmbulanceRequest(hList);
+          }
+        } else {
+          _updateRequest(
+            hospitalId: id,
+            bedNumber: bedModel?.bedId.toString(),
+            driverId: "",
+          );
+          log("Bed & hospital are available");
+          bool isDriverPresent = await _isDriverAvailable(
+            id,
+            hList,
+            bedModel!.bedId.toString(),
+          );
+          if (!isDriverPresent && hList.length <= 1) {
+            _isHospitalWithBedAndDriverAvailable = false;
+            log("No Hospitals available with beds and drivers");
+            _updateRequest(
+              driverId: '',
+              hospitalId: '',
+            );
+            setState(() {});
+          }
+          return;
+          // log(isDriverAvailable.toString());
+        }
+      } else {
         hList.removeWhere((element) => element.uid == id);
         if (hList.isNotEmpty) {
           _processAmbulanceRequest(hList);
         }
-      } else {
-        _updateRequest(
-          hospitalId: id,
-          bedNumber: bedModel?.bedId.toString(),
-          driverId: "",
-        );
-        log("Bed & hospital are available");
-        bool isDriverPresent = await _isDriverAvailable(
-          id,
-          hList,
-          bedModel!.bedId.toString(),
-        );
-        if (!isDriverPresent && hList.length <= 1) {
+        Future.delayed(const Duration(seconds: 2), () {
           _isHospitalWithBedAndDriverAvailable = false;
-          log("No Hospitals available with beds and drivers");
-          _updateRequest(
-            driverId: '',
-            hospitalId: '',
+          _requestModel = null;
+          log("Made _isHospitalWithBedAndDriverAvailable==false;");
+          Fluttertoast.showToast(
+              msg: "No Hospitals with beds and driver are available");
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const BottomNavBar(),
+            ),
+            (route) => false,
           );
-          setState(() {});
-        }
-        return;
-        // log(isDriverAvailable.toString());
+        });
       }
     } catch (e) {
       log(e.toString());
@@ -329,7 +358,9 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
   ) async {
     DriverModel? driverModel =
         await _firestoreController.getAvailableDriverDataAHospital(id);
-    if (driverModel != null && driverModel.isAvailable) {
+    if (driverModel != null &&
+        driverModel.isAvailable &&
+        driverModel.isApproved) {
       _updateRequest(
         hospitalId: id,
         driverId: driverModel.uid,
@@ -374,5 +405,36 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _uploadNotification(
+    RequestModel requestModel,
+    UserType userType,
+    String message,
+    String title,
+  ) async {
+    try {
+      String notificationtId = await IdService.createID();
+      String time = DateAndTimeService.timeToString(
+        timeOfDay: TimeOfDay.now(),
+        isDateRequired: true,
+      );
+      _firestoreController.uploadNotification(
+        NotificationModel(
+          notificationId: notificationtId,
+          fromId: userType == UserType.patient
+              ? requestModel.patientId
+              : requestModel.hospitalToBeTakeAtId,
+          toId: userType == UserType.patient
+              ? requestModel.hospitalToBeTakeAtId
+              : requestModel.patientId,
+          message: message,
+          title: title,
+          notificationTime: time,
+        ),
+      );
+    } catch (e) {
+      log("Exception at uploadNotification in ride waiting screen: ${e.toString()}");
+    }
   }
 }

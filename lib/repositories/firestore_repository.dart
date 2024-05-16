@@ -7,6 +7,7 @@ import 'package:life_link/models/beds_model/bed_model.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
+import 'package:life_link/models/notification_model/notification_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/report_model/report_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
@@ -97,6 +98,16 @@ class FirestoreRepository {
     return CollectionsNames.firestoreCollection
         .collection(CollectionsNames.usersCollection)
         .doc(_user!.uid)
+        .get()
+        .then(
+          (value) => UserModel.fromJson(value.data()!),
+        );
+  }
+
+  Future<UserModel> getSpecificUserData(String uid) async {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.usersCollection)
+        .doc(uid)
         .get()
         .then(
           (value) => UserModel.fromJson(value.data()!),
@@ -941,5 +952,86 @@ class FirestoreRepository {
     } else {
       return UserType.hospital;
     }
+  }
+
+  void uploadNotification(NotificationModel notificationModel) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.notificationCollection)
+          .doc(notificationModel.notificationId)
+          .set(
+            notificationModel.toJson(),
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  Stream<List<NotificationModel>> getNotificationModelStreamList() {
+    return CollectionsNames.firestoreCollection
+        .collection(
+          CollectionsNames.notificationCollection,
+        )
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (docs) => NotificationModel.fromJson(
+                  docs.data(),
+                ),
+              )
+              .where(
+                (notificationModel) =>
+                    notificationModel.fromId ==
+                        FirestoreRepository.checkUser()!.uid ||
+                    notificationModel.toId ==
+                        FirestoreRepository.checkUser()!.uid,
+              )
+              .toList(),
+        );
+  }
+
+  void deleteNotificationByNotificationId(String notificationId) {
+    CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.notificationCollection)
+        .doc(notificationId)
+        .delete();
+  }
+
+  void updatePatientData(PatientModel patientModel) {
+    CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.patientCollection)
+        .doc(patientModel.uid)
+        .update(
+          patientModel.toJson(),
+        );
+  }
+
+  void updatehospitalData(HospitalModel hospitalModel) {
+    CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(hospitalModel.uid)
+        .update(
+          hospitalModel.toJson(),
+        );
+  }
+
+  void deleteHospitalData() {
+    CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.hospitalCollection)
+        .doc(_user!.uid)
+        .delete();
+  }
+
+  void deletePatientData() {
+    CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.patientCollection)
+        .doc(_user!.uid)
+        .delete();
   }
 }

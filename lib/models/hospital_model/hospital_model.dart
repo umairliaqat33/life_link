@@ -14,6 +14,8 @@ class HospitalModel with _$HospitalModel {
     required double hospitalLon,
     required String fcmToken,
     required String phoneNumber,
+    required String profilePicture,
+    @Default(false) bool isApproved,
   }) = _HospitalModel;
 
   factory HospitalModel.fromJson(Map<String, dynamic> json) =>

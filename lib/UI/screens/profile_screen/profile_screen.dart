@@ -1,12 +1,15 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:life_link/UI/screens/authentication/forgot_password_screen.dart/forgot_password_screen.dart';
+import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
+import 'package:life_link/UI/screens/home_screen/components/user_info_card.dart';
+import 'package:life_link/UI/screens/profile_screen/components/edit_profile_screen.dart';
 
-import 'package:life_link/UI/screens/profile_screen/components/profile_text.dart';
 import 'package:life_link/UI/screens/profile_screen/components/tile_widget.dart';
-import 'package:life_link/UI/screens/settings_screen/settings_screen.dart';
-import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
+import 'package:life_link/UI/screens/rules_and_terms_screen/rules_and_terms_screen.dart';
+import 'package:life_link/UI/widgets/alerts/deletion_alert.dart';
+import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
@@ -26,19 +29,11 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   // var userData;
-  String? imageLink;
+  String? _imageLink;
   String _name = "";
   String _email = "";
-  int _age = 0;
-  String _gender = '';
-  String _phoneNumber = '';
-  String _disease = '';
-  // String _address = '';
-  // String _empid = '';
-  // String _license = "";
   PatientModel? _patientModel;
   HospitalModel? _hospitalModel;
-  // DriverModel? _driverModel;
   UserModel? _userModel;
   final FirestoreController _firestoreController = FirestoreController();
 
@@ -50,146 +45,121 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: appBarWidget(
-          title: "Profile",
-          context: context,
-          backButton: false,
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 1,
+        backgroundColor: primaryColor,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: const Text(
+          "Profile",
+          style: TextStyle(
+            color: whiteColor,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                //_userModel!.userType == UserType.patient.name?
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: SizeConfig.height8(context) * 2,
-                    ),
-                    Center(
-                      child: Stack(children: [
-                        const CircleAvatar(
-                          backgroundImage: null,
-                          radius: 75.0,
-                        ),
-                        Positioned(
-                          left: 80,
-                          bottom: -10,
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.edit),
-                          ),
-                        )
-                      ]),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.height12(context),
-                    ),
-                    const Divider(),
-                    Container(
-                        padding: EdgeInsets.all(SizeConfig.pad12(context)),
-                        decoration: const BoxDecoration(
-                            color: whiteColor,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        child: Column(children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "PROFILE INFORMATION",
-                                style: TextStyle(
-                                  color: blackColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: SizeConfig.font16(context),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () => edit_profile_data(),
-                                child: const Text(
-                                  "Edit",
-                                  style: TextStyle(color: redColor),
-                                ),
-                              )
-                            ],
-                          ),
-                          profile_text(
-                            text: "UserName",
-                            value: _name,
-                          ),
-                          profile_text(
-                            text: "Email",
-                            value: _email,
-                          )
-                        ])),
-                    const Divider(),
-                    Container(
-                      padding: EdgeInsets.all(SizeConfig.pad12(context)),
-                      decoration: const BoxDecoration(
-                          color: whiteColor,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "PROFILE INFORMATION",
-                                style: TextStyle(
-                                  color: blackColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: SizeConfig.font16(context),
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () => edit_personal_data(),
-                                child: const Text(
-                                  "Edit",
-                                  style: TextStyle(color: redColor),
-                                ),
-                              )
-                            ],
-                          ),
-                          profile_text(
-                            text: "Name",
-                            value: _name,
-                          ),
-                          profile_text(
-                            text: "Age",
-                            value: _age.toString(),
-                          ),
-                          profile_text(
-                            text: "Gender",
-                            value: _gender,
-                          ),
-                          profile_text(
-                            text: "Diease",
-                            value: _disease,
-                          ),
-                          profile_text(
-                            text: "Phone Number",
-                            value: _phoneNumber,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-                //: _userModel!.userType == UserType.hospital.name ?
-                ,
-                TileWidget(
-                  text: "Settings",
-                  trailingImg: Assets.arrowForwardHead,
-                  onTap: () => settingsButton(),
-                  cardColor: backgroundColor,
-                  leadingImg: Assets.settingsIcon,
-                  titleTextColor: appTextColor,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const EditProfileScreen(),
                 ),
-              ])),
-        ),
+              );
+            },
+            child: const Text(
+              "Edit Profile",
+              style: TextStyle(
+                color: whiteColor,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: SizeConfig.height12(context),
+            ),
+            child: Center(
+              child: _userModel == null
+                  ? const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircularLoaderWidget(),
+                    )
+                  : UserInfoCard(
+                      name: _name,
+                      email: _email,
+                      imageLink: _imageLink,
+                    ),
+            ),
+          ),
+          SizedBox(
+            height: SizeConfig.height8(context) * 2,
+          ),
+          TileWidget(
+            text: "Rules and terms",
+            trailingImg: Assets.arrowForwardHead,
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const RulesAndTermsScreen(),
+                ),
+              );
+            },
+            cardColor: backgroundColor,
+            titleTextColor: appTextColor,
+            leadingImg: null,
+          ),
+          TileWidget(
+            text: "Delete Account",
+            trailingImg: Assets.arrowForwardHead,
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return DeletionAlert(
+                    uid: _userModel!.uid,
+                    userType: _userModel!.userType == UserType.hospital.name
+                        ? UserType.hospital
+                        : UserType.patient,
+                  );
+                },
+              );
+            },
+            cardColor: backgroundColor,
+            titleTextColor: appTextColor,
+            leadingImg: null,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: SizeConfig.height12(context)),
+            child: TextButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Logout",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: SizeConfig.font14(context),
+                      color: redColor,
+                    ),
+                  ),
+                )),
+          ),
+        ],
       ),
     );
   }
@@ -199,10 +169,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _patientModel = await _firestoreController.getPatientData();
       if (_patientModel != null) {
         _name = _patientModel!.name;
-        _age = _patientModel!.age;
-        _disease = _patientModel!.disease;
-        _phoneNumber = _patientModel!.phoneNumber;
-        _gender = _patientModel!.gender;
         _email = _patientModel!.email;
       }
     } catch (e) {
@@ -216,30 +182,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _hospitalModel = await _firestoreController.getHospitalData();
       if (_hospitalModel != null) {
         _name = _hospitalModel!.name;
-        _phoneNumber = _hospitalModel!.phoneNumber;
         _email = _hospitalModel!.email;
-        // _address = _hospitalModel!.address;
+        _imageLink = _hospitalModel!.profilePicture;
       }
     } catch (e) {
       log(e.toString());
     }
     if (!mounted) return;
     setState(() {});
-  }
-
-  Future<void> _getAndSetDriverData() async {
-    // try {
-    //   _driverModel =
-    //       await _firestoreController.getAvailableDriverDataAHospital();
-    //   if (_driverModel != null) {
-    //     _email = _driverModel!.email;
-    //     _name = _driverModel!.name;
-    //     _license = _driverModel!.licenseNumber;
-    //   }
-    // } catch (e) {
-    //   log(e.toString());
-    // }
-    // setState(() {});
   }
 
   Future<void> _checkUserType() async {
@@ -250,112 +200,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _getAndSetPatientData();
         } else if (_userModel!.userType == UserType.hospital.name) {
           _getAndSetHospitalData();
-        } else {
-          _getAndSetDriverData();
         }
       }
+      setState(() {});
     } catch (e) {
       log(e.toString());
     }
-  }
-
-  void settingsButton() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const SettingsScreen(),
-      ),
-    );
-  }
-
-  // ignore: non_constant_identifier_names
-  Future<void> edit_profile_data() async {
-    // String newValue = "";
-    await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              backgroundColor: whiteColor,
-              title: const Text("Edit Profile Details"),
-              content: const Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("Are you Sure you want to Reset Password!")
-                ],
-              ),
-              actions: [
-                TextButton(
-                    style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.red)),
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(color: Colors.white),
-                    )),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
-                  ),
-                  onPressed: () {
-                    // Navigate to the forgot password screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordScreen()),
-                    );
-                  },
-                  child: const Text(
-                    "Confirm",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ));
-  }
-
-  // ignore: non_constant_identifier_names
-  Future<void> edit_personal_data() async {
-    await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              backgroundColor: whiteColor,
-              title: const Text("Edit Personal Details"),
-              content: const Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [Text("Are you Sure you want to Edit Details!")],
-              ),
-              actions: [
-                TextButton(
-                    style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.red)),
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text(
-                      "Cancel",
-                      style: TextStyle(color: Colors.white),
-                    )),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordScreen()),
-                    );
-                  },
-                  child: const Text(
-                    "Confirm",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ));
-  }
-
-  void resetpassword() {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()));
   }
 }

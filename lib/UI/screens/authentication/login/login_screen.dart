@@ -188,38 +188,46 @@ class _LoginScreenState extends State<LoginScreen> {
           _passController.text,
         );
         if (userCredential != null) {
-          final notificationSerivce = NotificationService();
+          FirestoreController firesoteController = FirestoreController();
+          UserModel userModel = await firesoteController.getUserData();
+          if (userModel.userType != UserType.admin.name) {
+            final notificationSerivce = NotificationService();
 
-          await notificationSerivce.requestPermission();
-          String? token = await notificationSerivce.getToken();
-          final FirestoreController firestoreController = FirestoreController();
-          UserModel userModel = await firestoreController.getUserData();
-          if (userModel.userType == UserType.patient.name) {
-            firestoreController.changePatientFCM(
-              id: userModel.uid,
-              token: token!,
+            await notificationSerivce.requestPermission();
+            String? token = await notificationSerivce.getToken();
+            final FirestoreController firestoreController =
+                FirestoreController();
+            UserModel userModel = await firestoreController.getUserData();
+            if (userModel.userType == UserType.patient.name) {
+              firestoreController.changePatientFCM(
+                id: userModel.uid,
+                token: token!,
+              );
+            } else if (userModel.userType == UserType.hospital.name) {
+              firestoreController.changeHospitalOrDriverFCM(
+                  userType: UserType.hospital,
+                  hospitalUid: userModel.uid,
+                  token: token!);
+            } else {
+              firestoreController.changeHospitalOrDriverFCM(
+                userType: UserType.driver,
+                hospitalUid: "",
+                token: token!,
+              );
+            }
+
+            log("SignIn successful");
+            Fluttertoast.showToast(msg: "SignIn successful");
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => const BottomNavBar(),
+              ),
+              (route) => false,
             );
-          } else if (userModel.userType == UserType.hospital.name) {
-            firestoreController.changeHospitalOrDriverFCM(
-                userType: UserType.hospital,
-                hospitalUid: userModel.uid,
-                token: token!);
           } else {
-            firestoreController.changeHospitalOrDriverFCM(
-              userType: UserType.driver,
-              hospitalUid: "",
-              token: token!,
-            );
+            await FirebaseAuth.instance.signOut();
+            _showOtherUserAlert();
           }
-
-          log("SignIn successful");
-          Fluttertoast.showToast(msg: "SignIn successful");
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => const BottomNavBar(),
-            ),
-            (route) => false,
-          );
         }
       }
     } on IncorrectPasswordOrUserNotFound catch (e) {
@@ -235,5 +243,36 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _showSpinner = false;
     });
+  }
+
+  Future<void> _showOtherUserAlert() async {
+    await FirebaseAuth.instance.signOut();
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: scaffoldColor,
+            title: const Text("Alert!!!"),
+            content: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(30),
+                child: Text(
+                  "You only have admin access you can not login here. Go to Website",
+                  style: TextStyle(
+                    fontSize: SizeConfig.font18(context),
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              CustomButton(
+                  title: "Ok",
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  })
+            ],
+          );
+        });
   }
 }

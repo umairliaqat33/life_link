@@ -16,6 +16,8 @@ _$HospitalModelImpl _$$HospitalModelImplFromJson(Map<String, dynamic> json) =>
       hospitalLon: (json['hospitalLon'] as num).toDouble(),
       fcmToken: json['fcmToken'] as String,
       phoneNumber: json['phoneNumber'] as String,
+      profilePicture: json['profilePicture'] as String,
+      isApproved: json['isApproved'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$HospitalModelImplToJson(_$HospitalModelImpl instance) =>
@@ -28,4 +30,6 @@ Map<String, dynamic> _$$HospitalModelImplToJson(_$HospitalModelImpl instance) =>
       'hospitalLon': instance.hospitalLon,
       'fcmToken': instance.fcmToken,
       'phoneNumber': instance.phoneNumber,
+      'profilePicture': instance.profilePicture,
+      'isApproved': instance.isApproved,
     };

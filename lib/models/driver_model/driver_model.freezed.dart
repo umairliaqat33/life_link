@@ -31,6 +31,7 @@ mixin _$DriverModel {
   String get licenseNumber => throw _privateConstructorUsedError;
   String get profilePicture => throw _privateConstructorUsedError;
   bool get isAvailable => throw _privateConstructorUsedError;
+  bool get isApproved => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +56,8 @@ abstract class $DriverModelCopyWith<$Res> {
       String driverPassword,
       String licenseNumber,
       String profilePicture,
-      bool isAvailable});
+      bool isAvailable,
+      bool isApproved});
 }
 
 /// @nodoc
@@ -82,6 +84,7 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
     Object? licenseNumber = null,
     Object? profilePicture = null,
     Object? isAvailable = null,
+    Object? isApproved = null,
   }) {
     return _then(_value.copyWith(
       email: null == email
@@ -128,6 +131,10 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
           ? _value.isAvailable
           : isAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
+      isApproved: null == isApproved
+          ? _value.isApproved
+          : isApproved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -151,7 +158,8 @@ abstract class _$$DriverModelImplCopyWith<$Res>
       String driverPassword,
       String licenseNumber,
       String profilePicture,
-      bool isAvailable});
+      bool isAvailable,
+      bool isApproved});
 }
 
 /// @nodoc
@@ -176,6 +184,7 @@ class __$$DriverModelImplCopyWithImpl<$Res>
     Object? licenseNumber = null,
     Object? profilePicture = null,
     Object? isAvailable = null,
+    Object? isApproved = null,
   }) {
     return _then(_$DriverModelImpl(
       email: null == email
@@ -222,6 +231,10 @@ class __$$DriverModelImplCopyWithImpl<$Res>
           ? _value.isAvailable
           : isAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
+      isApproved: null == isApproved
+          ? _value.isApproved
+          : isApproved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -240,7 +253,8 @@ class _$DriverModelImpl implements _DriverModel {
       this.driverPassword = "",
       this.licenseNumber = "",
       this.profilePicture = "",
-      this.isAvailable = true});
+      this.isAvailable = true,
+      this.isApproved = false});
 
   factory _$DriverModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$DriverModelImplFromJson(json);
@@ -271,10 +285,13 @@ class _$DriverModelImpl implements _DriverModel {
   @override
   @JsonKey()
   final bool isAvailable;
+  @override
+  @JsonKey()
+  final bool isApproved;
 
   @override
   String toString() {
-    return 'DriverModel(email: $email, name: $name, ambulanceRegistrationNo: $ambulanceRegistrationNo, uid: $uid, hospitalId: $hospitalId, hospitalName: $hospitalName, fcmToken: $fcmToken, driverPassword: $driverPassword, licenseNumber: $licenseNumber, profilePicture: $profilePicture, isAvailable: $isAvailable)';
+    return 'DriverModel(email: $email, name: $name, ambulanceRegistrationNo: $ambulanceRegistrationNo, uid: $uid, hospitalId: $hospitalId, hospitalName: $hospitalName, fcmToken: $fcmToken, driverPassword: $driverPassword, licenseNumber: $licenseNumber, profilePicture: $profilePicture, isAvailable: $isAvailable, isApproved: $isApproved)';
   }
 
   @override
@@ -301,7 +318,9 @@ class _$DriverModelImpl implements _DriverModel {
             (identical(other.profilePicture, profilePicture) ||
                 other.profilePicture == profilePicture) &&
             (identical(other.isAvailable, isAvailable) ||
-                other.isAvailable == isAvailable));
+                other.isAvailable == isAvailable) &&
+            (identical(other.isApproved, isApproved) ||
+                other.isApproved == isApproved));
   }
 
   @JsonKey(ignore: true)
@@ -318,7 +337,8 @@ class _$DriverModelImpl implements _DriverModel {
       driverPassword,
       licenseNumber,
       profilePicture,
-      isAvailable);
+      isAvailable,
+      isApproved);
 
   @JsonKey(ignore: true)
   @override
@@ -346,7 +366,8 @@ abstract class _DriverModel implements DriverModel {
       final String driverPassword,
       final String licenseNumber,
       final String profilePicture,
-      final bool isAvailable}) = _$DriverModelImpl;
+      final bool isAvailable,
+      final bool isApproved}) = _$DriverModelImpl;
 
   factory _DriverModel.fromJson(Map<String, dynamic> json) =
       _$DriverModelImpl.fromJson;
@@ -373,6 +394,8 @@ abstract class _DriverModel implements DriverModel {
   String get profilePicture;
   @override
   bool get isAvailable;
+  @override
+  bool get isApproved;
   @override
   @JsonKey(ignore: true)
   _$$DriverModelImplCopyWith<_$DriverModelImpl> get copyWith =>

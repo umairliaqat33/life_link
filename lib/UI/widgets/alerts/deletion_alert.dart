@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:life_link/config/size_config.dart';
+import 'package:life_link/controllers/auth_controller.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
@@ -68,7 +69,7 @@ class DeletionAlert extends StatelessWidget {
               ),
             ),
           ),
-          onPressed: () => _deleteDoctor(
+          onPressed: () => _deleteAccount(
             uid,
             context,
           ),
@@ -84,15 +85,22 @@ class DeletionAlert extends StatelessWidget {
     );
   }
 
-  void _deleteDoctor(
+  void _deleteAccount(
     String id,
     BuildContext context,
   ) {
     try {
       FirestoreController firestoreController = FirestoreController();
+      AuthController authController = AuthController();
       userType == UserType.driver
           ? firestoreController.deleteDriverData(id)
-          : firestoreController.deleteDoctorData(id);
+          : userType == UserType.patient
+              ? firestoreController.deletePatientData()
+              : userType == UserType.hospital
+                  ? firestoreController.deleteHospitalData()
+                  : firestoreController.deleteDoctorData(id);
+
+      authController.deleteUserAccountAndData();
       Fluttertoast.showToast(msg: 'Data deletion completed');
       Navigator.of(context).pop();
     } on UnknownException catch (e) {

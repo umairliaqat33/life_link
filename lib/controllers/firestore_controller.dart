@@ -5,6 +5,7 @@ import 'package:life_link/models/beds_model/bed_model.dart';
 import 'package:life_link/models/doctor_model/doctor_model.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
+import 'package:life_link/models/notification_model/notification_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/report_model/report_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
@@ -71,6 +72,10 @@ class FirestoreController {
 
   Future<UserModel> getUserData() {
     return _firestoreRepository.getUserData();
+  }
+
+  Future<UserModel> getSpecificUserModel(String uid) {
+    return _firestoreRepository.getSpecificUserData(uid);
   }
 
   Future<DriverModel?> getAvailableDriverDataAHospital(
@@ -397,5 +402,42 @@ class FirestoreController {
 
   Future<RequestModel> getSpecificRequestById(String requestId) {
     return _firestoreRepository.getSpecificCompletedRequest(requestId);
+  }
+
+  void uploadNotification(NotificationModel notificationModel) {
+    try {
+      _firestoreRepository.uploadNotification(notificationModel);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  Stream<List<NotificationModel>> getNotificationModelStreamList() {
+    return _firestoreRepository.getNotificationModelStreamList();
+  }
+
+  void deleteNotification(String notificationId) {
+    _firestoreRepository.deleteNotificationByNotificationId(notificationId);
+  }
+
+  void updatePatient(PatientModel patientModel) {
+    _firestoreRepository.updatePatientData(patientModel);
+  }
+
+  void updateHospital(HospitalModel hospitalModel) {
+    _firestoreRepository.updatehospitalData(hospitalModel);
+  }
+
+  void deletePatientData() {
+    _firestoreRepository.deletePatientData();
+  }
+
+  void deleteHospitalData() {
+    _firestoreRepository.deleteHospitalData();
   }
 }

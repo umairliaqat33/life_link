@@ -224,6 +224,7 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
               hospitalLat: position!.latitude,
               hospitalLon: position.longitude,
               fcmToken: token!,
+              profilePicture: '',
             ),
           );
           log("Signup Successful");

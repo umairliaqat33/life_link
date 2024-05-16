@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 import 'package:life_link/UI/screens/beds_screen/beds_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_screen.dart';
 import 'package:life_link/UI/screens/drivers_screen/driver_screen.dart';
@@ -19,7 +21,6 @@ import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart
 import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/driver_model/driver_model.dart';
-// import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
@@ -102,6 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onTap: () => _onPatientPickupButtonTap(),
                                     ),
                                   ],
+                                ),
+                                SizedBox(
+                                  height: SizeConfig.height20(context),
+                                ),
+                                OptionWidget(
+                                  title: "Log off",
+                                  icon: Assets.logoutIcon,
+                                  onTap: () => _onLogOffTap(),
                                 ),
                               ],
                             )
@@ -271,6 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_hospitalModel != null) {
       _email = _hospitalModel!.email;
       _userName = _hospitalModel!.name;
+      _imageLink = _hospitalModel!.profilePicture;
       _isLoading = false;
       setState(() {});
     }
@@ -383,9 +393,9 @@ class _HomeScreenState extends State<HomeScreen> {
         bedAssigned: "",
         patientArrivingTime: "",
       );
-      // _firestoreController.createAmbulanceRequest(
-      //   requestModel,
-      // );
+      _firestoreController.createAmbulanceRequest(
+        requestModel,
+      );
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => RideWaitingScreen(
@@ -416,6 +426,17 @@ class _HomeScreenState extends State<HomeScreen> {
       MaterialPageRoute(
         builder: (context) => TreatmentInProcessScreen(),
       ),
+    );
+  }
+
+  void _onLogOffTap() {
+    FirebaseAuth.instance.signOut();
+    Fluttertoast.showToast(msg: "You have been logged out");
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+      (route) => false,
     );
   }
 }

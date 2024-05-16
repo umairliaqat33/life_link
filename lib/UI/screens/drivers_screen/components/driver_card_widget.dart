@@ -109,13 +109,6 @@ class _DriverCardWidgetState extends State<DriverCardWidget> {
                         ),
                       ),
                     ),
-                    // Text(
-                    //   widget.driverModel.speciality,
-                    //   style: TextStyle(
-                    //     fontSize: SizeConfig.font12(context),
-                    //     color: appTextColor,
-                    //   ),
-                    // ),
                     Row(
                       children: [
                         MaterialButton(

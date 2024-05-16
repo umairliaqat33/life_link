@@ -13,6 +13,7 @@ import 'package:life_link/UI/screens/incoming_patients_screen/incoming_patients_
 import 'package:life_link/UI/screens/patient_pick_up_screen/patient_pick_up_screen.dart';
 import 'package:life_link/constants/constants.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
+import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/repositories/firestore_repository.dart';
 import 'package:life_link/utils/enums.dart';
 
@@ -144,13 +145,14 @@ class NotificationService {
     }
   }
 
-  void firebaseNotification(context) {
+  void firebaseNotification(context) async {
     initLocalNotification();
     //background notification
     FirestoreRepository firestoreRepository = FirestoreRepository();
-    Future<UserType> userType = firestoreRepository.getUserType();
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      userType == UserType.hospital
+    UserModel userModel = await firestoreRepository.getUserData();
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      log(userModel.userType);
+      userModel.userType == UserType.hospital.name
           ? Get.to(IncomingPatientsScreen())
           : Get.to(PatientPickUpScreen());
     });
