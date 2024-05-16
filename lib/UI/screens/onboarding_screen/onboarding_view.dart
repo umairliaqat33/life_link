@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 import 'package:life_link/UI/screens/onboarding_screen/onboarding_items.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -40,9 +41,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                     onDotClicked: (index) => pageController.animateToPage(index,
                         duration: const Duration(microseconds: 400),
                         curve: Curves.easeIn),
-                    effect: const WormEffect(
-                      dotHeight: 12,
-                      dotWidth: 12,
+                    effect: WormEffect(
+                      dotHeight: SizeConfig.height12(context),
+                      dotWidth: SizeConfig.width12(context),
                       activeDotColor: primaryColor,
                     ),
                   ),
@@ -66,21 +67,21 @@ class _OnboardingViewState extends State<OnboardingView> {
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(controller.items[index].image),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: SizeConfig.height15(context),
                 ),
                 Text(
                   controller.items[index].title,
-                  style: const TextStyle(
-                    fontSize: 30,
+                  style: TextStyle(
+                    fontSize: SizeConfig.height15(context) * 2,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   controller.items[index].description,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.grey,
-                    fontSize: 17,
+                    fontSize: SizeConfig.font16(context) + 1,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -98,7 +99,7 @@ class _OnboardingViewState extends State<OnboardingView> {
         color: primaryColor,
       ),
       width: MediaQuery.of(context).size.width * .9,
-      height: 55,
+      height: (SizeConfig.height20(context) * 2.5) + 5,
       child: TextButton(
         onPressed: () async {
           final pres = await SharedPreferences.getInstance();

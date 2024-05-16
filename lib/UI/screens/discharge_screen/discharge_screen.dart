@@ -136,10 +136,10 @@ class _DischargeSreenState extends State<DischargeSreen> {
                             ),
                             child: Column(
                               children: [
-                                const Text(
+                                Text(
                                   "Selected doctor: ",
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: SizeConfig.font12(context),
                                     color: greyColor,
                                   ),
                                 ),

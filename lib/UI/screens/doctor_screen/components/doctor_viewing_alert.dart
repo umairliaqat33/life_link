@@ -25,16 +25,16 @@ class DoctorViewingAlert extends StatelessWidget {
               children: [
                 Text(
                   doctorModel.name,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: SizeConfig.font14(context),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
                   doctorModel.email,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: 13,
+                    fontSize: SizeConfig.font12(context) + 1,
                     color: greyColor,
                   ),
                 ),

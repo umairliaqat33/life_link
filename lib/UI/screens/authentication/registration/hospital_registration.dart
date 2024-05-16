@@ -69,7 +69,6 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
                   right: 0,
                   bottom: 0,
                   child: const LayerTwo()),
-
               Center(
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -177,8 +176,6 @@ class _HospitalRegistrationState extends State<HospitalRegistration> {
                   ),
                 ),
               ),
-
-              //Positioned(top: SizeConfig.height20(context)*8, right: 0, bottom: 28, child: LayerTwo()),
             ],
           ),
         ),

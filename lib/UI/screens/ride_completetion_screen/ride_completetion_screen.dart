@@ -12,9 +12,11 @@ import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/notification_model/notification_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/services/app_shifter_service.dart';
 import 'package:life_link/services/date_and_time_service.dart';
 import 'package:life_link/services/id_service.dart';
 import 'package:life_link/utils/assets.dart';
+import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
 
 class RideCompletetionScreen extends StatefulWidget {
@@ -54,6 +56,38 @@ class _RideCompletetionScreenState extends State<RideCompletetionScreen> {
               marker2Longitude: 74.2901811,
               marker2Latitude: 31.5817799,
               userType: UserType.patient,
+            ),
+            Container(
+              height: SizeConfig.height(context),
+              width: SizeConfig.width(context),
+              decoration: BoxDecoration(
+                color: lightGreyColor.withOpacity(0.7),
+              ),
+              child: TextButton(
+                onPressed: () {
+                  AppShifterServices.launchGoogleMaps(
+                    widget.requestModel.patientLat,
+                    widget.requestModel.patientLon,
+                  );
+                },
+                child: Row(
+                  children: [
+                    Image.asset(
+                      Assets.googleMapsImage,
+                      height: SizeConfig.height20(context) * 4,
+                      width: SizeConfig.width20(context) * 4,
+                    ),
+                    Text(
+                      "Go to google maps",
+                      style: TextStyle(
+                        fontSize: SizeConfig.font24(context) + 1,
+                        color: blackColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(SizeConfig.height15(context)),

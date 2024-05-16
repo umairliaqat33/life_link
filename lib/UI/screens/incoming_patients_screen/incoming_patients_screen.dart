@@ -3,6 +3,7 @@ import 'package:life_link/UI/screens/incoming_patients_screen/components/incomin
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/no_data_widget.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 
@@ -31,11 +32,11 @@ class IncomingPatientsScreen extends StatelessWidget {
                       return const CircularLoaderWidget();
                     }
                     if (snapshot.data == null) {
-                      return const Center(
+                      return Center(
                         child: Text(
                           "Something went wrong please try again",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: SizeConfig.font20(context),
                             fontWeight: FontWeight.w500,
                           ),
                         ),

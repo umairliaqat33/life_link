@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/services/directins_api_service.dart';
 import 'package:life_link/services/image_to_marker.dart';
 import 'package:life_link/utils/assets.dart';
@@ -46,20 +47,24 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 16,
-        ),
-        myLocationButtonEnabled: true,
-        myLocationEnabled: true,
-        onMapCreated: _onMapCreated,
-        markers: _marketList,
-        zoomControlsEnabled: false,
-        polylines: _polylineList,
-        // onCameraMove: (value) {
-        //   _customInfoWindowController.onCameraMove!();
-        // },
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 16,
+            ),
+            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
+            onMapCreated: _onMapCreated,
+            markers: _marketList,
+            zoomControlsEnabled: false,
+            polylines: _polylineList,
+            // onCameraMove: (value) {
+            //   _customInfoWindowController.onCameraMove!();
+            // },
+          ),
+        ],
       ),
     );
   }
@@ -104,7 +109,7 @@ class _MapScreenState extends State<MapScreen> {
         Polyline(
           polylineId: const PolylineId("New PolyLine"),
           color: orangeColor,
-          width: 5,
+          width: SizeConfig.width5(context),
           points: directions.polylintPoints
               .map((e) => LatLng(e.latitude, e.longitude))
               .toList(),

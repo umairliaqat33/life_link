@@ -64,11 +64,11 @@ class ImagePickerBigWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.transparent.withOpacity(0.3)),
                         alignment: Alignment.center,
-                        child: const Text(
+                        child: Text(
                           "Edit Picture",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: SizeConfig.font14(context),
                             fontWeight: FontWeight.w600,
                             color: whiteColor,
                             decoration: TextDecoration.underline,
@@ -112,31 +112,31 @@ class ImagePickerBigWidget extends StatelessWidget {
                             Text(
                               textAlign: TextAlign.center,
                               heading,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: appTextColor,
-                                fontSize: 14,
+                                fontSize: SizeConfig.font14(context),
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             SizedBox(
-                              width: (SizeConfig.height20(context) * 9) + 3,
+                              width: (SizeConfig.width20(context) * 9) + 3,
                               child: RichText(
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
                                       text: description,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: greyColor,
-                                        fontSize: 12,
+                                        fontSize: SizeConfig.font12(context),
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
-                                    const TextSpan(
+                                    TextSpan(
                                       text: '2 MB',
                                       style: TextStyle(
                                         color: greyColor,
-                                        fontSize: 12,
+                                        fontSize: SizeConfig.font12(context),
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),

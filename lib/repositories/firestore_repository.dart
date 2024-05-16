@@ -105,6 +105,7 @@ class FirestoreRepository {
   }
 
   Future<UserModel> getSpecificUserData(String uid) async {
+    log(uid);
     return CollectionsNames.firestoreCollection
         .collection(CollectionsNames.usersCollection)
         .doc(uid)

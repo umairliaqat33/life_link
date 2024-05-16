@@ -9,7 +9,9 @@ import 'package:life_link/controllers/firestore_controller.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/services/app_shifter_service.dart';
 import 'package:life_link/services/location_service.dart';
+import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/enums.dart';
 
@@ -51,9 +53,9 @@ class _PatientToPickUpCardWidgetState extends State<PatientToPickUpCardWidget> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Text(
+            Text(
               'Coming in: 10 minutes',
-              style: TextStyle(fontSize: 13),
+              style: TextStyle(fontSize: SizeConfig.font12(context) + 1),
               textAlign: TextAlign.end,
             ),
             Column(
@@ -125,12 +127,50 @@ class _PatientToPickUpCardWidgetState extends State<PatientToPickUpCardWidget> {
     Position? position = await LocationService.getCurrentPosition();
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => MapScreen(
-          marker1Longitude: widget.requestModel.patientLon,
-          marker1Latitude: widget.requestModel.patientLat,
-          marker2Longitude: position!.longitude,
-          marker2Latitude: position.latitude,
-          userType: UserType.driver,
+        builder: (context) => SafeArea(
+          child: Stack(
+            children: [
+              MapScreen(
+                marker1Longitude: widget.requestModel.patientLon,
+                marker1Latitude: widget.requestModel.patientLat,
+                marker2Longitude: position!.longitude,
+                marker2Latitude: position.latitude,
+                userType: UserType.driver,
+              ),
+              Container(
+                height: SizeConfig.height(context),
+                width: SizeConfig.width(context),
+                decoration: BoxDecoration(
+                  color: lightGreyColor.withOpacity(0.7),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    AppShifterServices.launchGoogleMaps(
+                      widget.requestModel.patientLat,
+                      widget.requestModel.patientLon,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        Assets.googleMapsImage,
+                        height: SizeConfig.height20(context) * 4,
+                        width: SizeConfig.width20(context) * 4,
+                      ),
+                      Text(
+                        "Go to google maps",
+                        style: TextStyle(
+                          fontSize: SizeConfig.font24(context) + 1,
+                          color: blackColor,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

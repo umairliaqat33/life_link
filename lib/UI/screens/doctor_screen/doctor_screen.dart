@@ -86,7 +86,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                   height: SizeConfig.height8(context),
                 ),
                 SizedBox(
-                  height: 400,
+                  height: SizeConfig.height20(context) * 200,
                   child: StreamBuilder<List<DoctorModel?>>(
                       stream: _doctorSearchStream,
                       builder: (context, snapshot) {
@@ -100,10 +100,10 @@ class _DoctorScreenState extends State<DoctorScreen> {
                           );
                         }
                         if (snapshot.hasError) {
-                          return const Text(
+                          return Text(
                             "Something went wrong please try again",
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: SizeConfig.font20(context),
                               fontWeight: FontWeight.bold,
                             ),
                           );

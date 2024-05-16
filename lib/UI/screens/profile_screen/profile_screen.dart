@@ -51,11 +51,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: primaryColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: const Text(
+        title: Text(
           "Profile",
           style: TextStyle(
             color: whiteColor,
-            fontSize: 18,
+            fontSize: SizeConfig.font18(context),
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -68,11 +68,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             },
-            child: const Text(
+            child: Text(
               "Edit Profile",
               style: TextStyle(
                 color: whiteColor,
-                fontSize: 13,
+                fontSize: SizeConfig.font12(context) + 1,
                 fontWeight: FontWeight.w500,
               ),
             ),

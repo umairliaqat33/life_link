@@ -260,6 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
       } else {
         _getAndSetPatientData();
       }
+      _isLoading = false;
       setState(() {});
     }
   }

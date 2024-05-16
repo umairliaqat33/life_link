@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/text_fields/text_form_field_widget.dart';
+import 'package:life_link/config/size_config.dart';
 import 'package:life_link/utils/assets.dart';
 import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/utils.dart';
@@ -19,8 +20,8 @@ class ReviewScreen extends StatelessWidget {
           children: [
             Image.asset(
               Assets.feedbackImage,
-              height: 100,
-              width: 100,
+              height: SizeConfig.height20(context) * 5,
+              width: SizeConfig.width20(context) * 5,
             ),
             TextFormFieldWidget(
               controller: reviewController,

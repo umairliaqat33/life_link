@@ -25,16 +25,16 @@ class DriverViewingAlert extends StatelessWidget {
               children: [
                 Text(
                   driverModel.name,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: TextStyle(
+                    fontSize: SizeConfig.font14(context),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
                   driverModel.email,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: 13,
+                    fontSize: SizeConfig.font12(context) + 1,
                     color: greyColor,
                   ),
                 ),

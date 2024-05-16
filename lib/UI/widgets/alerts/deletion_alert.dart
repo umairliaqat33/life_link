@@ -20,19 +20,19 @@ class DeletionAlert extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceBetween,
-      title: const Text(
+      title: Text(
         "Delete data",
         style: TextStyle(
           fontWeight: FontWeight.w700,
-          fontSize: 15,
+          fontSize: SizeConfig.font14(context) + 1,
         ),
       ),
-      content: const SingleChildScrollView(
+      content: SingleChildScrollView(
         child: Center(
           child: Text(
             "*Delete data can not be retrieved again*",
             style: TextStyle(
-              fontSize: 13,
+              fontSize: SizeConfig.font12(context) + 1,
               fontWeight: FontWeight.w400,
               color: redColor,
             ),

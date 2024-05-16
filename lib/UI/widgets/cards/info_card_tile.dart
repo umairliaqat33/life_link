@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:life_link/config/size_config.dart';
 
 class InfoCardTile extends StatelessWidget {
   const InfoCardTile({
@@ -14,16 +15,16 @@ class InfoCardTile extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: const TextStyle(
-          fontSize: 14,
+        style: TextStyle(
+          fontSize: SizeConfig.font14(context),
           fontWeight: FontWeight.w600,
         ),
       ),
       subtitle: Text(
         valueText,
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.w400,
-          fontSize: 13,
+          fontSize: SizeConfig.font12(context) + 1,
         ),
       ),
     );

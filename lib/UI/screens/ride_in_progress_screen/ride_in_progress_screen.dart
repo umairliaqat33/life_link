@@ -10,6 +10,7 @@ import 'package:life_link/models/driver_model/driver_model.dart';
 import 'package:life_link/models/hospital_model/hospital_model.dart';
 import 'package:life_link/models/notification_model/notification_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
+import 'package:life_link/services/app_shifter_service.dart';
 import 'package:life_link/services/date_and_time_service.dart';
 import 'package:life_link/services/id_service.dart';
 import 'package:life_link/utils/assets.dart';
@@ -47,6 +48,38 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
               marker2Longitude: 74.3289704,
               marker2Latitude: 31.5003713,
               userType: UserType.patient,
+            ),
+            Container(
+              height: SizeConfig.height(context),
+              width: SizeConfig.width(context),
+              decoration: BoxDecoration(
+                color: lightGreyColor.withOpacity(0.7),
+              ),
+              child: TextButton(
+                onPressed: () {
+                  AppShifterServices.launchGoogleMaps(
+                    widget.requestModel.patientLat,
+                    widget.requestModel.patientLon,
+                  );
+                },
+                child: Row(
+                  children: [
+                    Image.asset(
+                      Assets.googleMapsImage,
+                      height: SizeConfig.height20(context) * 4,
+                      width: SizeConfig.width20(context) * 4,
+                    ),
+                    Text(
+                      "Go to google maps",
+                      style: TextStyle(
+                        fontSize: SizeConfig.font24(context) + 1,
+                        color: blackColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(SizeConfig.height15(context)),
@@ -88,25 +121,25 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
                                 children: [
                                   Text(
                                     widget.driverModel.name.toUpperCase(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 20,
+                                      fontSize: SizeConfig.font20(context),
                                     ),
                                   ),
                                   Text(
                                     "From : ${widget.hospitalModel.name}",
-                                    style: const TextStyle(
-                                      fontSize: 12,
+                                    style: TextStyle(
+                                      fontSize: SizeConfig.font12(context),
                                       color: greyColor,
                                     ),
                                   ),
                                   SizedBox(
                                     height: SizeConfig.height8(context),
                                   ),
-                                  const Text(
+                                  Text(
                                     "Arriving in : 20 min",
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: SizeConfig.font18(context),
                                       color: greyColor,
                                     ),
                                   ),

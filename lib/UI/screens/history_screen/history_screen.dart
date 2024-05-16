@@ -32,11 +32,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
             return const CircularLoaderWidget();
           }
           if (snapshot.data == null) {
-            return const Center(
+            return Center(
               child: Text(
                 "Something went wrong please try again",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: SizeConfig.font20(context),
                   fontWeight: FontWeight.w500,
                 ),
               ),

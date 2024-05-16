@@ -57,8 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   Image.asset(
                     Assets.logo,
-                    width: 150,
-                    height: 150,
+                    width: SizeConfig.width20(context) * 7.5,
+                    height: SizeConfig.height20(context) * 7.5,
                   ),
                   SizedBox(
                     height: SizeConfig.height8(context),
@@ -92,7 +92,6 @@ class _SplashScreenState extends State<SplashScreen> {
         if (user == null) {
           log('No user logged in');
         }
-        // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) =>

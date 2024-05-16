@@ -55,4 +55,5 @@ class Assets {
   static const String patientOnStecherIcon =
       "$_imagesDir/patient_on_stecher_icon.png";
   static const String feedbackImage = "$_imagesDir/feedback_image.png";
+  static const String googleMapsImage = "$_imagesDir/google_maps.png";
 }

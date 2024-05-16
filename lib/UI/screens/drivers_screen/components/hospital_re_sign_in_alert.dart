@@ -57,20 +57,20 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Icon(
+      title: Icon(
         Icons.security,
         color: primaryColor,
-        size: 15,
+        size: SizeConfig.height15(context),
       ),
       content: SingleChildScrollView(
         child: Column(
           children: [
-            const Text(
-              "sor Security purpose enter your password to verify your identity",
+            Text(
+              "For Security purpose enter your password to verify your identity",
               style: TextStyle(
                 color: redColor,
                 fontWeight: FontWeight.w400,
-                fontSize: 14,
+                fontSize: SizeConfig.font14(context),
               ),
             ),
             PasswordTextField(

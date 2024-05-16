@@ -155,7 +155,9 @@ class NotificationService {
       log(userModel.userType);
       userModel.userType == UserType.hospital.name
           ? Get.to(IncomingPatientsScreen())
-          : Get.to(PatientPickUpScreen());
+          : userModel.userType == UserType.driver.name
+              ? Get.to(PatientPickUpScreen())
+              : null;
     });
     //foreground notification
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
