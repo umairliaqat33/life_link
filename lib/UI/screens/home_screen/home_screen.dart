@@ -393,9 +393,9 @@ class _HomeScreenState extends State<HomeScreen> {
         bedAssigned: "",
         patientArrivingTime: "",
       );
-      _firestoreController.createAmbulanceRequest(
-        requestModel,
-      );
+      // _firestoreController.createAmbulanceRequest(
+      //   requestModel,
+      // );
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => RideWaitingScreen(

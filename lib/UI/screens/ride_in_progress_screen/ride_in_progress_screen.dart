@@ -114,9 +114,15 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
                               ),
                             ],
                           ),
-                          CustomButton(
-                            title: "Complete Ride",
-                            onPressed: () => _completeRideButton(),
+                          SizedBox(
+                            height: SizeConfig.height8(context),
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            child: CustomButton(
+                              title: "Complete Ride",
+                              onPressed: () => _completeRideButton(),
+                            ),
                           ),
                         ],
                       ),
