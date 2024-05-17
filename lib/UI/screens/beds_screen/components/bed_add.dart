@@ -89,7 +89,7 @@ class _AddingBedState extends State<AddingBed> {
       actions: [
         TextButton(
           style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.green),
+            backgroundColor: MaterialStateProperty.all(Colors.green),
           ),
           onPressed: () => _addBedsButton(numberOfBeds),
           child: const Text(

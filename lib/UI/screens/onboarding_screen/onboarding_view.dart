@@ -64,9 +64,15 @@ class _OnboardingViewState extends State<OnboardingView> {
           controller: pageController,
           itemBuilder: (context, index) {
             return Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(controller.items[index].image),
+                CircleAvatar(
+                  backgroundColor: const Color.fromARGB(255, 1, 114, 60),
+                  radius: SizeConfig.width(context) / 2.5,
+                  backgroundImage: AssetImage(
+                    controller.items[index].image,
+                  ),
+                ),
                 SizedBox(
                   height: SizeConfig.height15(context),
                 ),
