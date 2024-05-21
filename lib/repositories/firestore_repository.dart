@@ -247,7 +247,7 @@ class FirestoreRepository {
     try {
       CollectionsNames.firestoreCollection
           .collection(CollectionsNames.hospitalCollection)
-          .doc(FirestoreRepository.checkUser()!.uid)
+          .doc(driverModel.hospitalId)
           .collection(CollectionsNames.driverCollection)
           .doc(driverModel.uid)
           .update(
@@ -439,6 +439,31 @@ class FirestoreRepository {
             "${AppStrings.wentWrong} ${e.code} ${e.message}");
       }
     }
+  }
+
+  Future<RequestModel?> getSpecificUserAmbulanceRequest() async {
+    RequestModel? requestModel;
+    try {
+      final requestSnapshot = await CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.requestInProgressCollection)
+          .where('patientId', isEqualTo: FirestoreRepository.checkUser()!.uid)
+          .limit(1)
+          .get();
+
+      final docs = requestSnapshot.docs;
+      if (docs.isNotEmpty) {
+        requestModel = RequestModel.fromJson(requestSnapshot.docs.first.data());
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+
+    return requestModel;
   }
 
   void updateAmbulanceRequest(RequestModel requestModel) {
@@ -757,6 +782,22 @@ class FirestoreRepository {
   }
 
   void deleteCompletedRequestFromInProgress(String requestId) {
+    try {
+      CollectionsNames.firestoreCollection
+          .collection(CollectionsNames.requestInProgressCollection)
+          .doc(requestId)
+          .delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void deleteInCompletedRequestFromInProgress(String requestId) {
     try {
       CollectionsNames.firestoreCollection
           .collection(CollectionsNames.requestInProgressCollection)

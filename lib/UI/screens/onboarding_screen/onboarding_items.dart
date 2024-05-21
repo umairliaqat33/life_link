@@ -10,7 +10,7 @@ class OnboardingItems {
     OnboardingInfo(
         title: "Real-Time Bed",
         description:
-            "An up-to-date overview of bed availability in nearby hospitals, ensuring you can find the care you need without unnecessary delays.",
+            "An updated overview of bed availability  in nearby hospitals, ensuring you can find the care you need without unnecessary delays.",
         image: "assets/images/Screen2.jpg"),
     OnboardingInfo(
         title: "Accurate location",

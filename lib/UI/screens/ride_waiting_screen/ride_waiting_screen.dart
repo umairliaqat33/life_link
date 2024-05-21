@@ -165,25 +165,6 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: SizeConfig.height8(context),
-                                  ),
-                                  Text(
-                                      "Patient Id: ${_requestModel!.patientId}"),
-                                  Text(
-                                      "Patient Latitude: ${_requestModel!.patientLat}"),
-                                  Text(
-                                      "Patient Longitude: ${_requestModel!.patientLon}"),
-                                  Text(
-                                      "Request Id: ${_requestModel!.requestId}"),
-                                  Text(
-                                      "Request time: ${_requestModel!.requestTime}"),
-                                  Text(
-                                      "Hospital to be taken at: ${_requestModel!.hospitalToBeTakeAtId}"),
-                                  Text(
-                                      "Ambulance Driver Id: ${_requestModel!.ambulanceDriverId}"),
-                                  Text(
-                                      "Bed number: ${_requestModel!.bedAssigned}"),
                                 ],
                               ),
                             );
@@ -366,6 +347,22 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
         driverId: driverModel.uid,
         bedNumber: bedNumber,
       );
+      _updateDriverModel(
+        DriverModel(
+          email: driverModel.email,
+          name: driverModel.name,
+          ambulanceRegistrationNo: driverModel.ambulanceRegistrationNo,
+          uid: driverModel.uid,
+          hospitalId: driverModel.hospitalId,
+          hospitalName: driverModel.hospitalName,
+          fcmToken: driverModel.fcmToken,
+          driverPassword: driverModel.driverPassword,
+          isApproved: driverModel.isApproved,
+          isAvailable: false,
+          licenseNumber: driverModel.licenseNumber,
+          profilePicture: driverModel.profilePicture,
+        ),
+      );
 
       return true;
     } else {
@@ -395,7 +392,9 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
     HospitalModel hospitalModel = await _firestoreController
         .getSpecificHospital(_requestModel!.hospitalToBeTakeAtId);
     DriverModel driverModel = await _firestoreController.getSpecificDriver(
-        _requestModel!.hospitalToBeTakeAtId, _requestModel!.ambulanceDriverId);
+      _requestModel!.hospitalToBeTakeAtId,
+      _requestModel!.ambulanceDriverId,
+    );
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => RideInProgressScreen(
@@ -436,5 +435,9 @@ class _RideWaitingScreenState extends State<RideWaitingScreen> {
     } catch (e) {
       log("Exception at uploadNotification in ride waiting screen: ${e.toString()}");
     }
+  }
+
+  void _updateDriverModel(DriverModel driverModel) {
+    _firestoreController.updateDriverData(driverModel);
   }
 }

@@ -394,16 +394,39 @@ class _HomeScreenState extends State<HomeScreen> {
         bedAssigned: "",
         patientArrivingTime: "",
       );
-      // _firestoreController.createAmbulanceRequest(
-      //   requestModel,
-      // );
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => RideWaitingScreen(
-            requestModel: requestModel,
+
+      RequestModel? oldRequest =
+          await _firestoreController.getSpecificUserRequest();
+
+      if (oldRequest != null &&
+          (oldRequest.ambulanceDriverId.isNotEmpty ||
+              oldRequest.bedAssigned.isNotEmpty ||
+              oldRequest.patientArrivingTime.isNotEmpty)) {
+        _firestoreController.deleteInCompletedRequest(oldRequest.requestId);
+        _getAndUpdateDriverModel(
+            oldRequest.ambulanceDriverId, oldRequest.hospitalToBeTakeAtId);
+        _firestoreController.createAmbulanceRequest(
+          requestModel,
+        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RideWaitingScreen(
+              requestModel: requestModel,
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        _firestoreController.createAmbulanceRequest(
+          requestModel,
+        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RideWaitingScreen(
+              requestModel: requestModel,
+            ),
+          ),
+        );
+      }
     } on NoInternetException catch (e) {
       Fluttertoast.showToast(
         msg: e.message,
@@ -438,6 +461,28 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context) => const LoginScreen(),
       ),
       (route) => false,
+    );
+  }
+
+  Future<void> _getAndUpdateDriverModel(
+      String driverId, String hospitalId) async {
+    DriverModel driverModel =
+        await _firestoreController.getSpecificDriver(hospitalId, driverId);
+    _firestoreController.updateDriverData(
+      DriverModel(
+        email: driverModel.email,
+        name: driverModel.name,
+        ambulanceRegistrationNo: driverModel.ambulanceRegistrationNo,
+        uid: driverModel.uid,
+        hospitalId: hospitalId,
+        hospitalName: driverModel.hospitalName,
+        fcmToken: driverModel.fcmToken,
+        driverPassword: driverModel.driverPassword,
+        isApproved: driverModel.isApproved,
+        isAvailable: true,
+        licenseNumber: driverModel.licenseNumber,
+        profilePicture: driverModel.profilePicture,
+      ),
     );
   }
 }

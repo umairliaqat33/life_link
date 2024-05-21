@@ -188,6 +188,10 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
       patientArrivingTime: completionTime,
       customerReview: "",
     );
+    _getAndUpdateDriverModel(
+      completedRequest.ambulanceDriverId,
+      completedRequest.hospitalToBeTakeAtId,
+    );
     _uploadNotification(
       completedRequest,
       "Patient Was droped at ${completedRequest.requestTime}",
@@ -228,5 +232,27 @@ class _RideInProgressScreenState extends State<RideInProgressScreen> {
     } catch (e) {
       log("Exception at uploadNotification in discharge screen: ${e.toString()}");
     }
+  }
+
+  Future<void> _getAndUpdateDriverModel(
+      String driverId, String hospitalId) async {
+    DriverModel driverModel =
+        await _firestoreController.getSpecificDriver(hospitalId, driverId);
+    _firestoreController.updateDriverData(
+      DriverModel(
+        email: driverModel.email,
+        name: driverModel.name,
+        ambulanceRegistrationNo: driverModel.ambulanceRegistrationNo,
+        uid: driverModel.uid,
+        hospitalId: hospitalId,
+        hospitalName: driverModel.hospitalName,
+        fcmToken: driverModel.fcmToken,
+        driverPassword: driverModel.driverPassword,
+        isApproved: driverModel.isApproved,
+        isAvailable: true,
+        licenseNumber: driverModel.licenseNumber,
+        profilePicture: driverModel.profilePicture,
+      ),
+    );
   }
 }

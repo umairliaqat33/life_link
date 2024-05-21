@@ -102,16 +102,16 @@ class _BedsScreenState extends State<BedsScreen> {
                             children: [
                               TextButton(
                                   style: ButtonStyle(
-                                    side: MaterialStateProperty.all<BorderSide>(
+                                    side: WidgetStateProperty.all<BorderSide>(
                                         const BorderSide(color: greyColor)),
-                                    shape: MaterialStateProperty.all<
+                                    shape: WidgetStateProperty.all<
                                         OutlinedBorder>(
                                       const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.zero,
                                       ),
                                     ),
                                     backgroundColor:
-                                        MaterialStateProperty.all<Color>(
+                                        WidgetStateProperty.all<Color>(
                                             _toggleValue
                                                 ? greenColor
                                                 : Colors.transparent),
@@ -128,17 +128,17 @@ class _BedsScreenState extends State<BedsScreen> {
                                   )),
                               TextButton(
                                 style: ButtonStyle(
-                                  side: MaterialStateProperty.all<BorderSide>(
+                                  side: WidgetStateProperty.all<BorderSide>(
                                       const BorderSide(color: greyColor)),
                                   shape:
-                                      MaterialStateProperty.all<OutlinedBorder>(
+                                      WidgetStateProperty.all<OutlinedBorder>(
                                     const RoundedRectangleBorder(
                                       borderRadius: BorderRadius
                                           .zero, // Set border radius to zero for square shape
                                     ),
                                   ),
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
+                                      WidgetStateProperty.all<Color>(
                                           _toggleValue
                                               ? Colors.transparent
                                               : redColor),

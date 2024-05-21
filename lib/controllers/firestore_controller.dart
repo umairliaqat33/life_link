@@ -209,6 +209,19 @@ class FirestoreController {
     }
   }
 
+  Future<RequestModel?> getSpecificUserRequest() {
+    try {
+      return _firestoreRepository.getSpecificUserAmbulanceRequest();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
   void updateAmbulanceRequestFields(RequestModel requestModel) {
     try {
       _firestoreRepository.updateAmbulanceRequest(requestModel);
@@ -341,6 +354,19 @@ class FirestoreController {
   void deleteCompletedRequest(String reqId) {
     try {
       _firestoreRepository.deleteCompletedRequestFromInProgress(reqId);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == AppStrings.noInternet) {
+        throw SocketException("${e.code}${e.message}");
+      } else {
+        throw UnknownException(
+            "${AppStrings.wentWrong} ${e.code} ${e.message}");
+      }
+    }
+  }
+
+  void deleteInCompletedRequest(String reqId) {
+    try {
+      _firestoreRepository.deleteInCompletedRequestFromInProgress(reqId);
     } on FirebaseAuthException catch (e) {
       if (e.code == AppStrings.noInternet) {
         throw SocketException("${e.code}${e.message}");

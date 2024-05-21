@@ -33,7 +33,12 @@ class _OnboardingViewState extends State<OnboardingView> {
                   TextButton(
                     onPressed: () =>
                         pageController.jumpToPage(controller.items.length - 1),
-                    child: const Text('Skip'),
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: primaryColor,
+                      ),
+                    ),
                   ),
                   SmoothPageIndicator(
                     controller: pageController,
@@ -52,7 +57,12 @@ class _OnboardingViewState extends State<OnboardingView> {
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeIn,
                     ),
-                    child: const Text('Next'),
+                    child: const Text(
+                      'Next',
+                      style: TextStyle(
+                        color: primaryColor,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -63,35 +73,44 @@ class _OnboardingViewState extends State<OnboardingView> {
           itemCount: controller.items.length,
           controller: pageController,
           itemBuilder: (context, index) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: const Color.fromARGB(255, 1, 114, 60),
-                  radius: SizeConfig.width(context) / 2.5,
-                  backgroundImage: AssetImage(
-                    controller.items[index].image,
+            return Padding(
+              padding: EdgeInsets.only(
+                left: SizeConfig.width15(context) + 1,
+                right: SizeConfig.width15(context) + 1,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: const Color.fromARGB(255, 1, 114, 60),
+                    radius: SizeConfig.width(context) / 2.5,
+                    backgroundImage: AssetImage(
+                      controller.items[index].image,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: SizeConfig.height15(context),
-                ),
-                Text(
-                  controller.items[index].title,
-                  style: TextStyle(
-                    fontSize: SizeConfig.height15(context) * 2,
-                    fontWeight: FontWeight.bold,
+                  SizedBox(
+                    height: SizeConfig.height15(context),
                   ),
-                ),
-                Text(
-                  controller.items[index].description,
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: SizeConfig.font16(context) + 1,
+                  Text(
+                    controller.items[index].title,
+                    style: TextStyle(
+                      fontSize: SizeConfig.height15(context) * 2,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                  SizedBox(
+                    height: SizeConfig.height15(context),
+                  ),
+                  Text(
+                    controller.items[index].description,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: SizeConfig.font16(context) + 1,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             );
           }),
     );
