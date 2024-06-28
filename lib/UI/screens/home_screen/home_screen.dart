@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:life_link/UI/screens/authentication/login/login_screen.dart';
 import 'package:life_link/UI/screens/beds_screen/beds_screen.dart';
 import 'package:life_link/UI/screens/doctor_screen/doctor_screen.dart';
@@ -26,6 +27,7 @@ import 'package:life_link/models/patient_model/patient_model.dart';
 import 'package:life_link/models/request_model/request_model.dart';
 import 'package:life_link/models/user_model/user_model.dart';
 import 'package:life_link/repositories/firestore_repository.dart';
+import 'package:life_link/services/app_shifter_service.dart';
 import 'package:life_link/services/date_and_time_service.dart';
 import 'package:life_link/services/id_service.dart';
 import 'package:life_link/services/location_service.dart';
@@ -272,6 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _userName = _driverModel!.name;
       _imageLink = _driverModel?.profilePicture ?? "";
       _isLoading = false;
+      _showApprovalDialog(_driverModel!.isApproved);
       setState(() {});
     }
   }
@@ -283,6 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _userName = _hospitalModel!.name;
       _imageLink = _hospitalModel!.profilePicture;
       _isLoading = false;
+      _showApprovalDialog(_hospitalModel!.isApproved);
       setState(() {});
     }
   }
@@ -484,5 +488,49 @@ class _HomeScreenState extends State<HomeScreen> {
         profilePicture: driverModel.profilePicture,
       ),
     );
+  }
+
+  void _showApprovalDialog(bool showDialog) {
+    if (!showDialog) {
+      Get.dialog(
+        barrierDismissible: false,
+        AlertDialog(
+          icon: const Icon(
+            Icons.not_interested_outlined,
+            color: primaryColor,
+            size: 20,
+          ),
+          title: const Text(
+            "Account Not Approved",
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: primaryColor,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    AppShifterServices.contactAdmin();
+                  },
+                  child: const Text(
+                    "Please contact Admin",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: lightBlueColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      Get.back();
+    }
   }
 }

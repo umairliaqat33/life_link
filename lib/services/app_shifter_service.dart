@@ -11,4 +11,11 @@ class AppShifterServices {
           "google.navigation:q=$destinationLatitude,$destinationLongitude"),
     );
   }
+
+  static Future<void> contactAdmin() async {
+    launchUrl(
+      Uri.parse(
+          "mailto:umairliaqat552@gmail.com?subject=Account%20Approval&body=Hello!"),
+    );
+  }
 }
