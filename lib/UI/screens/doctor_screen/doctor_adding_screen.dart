@@ -274,14 +274,7 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
                 ),
               );
         Fluttertoast.showToast(msg: "Doctor's data saved successfully");
-        widget.doctorModel != null
-            ? Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => const BottomNavBar(),
-                ),
-                (route) => false,
-              )
-            : Navigator.of(context).pop();
+        widget.doctorModel != null ? doublePop() : Navigator.of(context).pop();
       }
     } on NoInternetException catch (e) {
       Fluttertoast.showToast(
@@ -307,6 +300,7 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
       if (_profilePlatformFile != null) {
         log("Big Image Clicked");
         log(_profilePlatformFile!.name);
+        _imageLink = '';
       } else {
         log("no file selected");
         return;
@@ -329,5 +323,10 @@ class _DoctorAddingScreenState extends State<DoctorAddingScreen> {
     _specialityController.text = widget.doctorModel!.speciality;
     _imageLink = widget.doctorModel!.profileImage;
     setState(() {});
+  }
+
+  void doublePop() {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 }

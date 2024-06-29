@@ -132,7 +132,7 @@ class _PatientRideHistorCardWidgetState
                 item5: "BD-${widget.requestModel.bedAssigned}",
                 item3: _patientModel?.disease ?? '',
                 item4: _driverModel?.ambulanceRegistrationNo ?? '',
-                item2: "",
+                item2: widget.requestModel.patientArrivingTime,
                 title: _hospitalModel?.name ?? "",
                 subtitle: _hospitalModel?.address ?? '',
                 item1Title: 'Pickup Time:',

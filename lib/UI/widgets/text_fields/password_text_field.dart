@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -8,21 +10,23 @@ import 'package:life_link/utils/colors.dart';
 import 'package:life_link/utils/utils.dart';
 
 class PasswordTextField extends StatefulWidget {
-  const PasswordTextField({
+  PasswordTextField({
     super.key,
     required this.controller,
     this.textFieldFilled = true,
+    this.enabled = true,
+    this.textVisible = true,
   });
   final TextEditingController controller;
   final bool? textFieldFilled;
+  final bool enabled;
+  bool textVisible;
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
 }
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
-  bool _textVisible = true;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,8 +51,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         TextFormField(
           validator: (value) => Utils.passwordValidator(value),
           textInputAction: TextInputAction.done,
-          obscureText: _textVisible,
+          obscureText: widget.textVisible,
           controller: widget.controller,
+          enabled: widget.enabled,
           decoration: TextFieldDecoration.kPasswordFieldDecoration.copyWith(
             filled: widget.textFieldFilled,
             fillColor: textFieldFillColor,
@@ -56,10 +61,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
-                  _textVisible = !_textVisible;
+                  widget.textVisible = !widget.textVisible;
                 });
               },
-              icon: _textVisible
+              icon: widget.textVisible
                   ? SvgPicture.asset(
                       Assets.passwordVisibilityOff,
                       height: SizeConfig.height20(context),

@@ -163,6 +163,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               groupValue: _gender,
                               onChanged: (value) => _selectGender(value!),
                             ),
+                            RadioListTile<Gender>(
+                              title: Text(
+                                Gender.female.name.toUpperCase(),
+                                style: TextStyle(
+                                  color: blackColor,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: SizeConfig.font16(context),
+                                ),
+                              ),
+                              value: Gender.female,
+                              groupValue: _gender,
+                              onChanged: (value) => _selectGender(value!),
+                            ),
                             SizedBox(
                               height: SizeConfig.height12(context),
                             ),

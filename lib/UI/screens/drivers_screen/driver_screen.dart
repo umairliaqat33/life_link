@@ -43,7 +43,7 @@ class _DriverScreenState extends State<DriverScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: appBarWidget(
-          title: "Manage Doctors",
+          title: "Manage Driver",
           context: context,
           backButton: true,
         ),

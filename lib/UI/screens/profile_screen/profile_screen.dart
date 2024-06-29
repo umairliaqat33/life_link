@@ -170,6 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (_patientModel != null) {
         _name = _patientModel!.name;
         _email = _patientModel!.email;
+        _imageLink = _patientModel!.profilePicture;
       }
     } catch (e) {
       log(e.toString());

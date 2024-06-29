@@ -44,7 +44,7 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
       TextEditingController();
   final TextEditingController _licenseNumberController =
       TextEditingController();
-
+  bool _passwordFieldEnabled = true;
   final _formKey = GlobalKey<FormState>();
   PlatformFile? _profilePlatformFile;
   bool _spinner = false;
@@ -138,7 +138,11 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
                           SizedBox(
                             height: SizeConfig.height8(context),
                           ),
-                          PasswordTextField(controller: _passwordController),
+                          PasswordTextField(
+                            controller: _passwordController,
+                            enabled: _passwordFieldEnabled,
+                            textVisible: false,
+                          ),
                           SizedBox(
                             height: SizeConfig.height8(context),
                           ),
@@ -227,6 +231,7 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
                   profilePicture: _imageLink,
                   isAvailable: true,
                   fcmToken: widget.driverModel!.fcmToken,
+                  driverPassword: _passwordController.text,
                 ),
               )
             : createDriverAccount(
@@ -235,8 +240,8 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
                 hospitalModel.email,
                 _imageLink,
               );
-        if (widget.driverModel == null) {
-          // Navigator.of(context).pop();
+        if (widget.driverModel != null) {
+          Navigator.of(context).pop();
         }
       }
     } on NoInternetException catch (e) {
@@ -282,6 +287,8 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
     _ambulanceRegistrationNumberController.text =
         widget.driverModel!.ambulanceRegistrationNo;
     _imageLink = widget.driverModel!.profilePicture;
+    _passwordController.text = widget.driverModel!.driverPassword;
+    _passwordFieldEnabled = false;
     setState(() {});
   }
 
