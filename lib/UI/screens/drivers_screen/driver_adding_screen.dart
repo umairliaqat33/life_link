@@ -44,7 +44,7 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
       TextEditingController();
   final TextEditingController _licenseNumberController =
       TextEditingController();
-  bool _passwordFieldEnabled = true;
+
   final _formKey = GlobalKey<FormState>();
   PlatformFile? _profilePlatformFile;
   bool _spinner = false;
@@ -138,11 +138,7 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
                           SizedBox(
                             height: SizeConfig.height8(context),
                           ),
-                          PasswordTextField(
-                            controller: _passwordController,
-                            enabled: _passwordFieldEnabled,
-                            textVisible: false,
-                          ),
+                          PasswordTextField(controller: _passwordController),
                           SizedBox(
                             height: SizeConfig.height8(context),
                           ),
@@ -231,7 +227,6 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
                   profilePicture: _imageLink,
                   isAvailable: true,
                   fcmToken: widget.driverModel!.fcmToken,
-                  driverPassword: _passwordController.text,
                 ),
               )
             : createDriverAccount(
@@ -240,8 +235,8 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
                 hospitalModel.email,
                 _imageLink,
               );
-        if (widget.driverModel != null) {
-          Navigator.of(context).pop();
+        if (widget.driverModel == null) {
+          // Navigator.of(context).pop();
         }
       }
     } on NoInternetException catch (e) {
@@ -287,8 +282,6 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
     _ambulanceRegistrationNumberController.text =
         widget.driverModel!.ambulanceRegistrationNo;
     _imageLink = widget.driverModel!.profilePicture;
-    _passwordController.text = widget.driverModel!.driverPassword;
-    _passwordFieldEnabled = false;
     setState(() {});
   }
 
@@ -314,28 +307,32 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
         if (userCredential != null) {
           FirebaseAuth.instance.signOut();
 
-          showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) {
-              return HospitalReSignInAlert(
-                hospitalEmail: hospitalEmail,
-                drvierUid: userCredential!.user!.uid,
-                hospitalId: hospitalId,
-                hospitalName: hospitalName,
-                profileImage: profileImage,
-                driverEmail: _emailController.text,
-                driverName: _nameController.text,
-                licenseNumber: _licenseNumberController.text,
-                ambulanceRegistration:
-                    _ambulanceRegistrationNumberController.text,
-                driverPassword: _passwordController.text,
-              );
-            },
-          );
-          log("Driver Account Creation Successful");
-          Fluttertoast.showToast(msg: 'Driver Account Creation Successful');
-          Navigator.pop(context);
+          Future.delayed(
+              const Duration(
+                seconds: 1,
+              ), () {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return HospitalReSignInAlert(
+                  hospitalEmail: hospitalEmail,
+                  drvierUid: userCredential!.user!.uid,
+                  hospitalId: hospitalId,
+                  hospitalName: hospitalName,
+                  profileImage: profileImage,
+                  driverEmail: _emailController.text,
+                  driverName: _nameController.text,
+                  licenseNumber: _licenseNumberController.text,
+                  ambulanceRegistration:
+                      _ambulanceRegistrationNumberController.text,
+                  driverPassword: _passwordController.text,
+                );
+              },
+            );
+            log("Driver Account Creation Successful");
+            Fluttertoast.showToast(msg: 'Driver Account Creation Successful');
+          });
         }
       }
     } on EmailAlreadyExistException catch (e) {

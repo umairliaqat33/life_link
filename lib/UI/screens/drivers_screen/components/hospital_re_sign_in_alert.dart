@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';
 import 'package:life_link/UI/widgets/text_fields/password_text_field.dart';
@@ -101,7 +102,7 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
     try {
       AuthController authController = AuthController();
       UserCredential? userCredential = await authController.signIn(
-        'somehospital@hospital.com',
+        widget.hospitalEmail,
         _passwordController.text,
       );
       if (userCredential != null) {
@@ -119,7 +120,12 @@ class _HospitalReSignInAlertState extends State<HospitalReSignInAlert> {
         setState(() {
           _showSpinner = false;
         });
-        Navigator.pop(context);
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const BottomNavBar(),
+          ),
+          (route) => false,
+        );
       }
     } on IncorrectPasswordOrUserNotFound catch (e) {
       Fluttertoast.showToast(msg: e.message);

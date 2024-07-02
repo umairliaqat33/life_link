@@ -497,7 +497,7 @@ class _HomeScreenState extends State<HomeScreen> {
         AlertDialog(
           icon: const Icon(
             Icons.not_interested_outlined,
-            color: primaryColor,
+            color: redColor,
             size: 20,
           ),
           title: const Text(
@@ -512,6 +512,11 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                      redColor,
+                    ),
+                  ),
                   onPressed: () {
                     AppShifterServices.contactAdmin();
                   },
@@ -520,7 +525,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: lightBlueColor,
+                      color: whiteColor,
                     ),
                   ),
                 ),

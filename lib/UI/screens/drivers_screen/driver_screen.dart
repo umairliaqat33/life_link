@@ -94,11 +94,7 @@ class _DriverScreenState extends State<DriverScreen> {
                             ConnectionState.waiting) {
                           return const CircularLoaderWidget();
                         }
-                        if (snapshot.data == null) {
-                          return const Center(
-                            child: NoDataWidget(alertText: "No Doctors Found"),
-                          );
-                        }
+
                         if (snapshot.hasError) {
                           return Text(
                             "Something went wrong please try again",
@@ -108,8 +104,13 @@ class _DriverScreenState extends State<DriverScreen> {
                             ),
                           );
                         }
-
+                        if (snapshot.data == null || snapshot.data!.isEmpty) {
+                          return const NoDataWidget(
+                            alertText: "No Drivers Found",
+                          );
+                        }
                         List<DriverModel?>? driverList = snapshot.data;
+
                         return ListView.builder(
                           itemCount: driverList!.length,
                           itemBuilder: (BuildContext context, int index) {

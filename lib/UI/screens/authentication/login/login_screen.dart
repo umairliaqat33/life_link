@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     width: double.infinity,
                                     child: CustomButton(
                                       onPressed: () => signin(),
-                                      title: 'Signin',
+                                      title: 'Sign in',
                                     ),
                                   ),
                           ],

@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/widgets/buttons/custom_button.dart';
 import 'package:life_link/UI/widgets/general_widgets/app_bar_widget.dart';
 import 'package:life_link/UI/widgets/general_widgets/circular_loader_widget.dart';

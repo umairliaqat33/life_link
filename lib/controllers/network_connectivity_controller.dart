@@ -21,7 +21,7 @@ class NetworkConnectivitController extends GetxController {
         const AlertDialog(
           icon: Icon(
             Icons.wifi_off,
-            color: primaryColor,
+            color: redColor,
             size: 20,
           ),
           title: Text(
