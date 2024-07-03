@@ -147,7 +147,7 @@ class _PatientRideHistorCardWidgetState
                     item5: _patientModel?.age.toString() ?? "",
                     item3: _patientModel?.disease ?? '',
                     item4: widget.requestModel.customerReview,
-                    item2: "",
+                    item2: widget.requestModel.patientArrivingTime,
                     title: _patientModel?.name ?? "",
                     subtitle: _patientModel?.phoneNumber ?? '',
                     item1Title: 'Pickup Time',

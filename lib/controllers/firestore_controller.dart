@@ -393,6 +393,10 @@ class FirestoreController {
     return _firestoreRepository.getInProgressRequestsStream();
   }
 
+  Stream<List<RequestModel>> getInProgressCurrentUserRequestStream() {
+    return _firestoreRepository.getInTreatmentCurrentUserRequestsStream();
+  }
+
   Stream<List<RequestModel>> getInTreatmentRequestStream() {
     return _firestoreRepository.getInTreatmentRequestsStream();
   }

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:life_link/UI/screens/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:life_link/UI/screens/map_screen/map_screen.dart';
 import 'package:life_link/UI/screens/review_screen/review_screen.dart';
@@ -154,13 +155,11 @@ class _RideCompletetionScreenState extends State<RideCompletetionScreen> {
   }
 
   Future<void> _giveReview() async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return ReviewScreen(
-          reviewController: _reviewController,
-        );
-      },
+    await Get.dialog(
+      barrierDismissible: true,
+      ReviewScreen(
+        reviewController: _reviewController,
+      ),
     );
     _manipulateRequestData();
   }

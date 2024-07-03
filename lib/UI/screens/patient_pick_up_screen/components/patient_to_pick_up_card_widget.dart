@@ -208,31 +208,33 @@ class _PatientToPickUpCardWidgetState extends State<PatientToPickUpCardWidget> {
       isDateRequired: true,
     );
     log(completionTime);
-    RequestModel completedRequest = RequestModel(
-      requestId: widget.requestModel.requestId,
-      requestTime: widget.requestModel.requestTime,
-      patientId: widget.requestModel.patientId,
-      patientLat: widget.requestModel.patientLat,
-      patientLon: widget.requestModel.patientLon,
-      hospitalToBeTakeAtId: widget.requestModel.hospitalToBeTakeAtId,
-      ambulanceDriverId: widget.requestModel.ambulanceDriverId,
-      bedAssigned: widget.requestModel.bedAssigned,
-      patientArrivingTime: completionTime,
-      customerReview: "",
-    );
-    _getAndUpdateDriverModel(
-      completedRequest.ambulanceDriverId,
-      completedRequest.hospitalToBeTakeAtId,
-    );
-    _uploadNotification(
-      completedRequest,
-      "Patient Was droped at ${completedRequest.requestTime}",
-      "Ride complete",
-    );
-    _firestoreController.updateAmbulanceRequestFields(completedRequest);
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const BottomNavBar()),
-    );
+    Future.delayed(const Duration(seconds: 1), () {
+      RequestModel completedRequest = RequestModel(
+        requestId: widget.requestModel.requestId,
+        requestTime: widget.requestModel.requestTime,
+        patientId: widget.requestModel.patientId,
+        patientLat: widget.requestModel.patientLat,
+        patientLon: widget.requestModel.patientLon,
+        hospitalToBeTakeAtId: widget.requestModel.hospitalToBeTakeAtId,
+        ambulanceDriverId: widget.requestModel.ambulanceDriverId,
+        bedAssigned: widget.requestModel.bedAssigned,
+        patientArrivingTime: completionTime,
+        customerReview: widget.requestModel.customerReview,
+      );
+      _getAndUpdateDriverModel(
+        completedRequest.ambulanceDriverId,
+        completedRequest.hospitalToBeTakeAtId,
+      );
+      _uploadNotification(
+        completedRequest,
+        "Patient Was droped at ${completedRequest.requestTime}",
+        "Ride complete",
+      );
+      _firestoreController.updateAmbulanceRequestFields(completedRequest);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const BottomNavBar()),
+      );
+    });
   }
 
   Future<void> _uploadNotification(

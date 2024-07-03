@@ -858,6 +858,30 @@ class FirestoreRepository {
         );
   }
 
+  Stream<List<RequestModel>> getInTreatmentCurrentUserRequestsStream() {
+    return CollectionsNames.firestoreCollection
+        .collection(CollectionsNames.requestInProgressCollection)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map(
+                (doc) => RequestModel.fromJson(
+                  doc.data(),
+                ),
+              )
+              .where((requestModel) =>
+                  requestModel.ambulanceDriverId ==
+                      FirestoreRepository.checkUser()!.uid ||
+                  requestModel.hospitalToBeTakeAtId ==
+                      FirestoreRepository.checkUser()!.uid ||
+                  requestModel.patientId ==
+                      FirestoreRepository.checkUser()!.uid)
+              .where(
+                  (requestModel) => requestModel.patientArrivingTime.isNotEmpty)
+              .toList(),
+        );
+  }
+
   Stream<List<RequestModel>> getInTreatmentRequestsStream() {
     return CollectionsNames.firestoreCollection
         .collection(CollectionsNames.requestInProgressCollection)

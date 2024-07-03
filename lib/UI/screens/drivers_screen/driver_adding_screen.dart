@@ -226,6 +226,7 @@ class _DriverAddingScreenState extends State<DriverAddingScreen> {
                   licenseNumber: _licenseNumberController.text,
                   profilePicture: _imageLink,
                   isAvailable: true,
+                  isApproved: widget.driverModel!.isApproved,
                   fcmToken: widget.driverModel!.fcmToken,
                 ),
               )
